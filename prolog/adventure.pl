@@ -3,9 +3,35 @@
 :- dynamic i_am_at/1, at/2, holding/1.
 :- retractall(at(_, _)), retractall(i_am_at(_)), retractall(alive(_)).
 
-i_am_at(someplace).
+/* Starting point in game */ 
+i_am_at(train_station).
 
-path(someplace, n, someplace).
+/* Locations to go to */
+path(train_station, w, parking).
+path(parking, n, homeless_bench).
+path(parking, s, main_street).
+path(parking, e, train_station).
+path(homeless_bench, s, parking).
+path(main_street, w, old_town).
+path(main_street, n, parking).
+path(main_street, e, river_tracks).
+path(river_tracks, w, main_street).
+path(old_town, n, police_station).
+path(old_town, s, old_hotel).
+path(old_town, w, library).
+path(old_town, e, main_street).
+path(old_hotel, s, secret_room).
+path(old_hotel, n, old_town).
+path(secret_room, n, old_hotel).
+path(police_station, w, library).
+path(police_station, s, old_town).
+path(library, s, old_town).
+path(library, e, police_station).
+path(library, w, hill_church).
+path(hill_church, n, forest_cave).
+path(hill_church, e, library).
+path(forest_cave, s, hill_church).
+path(forest_cave, n, ending).
 
 at(thing, someplace).
 
