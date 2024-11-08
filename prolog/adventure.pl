@@ -8,26 +8,48 @@ i_am_at(train_station).
 
 /* Locations to go to */
 path(train_station, w, parking).
+
 path(parking, n, homeless_bench).
 path(parking, s, main_street).
 path(parking, e, train_station).
+
 path(homeless_bench, s, parking).
+
 path(main_street, w, old_town).
 path(main_street, n, parking).
 path(main_street, e, river_tracks).
+
 path(river_tracks, w, main_street).
+
 path(old_town, n, police_station).
-path(old_town, s, old_hotel).
+path(old_town, s, hotel_lobby).
 path(old_town, w, library).
 path(old_town, e, main_street).
-path(old_hotel, s, secret_room).
-path(old_hotel, n, old_town).
-path(secret_room, n, old_hotel).
+
+path(hotel_lobby, n, old_town).
+path(hotel_lobby, e, hotel_toilet).
+path(hotel_lobby, s, hotel_corridor).
+path(hotel_lobby, w, hotel_basement).
+
+path(hotel_basement, e, hotel_lobby).
+
+path(hotel_toilet, w, hotel_lobby).
+
+path(hotel_corridor, n, hotel_lobby).
+path(hotel_corridor, w, hotel_room).
+
+path(hotel_room, e, hotel_corridor).
+
+path(secret_room, n, hotel_lobby).
+
 path(police_station, s, old_town).
+
 path(library, e, old_town).
 path(library, w, hill_church).
+
 path(hill_church, n, forest_cave).
 path(hill_church, e, library).
+
 path(forest_cave, s, hill_church).
 path(forest_cave, n, ending).
 
