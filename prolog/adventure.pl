@@ -3,7 +3,7 @@
 :- dynamic i_am_at/1, at/2, holding/1.
 :- retractall(at(_, _)), retractall(i_am_at(_)), retractall(alive(_)).
 
-/* Starting point in game */ 
+/* Starting point in game */
 i_am_at(train_station).
 
 /* Locations to go to */
@@ -23,10 +23,8 @@ path(old_town, e, main_street).
 path(old_hotel, s, secret_room).
 path(old_hotel, n, old_town).
 path(secret_room, n, old_hotel).
-path(police_station, w, library).
 path(police_station, s, old_town).
-path(library, s, old_town).
-path(library, e, police_station).
+path(library, e, old_town).
 path(library, w, hill_church).
 path(hill_church, n, forest_cave).
 path(hill_church, e, library).
@@ -158,5 +156,16 @@ start :-
 /* These rules describe the various rooms.  Depending on
    circumstances, a room may have more than one description. */
 
-describe(someplace) :- write('You are someplace.'), nl.
+describe(old_town) :-
+        nl,
+        write('You find yourself in the heart of Old Town,'), nl,
+        write('a desolate square filled with abandoned shops and crumbling facades.'), nl,
+        write('Dust and debris cover the cobblestone streets, and a faint echo of past lives lingers in the air.'), nl,
+        write('Faded graffiti and strange symbols are scrawled across the walls, remnants of a forgotten era.'),
+        nl,
+        write('In the north there is a police station,'), nl,
+        write('in the east you can see the main street.'), nl,
+        write('There is an old hotel to the south'), nl,
+        write('and a library to the west.'),
+        nl.
 
