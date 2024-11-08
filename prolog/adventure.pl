@@ -191,3 +191,32 @@ describe(old_town) :-
         write('and a library to the west.'),
         nl.
 
+describe(hotel_lobby) :-
+        nl,
+        write('You enter the lobby of the hotel.'), nl,
+        write('There is glass scattered everywhere, and the old reception desk is covered in papers.'), nl,
+        write('and the old reception desk is covered in papers.'), nl,
+        nl,
+        write('You can go south to return to Old Town.'), nl,
+        write('There is a toilet to the east.'), nl,
+        write('To the south, a dark hallway leads further into the hotel.'), nl,
+        write('Looking to the west, you can see an elevator.'), nl,
+        nl.
+
+describe(hotel_toilet) :-
+        nl,
+        write('You enter the toilet.'), nl,
+        write('The room is dark and damp, and the smell of mold and decay fills the air.'), nl,
+        write('The toilet is broken and the sink is covered in grime.'), nl,
+        nl,
+        write('You can go west to return to the hotel lobby.'), nl,
+        nl.
+
+describe(hotel_corridor) :-
+        nl,
+        write('You enter a dark hallway.'), nl,
+        write('The ceiling has collapsed, thus most of the corridor is blocked off by rubble.'), nl,
+        nl,
+        write('Only one room to the west remains accessible.'), nl,
+        write('You can go north to return to the hotel lobby.'), nl,
+        nl.
