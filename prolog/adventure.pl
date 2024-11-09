@@ -56,7 +56,8 @@ path(hill_church, e, library).
 path(forest_cave, s, hill_church).
 path(forest_cave, n, ending).
 
-at(thing, someplace).
+/* Locations of objects */
+at(diary, hotel_room).
 
 /* These rules describe how to pick up an object. */
 
@@ -70,7 +71,8 @@ take(X) :-
         at(X, Place),
         retract(at(X, Place)),
         assert(holding(X)),
-        write('OK.'),
+        write('You picked up the '), write(X), write('.'),
+        check(X),
         !, nl.
 
 take(_) :-
@@ -134,7 +136,6 @@ go(_) :-
 look :-
         i_am_at(Place),
         describe(Place),
-        nl,
         notice_objects_at(Place),
         nl.
 
@@ -194,6 +195,7 @@ try_unlock_hotel_room(Code) :-
         Code = 1974,
         retractall(door_unlocked(hotel_room)),
         assert(door_unlocked(hotel_room)),
+        nl,
         write('You have unlocked the door.'), nl,
         go(w),
         !.
@@ -201,6 +203,20 @@ try_unlock_hotel_room(Code) :-
 try_unlock_hotel_room(_) :-
         write('Wrong code.'), nl,
         !, look.
+
+/* These rules describe the objects in the game. */
+check(diary) :-
+        nl,
+        write('The diary is yellowed and fragile.'), nl,
+        write('Some pages are barely readable, but one section stands out, scribbled with urgency:'), nl,
+        nl,
+        write('"We have found traces of an entrance near the old oak in the forest.'), nl,
+        write('It must be the cave mentioned in the legends... The symbols match.'), nl,
+        write('It is said the cave holds more than relics — perhaps a power that should remain undisturbed.'), nl,
+        write('We must proceed with caution."'), nl,
+        nl.
+
+check(_) :- nl.
 
 
 /* These rules describe the various rooms.  Depending on
