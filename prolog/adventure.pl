@@ -4,7 +4,7 @@
 :- retractall(at(_, _)), retractall(i_am_at(_)), retractall(alive(_)), retractall(door_unlocked(_)).
 
 /* Starting point in game */
-i_am_at(hotel_lobby).
+i_am_at(hotel_basement).
 
 /* State of rooms */
 door_unlocked(hotel_room) :- fail.
@@ -62,6 +62,8 @@ at(diary, hotel_room).
 at(red_fuse, hotel_lobby).
 at(blue_fuse, hotel_lobby).
 at(green_fuse, hotel_lobby).
+at(ancient_rune, hotel_basement).
+at(basement_notes, hotel_basement).
 
 /* These rules describe how to pick up an object. */
 
@@ -155,7 +157,7 @@ look :-
 
 notice_objects_at(Place) :-
         at(X, Place),
-        write('There is a '), write(X), write(' here.'), nl,
+        write('There is '), write(X), write(' here.'), nl,
         fail.
 
 notice_objects_at(_).
@@ -304,5 +306,20 @@ describe(hotel_room) :-
 
 describe(hotel_basement) :-
         nl,
+        write('The elevator can only go down.'), nl,
+        write('It leads to the basement of the hotel.'), nl,
         write('The basement is dark and damp, with a faint, musty odor filling the air.'), nl,
+        nl,
+        /* Describe objects in the basement only if they are actually there */
+        ( at(ancient_rune, hotel_basement) ->
+                write('Among the piles of old crates and broken furniture, something stands out -'), nl,
+                write('a strange, ancient rune carved from dark stone, positioned in the center of the room.'), nl
+        ;
+                true
+        ),
+        ( at(basement_notes, hotel_basement) ->
+                write('You notice a set of old, crumbling notes scattered across a dusty table.'), nl
+        ;
+                true
+        ),
         nl.
