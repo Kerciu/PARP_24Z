@@ -247,6 +247,15 @@ check(diary) :-
         write('We must proceed with caution."'), nl,
         nl.
 
+check(basement_notes) :-
+        nl,
+        write('The notes are brittle and covered in dust, with several pages missing or torn.'), nl,
+        nl,
+        write('"We found it — the ruin from the old texts.'), nl,
+        write('It is said this ruin is the key to something ancient, hidden deep within the caves.'), nl,
+        write('We must be cautious. The energy here is unstable, and there are warnings in the old language about disturbing what lies beyond."'), nl,
+        nl.
+
 check(_) :- nl.
 
 
