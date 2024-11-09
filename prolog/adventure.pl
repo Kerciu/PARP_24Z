@@ -8,6 +8,7 @@ i_am_at(hotel_lobby).
 
 /* State of rooms */
 door_unlocked(hotel_room) :- fail.
+door_unlocked(hotel_basement) :- fail.
 
 /* Locations to go to */
 path(train_station, w, parking).
@@ -58,6 +59,9 @@ path(forest_cave, n, ending).
 
 /* Locations of objects */
 at(diary, hotel_room).
+at(red_fuse, hotel_lobby).
+at(blue_fuse, hotel_lobby).
+at(green_fuse, hotel_lobby).
 
 /* These rules describe how to pick up an object. */
 
@@ -87,7 +91,7 @@ drop(X) :-
         i_am_at(Place),
         retract(holding(X)),
         assert(at(X, Place)),
-        write('OK.'),
+        write('You dropped the '), write(X), write('.'),
         !, nl.
 
 drop(_) :-
@@ -112,12 +116,18 @@ w :- go(w).
 go(w) :-
         i_am_at(hotel_corridor),
         \+ door_unlocked(hotel_room),
-        write('Door is locked.'), nl,
-        write('Next to the door, there is a sign that reads: "Michael Turner".'), nl,
-        write('You have to enter 4 digit code to unlock the door.'), nl,
-        read(Code),
-        try_unlock_hotel_room(Code),
-        !.
+                write('Door is locked.'), nl,
+                write('Next to the door, there is a sign that reads: "Michael Turner".'), nl,
+                write('You have to enter 4 digit code to unlock the door.'), nl,
+                read(Code),
+                try_unlock_hotel_room(Code),
+                !.
+
+go(w) :-
+        i_am_at(hotel_lobby),
+        \+ door_unlocked(hotel_basement),
+                try_unlock_hotel_basement,
+                !.
 
 /* General rules for moving */
 go(Direction) :-
@@ -192,6 +202,7 @@ start :-
 
 /* This rule tells how to unlock the hotel room door. */
 try_unlock_hotel_room(Code) :-
+        /* The code can be found in a different location as year of birth of Michael Turner */
         Code = 1974,
         retractall(door_unlocked(hotel_room)),
         assert(door_unlocked(hotel_room)),
@@ -203,6 +214,24 @@ try_unlock_hotel_room(Code) :-
 try_unlock_hotel_room(_) :-
         write('Wrong code.'), nl,
         !, look.
+
+/* This rule tells how to unlock the hotel basement door. */
+try_unlock_hotel_basement :-
+        (holding(red_fuse), holding(blue_fuse), holding(green_fuse) ->
+                nl,
+                write('You put all 3 fuses in the fuse box.'), nl,
+                write('The elevator starts working.'), nl,
+                retractall(door_unlocked(hotel_basement)),
+                assert(door_unlocked(hotel_basement)),
+                go(w)
+        ;
+                nl,
+                write('The elevator is not working.'), nl,
+                write('However, you notice a fuse box next to the elevator with 3 fuses missing.'), nl,
+                nl,
+                write('"Maybe if I find the fuses, I can get the elevator working."'), nl,
+                look
+        ).
 
 /* These rules describe the objects in the game. */
 check(diary) :-
@@ -271,4 +300,9 @@ describe(hotel_room) :-
         write('The closet is empty, and the desk is covered in papers.'), nl,
         nl,
         write('You can go east to return to the corridor.'), nl,
+        nl.
+
+describe(hotel_basement) :-
+        nl,
+        write('The basement is dark and damp, with a faint, musty odor filling the air.'), nl,
         nl.
