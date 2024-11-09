@@ -1,10 +1,13 @@
 /* <The name of this game>, by <your name goes here>. */
 
-:- dynamic i_am_at/1, at/2, holding/1.
-:- retractall(at(_, _)), retractall(i_am_at(_)), retractall(alive(_)).
+:- dynamic i_am_at/1, at/2, holding/1, door_unlocked/1.
+:- retractall(at(_, _)), retractall(i_am_at(_)), retractall(alive(_)), retractall(door_unlocked(_)).
 
 /* Starting point in game */
-i_am_at(train_station).
+i_am_at(hotel_lobby).
+
+/* State of rooms */
+door_unlocked(hotel_room) :- fail.
 
 /* Locations to go to */
 path(train_station, w, parking).
@@ -101,8 +104,20 @@ e :- go(e).
 w :- go(w).
 
 
-/* This rule tells how to move in a given direction. */
+/* These rules tells how to move in a given direction. */
 
+/* Conditional rules for moving */
+go(w) :-
+        i_am_at(hotel_corridor),
+        \+ door_unlocked(hotel_room),
+        write('Door is locked.'), nl,
+        write('Next to the door, there is a sign that reads: "Michael Turner".'), nl,
+        write('You have to enter 4 digit code to unlock the door.'), nl,
+        read(Code),
+        try_unlock_hotel_room(Code),
+        !.
+
+/* General rules for moving */
 go(Direction) :-
         i_am_at(Here),
         path(Here, Direction, There),
@@ -174,6 +189,19 @@ start :-
         instructions,
         look.
 
+/* This rule tells how to unlock the hotel room door. */
+try_unlock_hotel_room(Code) :-
+        Code = 1974,
+        retractall(door_unlocked(hotel_room)),
+        assert(door_unlocked(hotel_room)),
+        write('You have unlocked the door.'), nl,
+        go(w),
+        !.
+
+try_unlock_hotel_room(_) :-
+        write('Wrong code.'), nl,
+        !, look.
+
 
 /* These rules describe the various rooms.  Depending on
    circumstances, a room may have more than one description. */
@@ -195,7 +223,6 @@ describe(hotel_lobby) :-
         nl,
         write('You enter the lobby of the hotel.'), nl,
         write('There is glass scattered everywhere, and the old reception desk is covered in papers.'), nl,
-        write('and the old reception desk is covered in papers.'), nl,
         nl,
         write('You can go south to return to Old Town.'), nl,
         write('There is a toilet to the east.'), nl,
@@ -219,4 +246,13 @@ describe(hotel_corridor) :-
         nl,
         write('Only one room to the west remains accessible.'), nl,
         write('You can go north to return to the hotel lobby.'), nl,
+        nl.
+
+describe(hotel_room) :-
+        nl,
+        write('You enter the hotel room.'), nl,
+        write('The room is dark and dusty, and the bed is covered in old sheets.'), nl,
+        write('The closet is empty, and the desk is covered in papers.'), nl,
+        nl,
+        write('You can go east to return to the corridor.'), nl,
         nl.
