@@ -59,8 +59,8 @@ path(forest_cave, n, ending).
 
 /* Locations of objects */
 at(diary, hotel_room).
-at(red_fuse, hotel_lobby).
-at(blue_fuse, hotel_lobby).
+at(red_fuse, hotel_toilet).
+at(blue_fuse, hotel_room).
 at(green_fuse, hotel_lobby).
 at(ancient_rune, hotel_basement).
 at(basement_notes, hotel_basement).
