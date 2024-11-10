@@ -1,7 +1,7 @@
 /* <The name of this game>, by <your name goes here>. */
 
-:- dynamic i_am_at/1, at/2, holding/1, gave_harnas/1, interact/2.
-:- retractall(at(_, _)), retractall(i_am_at(_)), retractall(alive(_)), retractall(gave_harnas(_)).
+:- dynamic i_am_at/1, at/2, holding/1, interact/2.
+:- retractall(at(_, _)), retractall(i_am_at(_)), retractall(alive(_)).
 
 /* Starting point in game */
 i_am_at(train_station).
@@ -34,7 +34,6 @@ path(forest_cave, s, hill_church).
 path(forest_cave, n, ending).
 
 at(cigarettes, river_tracks).
-at(car_keys, train_station).
 at(amulet, car).
 
 /* These rules describe how to pick up an object. */
@@ -108,7 +107,7 @@ look :-
 
 notice_objects_at(Place) :-
         at(X, Place),
-        \+ member(X, [amulet, car_keys]),
+        \+ member(X, [amulet]),
         write('There is a '), write(X), write(' here.'), nl,
         fail.
 
@@ -203,22 +202,16 @@ give(homeless, harnas) :-
 give(caretaker, harnas) :-
     i_am_at(train_station),
     holding(harnas),
-    \+ gave_harnas(train_station),
     write('You offer the Harnas beer to the caretaker. She takes it gratefully and takes a swig.'), nl,
     write('"Ahh, that takes me back," she sighs and tells you more about her story with the homeless man.'), nl,
     write('Grateful, she hands you the car keys.'), nl,
     retract(holding(harnas)),
-    assert(holding(car_keys)),
-    assert(gave_harnas(train_station)).
+    assert(holding(car_keys)).
 
 give(caretaker, cigarettes) :-
     i_am_at(train_station),
     holding(cigarettes),
     write('The caretaker rejects your offer to give her cigarettes.'), nl.
-
-interact(homeless) :-
-    i_am_at(homeless_bench),
-    write('The homeless man seems to be uninterested for now.'), nl.
 
 interact(homeless) :-
     i_am_at(homeless_bench),
@@ -231,6 +224,10 @@ interact(homeless) :-
     write('The homeless man looks at you with wide eyes. "You hold that cursed thing," he says, '), nl,
     write('his voice shaking. "I feel something watching... beware."'), nl,
     !.
+
+interact(homeless) :-
+    i_am_at(homeless_bench),
+    write('The homeless man seems to be uninterested for now.'), nl.
 
 interact(caretaker) :-
     i_am_at(train_station),
@@ -280,10 +277,8 @@ describe(train_station) :-
 
 describe(train_station) :-
     i_am_at(train_station),
-    (\+ gave_harnas(train_station) ->
-        (holding(harnas) ->
-            write('You notice that caretaker is thirsty and there is no water nearby.'), nl;
-            true)
+    (holding(harnas) ->
+            write('You notice that caretaker is thirsty and there is no water nearby.'), nl
     ; true),
     write('The parking area lies to the west.'), nl.
 
