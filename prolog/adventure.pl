@@ -4,7 +4,7 @@
 :- retractall(at(_, _)), retractall(i_am_at(_)), retractall(alive(_)), retractall(door_unlocked(_)).
 
 /* Starting point in game */
-i_am_at(train_station).
+i_am_at(hotel_lobby).
 
 /* State of rooms */
 door_unlocked(hotel_room) :- fail.
@@ -295,7 +295,8 @@ exit(car) :-
 
 try_unlock_hotel_room(Code) :-
         /* The code can be found in a different location as year of birth of Michael Turner */
-        Code = 1974,
+        number(Code),
+        Code =:= 1974,
         retractall(door_unlocked(hotel_room)),
         assert(door_unlocked(hotel_room)),
         nl,
