@@ -180,6 +180,24 @@ start :-
         instructions,
         look.
 
+/* These rules describe the objects in the game. */
+check(cigarettes) :-
+    nl,
+    write('The pack of cigarettes is old, with some of the edges frayed. It might be useful to someone who needs a smoke.'), nl.
+
+check(harnas) :-
+    nl,
+    write('A can of Harnas beer, cold and seemingly untouched. It might help you in your interactions with certain characters.'), nl.
+
+check(car_keys) :-
+    nl,
+    write('A set of car keys. They seem to belong to the abandoned car in the parking lot. Maybe you can unlock it.'), nl.
+
+check(amulet) :-
+    nl,
+    write('A strange amulet, cold to the touch. It seems to have an otherworldly aura, as if it carries a hidden power.'), nl.
+
+check(_) :- nl.
 
 /* These rules describe the various rooms.  Depending on
    circumstances, a room may have more than one description. */
