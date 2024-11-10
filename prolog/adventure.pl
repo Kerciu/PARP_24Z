@@ -3,19 +3,7 @@
 :- dynamic i_am_at/1, at/2, holding/1.
 :- retractall(at(_, _)), retractall(i_am_at(_)), retractall(alive(_)).
 
-<<<<<<< HEAD
-/* Initial player's location */
-i_am_at(train_station).
-
-/* Paths on the map */
-path(train_station, n, main_street).
-path(main_street, n, old_hotel).
-path(main_street, w, police_station).
-path(main_street, e, library),
-path(old_hotel, e, hill_castle).
-path(hill_castle, n, forest_cave).
-=======
-/* Starting point in game */ 
+/* Starting point in game */
 i_am_at(train_station).
 
 /* Locations to go to */
@@ -44,7 +32,6 @@ path(hill_church, n, forest_cave).
 path(hill_church, e, library).
 path(forest_cave, s, hill_church).
 path(forest_cave, n, ending).
->>>>>>> ceb33b22439058b805a6f24468e7f43555e8024b
 
 at(thing, someplace).
 
@@ -127,6 +114,8 @@ notice_objects_at(Place) :-
 
 notice_objects_at(_).
 
+/* Character interaction */
+
 
 /* This rule tells how to die. */
 
@@ -171,5 +160,34 @@ start :-
 /* These rules describe the various rooms.  Depending on
    circumstances, a room may have more than one description. */
 
-describe(someplace) :- write('You are someplace.'), nl.
+describe(train_station) :-
+    write('You are at the train station, where your adventure started.'), nl,
+    write('The clock points at 3:15 am and never moves.'), nl,
+    write('The timetable is written in some out-of-this-world, unintelligible language.'), nl,
+    write('The only person present at the station is the caretaker, who seems reluctant to chat.'), nl,
+    write('To the west, you can see the parking area adjacent to the station.'), nl.
 
+describe(parking) :-
+    write('You are in a deserted parking lot near the train station. The ground is littered'), nl,
+    write('with old tickets and rusted cans. One car looks abandoned, as if the driver left in a hurry.'), nl,
+    write('To the north, you can see a homeless man sitting on a bench.'), nl,
+    write('To the south is the main street,'), nl,
+    write('and the train station is to the east.'), nl.
+
+describe(homeless_bench) :-
+    write('You find yourself near a bench occupied by a homeless man, muttering under his breath.'), nl,
+    write('He warns of the "shadows that follow at night" and clutches an old bottle with'), nl,
+    write('a strange symbol scratched into it. He might know more if you listen closely.'), nl,
+    write('You notice that he cannot breathe properly, he probably ran out of cigarettes'), nl,
+    write('The parking area lies to the south.'), nl.
+
+describe(river_tracks) :-
+    write('You stand by the river tracks. The water flows sluggishly, casting eerie reflections'), nl,
+    write('in the moonlight.'), nl,
+    write('To the west, you see the main street.'), nl.
+
+describe(main_street) :-
+    write('You are on the main street, flanked by old, abandoned shops. The cracked windows'), nl,
+    write('and faded signs give the area a ghostly feel. Farther down the street, you spot'), nl,
+    write('a shifty figure lurking in the shadows.'), nl,
+    write('To the west is the old town, while the river tracks are to the east, and the parking lot to the north.'), nl.
