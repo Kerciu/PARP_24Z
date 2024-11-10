@@ -112,6 +112,7 @@ look :-
 
 notice_objects_at(Place) :-
         at(X, Place),
+        \+ member(X, [amulet, harnas, car_keys]),
         write('There is a '), write(X), write(' here.'), nl,
         fail.
 
@@ -130,16 +131,6 @@ enter(parking_car) :-
         assert(holding(amulet))
     ; true),
     look.
-
-take(amulet) :-
-    holding(amulet),
-    write('You''re already holding it!'), nl, !.
-
-take(amulet) :-
-    i_am_at(parking_car),
-    retract(at(amulet, parking_car)),
-    assert(holding(amulet)),
-    write('You have taken the strange amulet. It might be useful later.'), nl.
 
 /* This rule tells how to die. */
 
@@ -199,6 +190,32 @@ check(amulet) :-
 
 check(_) :- nl.
 
+/* Give cigarettes to homeless man */
+
+give_cigarettes :-
+    i_am_at(homeless_bench),
+    holding(cigarettes),
+    \+ gave_cigarettes(homeless_bench),
+    write('You give the pack of cigarettes to the homeless man. He takes them eagerly and thanks you.'),
+    nl,
+    write('He hands you a cold can of Harnas beer in return.'),
+    nl,
+    retract(holding(cigarettes)),
+    assert(holding(harnas)),
+    assert(gave_cigarettes(homeless_bench)).
+
+give_cigarettes :-
+    i_am_at(homeless_bench),
+    holding(harnas),
+    gave_cigarettes(homeless_bench),
+    write('The homeless man seems satisfied with the cigarettes you gave him earlier.'), nl.
+
+give_cigarettes :-
+    i_am_at(homeless_bench),
+    \+ holding(cigarettes),
+    write('You don''t have any cigarettes to give to the homeless man.'),
+    nl.
+
 /* These rules describe the various rooms.  Depending on
    circumstances, a room may have more than one description. */
 
@@ -243,17 +260,13 @@ describe(homeless_bench) :-
     write('You find yourself near a bench occupied by a homeless man, muttering under his breath.'), nl,
     write('He warns of the "shadows that follow at night" and clutches an old bottle with'), nl,
     write('a strange symbol scratched into it. He might know more if you listen closely.'), nl,
-    write('You notice that he cannot breathe properly, he probably ran out of cigarettes'), nl,
+    write('You notice that he cannot breathe properly; he probably ran out of cigarettes.'), nl,
     write('The parking area lies to the south.'), nl.
 
 describe(homeless_bench) :-
     i_am_at(homeless_bench),
     (holding(cigarettes), \+ gave_cigarettes(homeless_bench) ->
-        write('You offer the cigarettes to the homeless man. He takes them eagerly and tells you a story about the caretaker...'), nl,
-        write('In return, he gives you a can of Harnas beer.'), nl,
-        retract(holding(cigarettes)),
-        assert(holding(harnas)),
-        assert(gave_cigarettes(homeless_bench))
+        give_cigarettes
     ; true),
     write('The parking area lies to the south.'), nl.
 
