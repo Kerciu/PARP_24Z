@@ -221,6 +221,13 @@ describe(train_station) :-
     write('The only person present at the station is the caretaker, who seems reluctant to chat.'), nl,
     write('To the west, you can see the parking area adjacent to the station.'), nl.
 
+describe(train_station) :-
+    i_am_at(train_station),
+    (holding(amulet) ->
+        write('The caretaker looks at you with suspicion as you hold the strange amulet. Something in the air shifts.'), nl;
+    true),
+    write('The only person present at the station is the caretaker, who seems reluctant to chat.'), nl.
+
 describe(parking) :-
     write('You are in a deserted parking lot near the train station. The ground is littered'), nl,
     write('with old tickets and rusted cans. One car looks abandoned, as if the driver left in a hurry.'), nl,
