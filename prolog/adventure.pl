@@ -3,9 +3,16 @@
 :- dynamic i_am_at/1, at/2, holding/1.
 :- retractall(at(_, _)), retractall(i_am_at(_)), retractall(alive(_)).
 
-i_am_at(someplace).
+/* Initial player's location */
+i_am_at(train_station).
 
-path(someplace, n, someplace).
+/* Paths on the map */
+path(train_station, n, main_street).
+path(main_street, n, old_hotel).
+path(main_street, w, police_station).
+path(main_street, e, library),
+path(old_hotel, e, hill_castle).
+path(hill_castle, n, forest_cave).
 
 at(thing, someplace).
 
