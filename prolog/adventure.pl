@@ -33,7 +33,10 @@ path(hill_church, e, library).
 path(forest_cave, s, hill_church).
 path(forest_cave, n, ending).
 
-at(thing, someplace).
+at(cigarettes, river_tracks).
+at(car_keys, train_station).
+at(harnas, homeless_bench).
+at(amulet, parking).
 
 /* These rules describe how to pick up an object. */
 
@@ -114,7 +117,24 @@ notice_objects_at(Place) :-
 
 notice_objects_at(_).
 
-/* Character interaction */
+/* Rules for character interaction */
+
+/* Rules for car interaction */
+
+enter(parking_car) :-
+    holding(car_keys),
+    i_am_at(parking),
+    write('You unlock the car with the keys and sit inside, but it doesn''t start.'), nl,
+    write('You do notice a strange amulet on the dashboard.'), nl,
+    assert(at(amulet, parking_car)),
+    i_am_at(parking_car), !, look.
+
+take(amulet) :-
+    i_am_at(parking_car),
+    at(amulet, parking_car),
+    retract(at(amulet, parking_car)),
+    assert(holding(amulet)),
+    write('You have taken the strange amulet. It might be useful later.'), nl.
 
 
 /* This rule tells how to die. */
@@ -172,7 +192,11 @@ describe(parking) :-
     write('with old tickets and rusted cans. One car looks abandoned, as if the driver left in a hurry.'), nl,
     write('To the north, you can see a homeless man sitting on a bench.'), nl,
     write('To the south is the main street,'), nl,
-    write('and the train station is to the east.'), nl.
+    write('and the train station is to the east.'), nl,
+    (holding(car_keys) -> write('You have the car keys so you can try to open the abandoned car.'), nl ; true).
+
+describe(parking_car) :-
+    write('You sit inside the car, but it refuses to start. However, a strange amulet lies on the dashboard.'), nl.
 
 describe(homeless_bench) :-
     write('You find yourself near a bench occupied by a homeless man, muttering under his breath.'), nl,
