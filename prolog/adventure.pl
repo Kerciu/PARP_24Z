@@ -1,6 +1,6 @@
 /* <The name of this game>, by <your name goes here>. */
 
-:- dynamic i_am_at/1, at/2, holding/1, gave_cigarettes/1, received_harnas/1, gave_harnas/1.
+:- dynamic i_am_at/1, at/2, holding/1, gave_cigarettes/1, gave_harnas/1.
 :- retractall(at(_, _)), retractall(i_am_at(_)), retractall(alive(_)), retractall(gave_cigarettes(_)), retractall(received_harnas(_)), retractall(gave_harnas(_)).
 
 /* Starting point in game */
@@ -155,13 +155,14 @@ instructions :-
         nl,
         write('Enter commands using standard Prolog syntax.'), nl,
         write('Available commands are:'), nl,
-        write('start.             -- to start the game.'), nl,
-        write('n.  s.  e.  w.     -- to go in that direction.'), nl,
-        write('take(Object).      -- to pick up an object.'), nl,
-        write('drop(Object).      -- to put down an object.'), nl,
-        write('look.              -- to look around you again.'), nl,
-        write('instructions.      -- to see this message again.'), nl,
-        write('halt.              -- to end the game and quit.'), nl,
+        write('start.               -- to start the game.'), nl,
+        write('n.  s.  e.  w.       -- to go in that direction.'), nl,
+        write('take(Object).        -- to pick up an object.'), nl,
+        write('drop(Object).        -- to put down an object.'), nl,
+        write('look.                -- to look around you again.'), nl,
+        write('interact(Character). -- to interact with characters.'), nl,
+        write('instructions.        -- to see this message again.'), nl,
+        write('halt.                -- to end the game and quit.'), nl,
         nl.
 
 
@@ -250,7 +251,10 @@ describe(train_station) :-
     write('The clock points at 3:15 am and never moves.'), nl,
     write('The timetable is written in some out-of-this-world, unintelligible language.'), nl,
     write('The only person present at the station is the caretaker, who seems reluctant to chat.'), nl,
-    write('To the west, you can see the parking area adjacent to the station.'), nl.
+    write('To the west, you can see the parking area adjacent to the station.'), nl,
+    (holding(harnas) ->
+        write('The caretaker eyes the Harnas beer.'), nl
+    ; true).
 
 describe(train_station) :-
     i_am_at(train_station),
