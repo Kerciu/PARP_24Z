@@ -1,7 +1,7 @@
 /* <The name of this game>, by <your name goes here>. */
 
-:- dynamic i_am_at/1, at/2, holding/1.
-:- retractall(at(_, _)), retractall(i_am_at(_)), retractall(alive(_)).
+:- dynamic i_am_at/1, at/2, holding/1, gave_cigarettes/1, received_harnas/1, gave_harnas/1.
+:- retractall(at(_, _)), retractall(i_am_at(_)), retractall(alive(_)), retractall(gave_cigarettes(_)), retractall(received_harnas(_)), retractall(gave_harnas(_)).
 
 /* Starting point in game */
 i_am_at(train_station).
@@ -125,17 +125,21 @@ enter(parking_car) :-
     holding(car_keys),
     i_am_at(parking),
     write('You unlock the car with the keys and sit inside, but it doesn''t start.'), nl,
-    write('You do notice a strange amulet on the dashboard.'), nl,
-    assert(at(amulet, parking_car)),
-    i_am_at(parking_car), !, look.
+    (not(holding(amulet)) ->
+        write('You notice a strange amulet on the dashboard.'), nl,
+        assert(holding(amulet))
+    ; true),
+    look.
+
+take(amulet) :-
+    holding(amulet),
+    write('You''re already holding it!'), nl, !.
 
 take(amulet) :-
     i_am_at(parking_car),
-    at(amulet, parking_car),
     retract(at(amulet, parking_car)),
     assert(holding(amulet)),
     write('You have taken the strange amulet. It might be useful later.'), nl.
-
 
 /* This rule tells how to die. */
 
@@ -187,6 +191,18 @@ describe(train_station) :-
     write('The only person present at the station is the caretaker, who seems reluctant to chat.'), nl,
     write('To the west, you can see the parking area adjacent to the station.'), nl.
 
+describe(train_station) :-
+    i_am_at(train_station),
+    (holding(harnas) ->
+        write('The caretaker eyes the Harnas beer. You offer it to her, and she accepts, taking a swig.'), nl,
+        write('"Ahh, that takes me back," she sighs and tells you more about her story with the homeless man.'), nl,
+        write('Grateful, she hands you the car keys.'), nl,
+        retract(holding(harnas)),
+        assert(holding(car_keys))
+    ; true),
+    write('The only person present at the station is the caretaker, who seems reluctant to chat.'), nl,
+    write('To the west, you can see the parking area adjacent to the station.'), nl.
+
 describe(parking) :-
     write('You are in a deserted parking lot near the train station. The ground is littered'), nl,
     write('with old tickets and rusted cans. One car looks abandoned, as if the driver left in a hurry.'), nl,
@@ -205,10 +221,22 @@ describe(homeless_bench) :-
     write('You notice that he cannot breathe properly, he probably ran out of cigarettes'), nl,
     write('The parking area lies to the south.'), nl.
 
+describe(homeless_bench) :-
+    i_am_at(homeless_bench),
+    (holding(cigarettes), \+ gave_cigarettes(homeless_bench) ->
+        write('You offer the cigarettes to the homeless man. He takes them eagerly and tells you a story about the caretaker...'), nl,
+        write('In return, he gives you a can of Harnas beer.'), nl,
+        retract(holding(cigarettes)),
+        assert(holding(harnas)),
+        assert(gave_cigarettes(homeless_bench))
+    ; true),
+    write('The parking area lies to the south.'), nl.
+
 describe(river_tracks) :-
     write('You stand by the river tracks. The water flows sluggishly, casting eerie reflections'), nl,
     write('in the moonlight.'), nl,
-    write('To the west, you see the main street.'), nl.
+    write('To the west, you see the main street.'), nl,
+    (at(cigarettes, river_tracks) -> write('Near the edge of the river, you notice a pack of cigarettes lying in the grass.'), nl ; true).
 
 describe(main_street) :-
     write('You are on the main street, flanked by old, abandoned shops. The cracked windows'), nl,
