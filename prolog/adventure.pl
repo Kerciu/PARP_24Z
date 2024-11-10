@@ -79,7 +79,7 @@ take(X) :-
     at(X, Place),
     retract(at(X, Place)),
     assert(holding(X)),
-    write('You have taken the '), write(X), write('.'),
+    write('You have taken the '), write(X), write('.'), nl,
     check(X),
     !, nl.
 
@@ -208,9 +208,12 @@ start :-
 /* Inventory rules */
 
 inventory :-
-    write('You are currently holding the following items: '), nl,
-    (holding(X), write('- '), write(X), nl, fail ; true),
-    \+ (holding(_)) -> write('You are not holding anything.'), nl.
+    \+ (holding(_)) ->
+        write('You are not holding anything.'), nl
+    ; (
+        write('You are currently holding the following items: '), nl,
+        (holding(X), write('- '), write(X), nl, fail ; true)
+    ).
 
 /* Interaction with characters */
 
@@ -241,6 +244,9 @@ give(caretaker, cigarettes) :-
     i_am_at(train_station),
     holding(cigarettes),
     write('The caretaker rejects your offer to give her cigarettes.'), nl.
+
+give(_, _) :-
+    write('You can''t give that to that person.'), nl.
 
 interact(homeless) :-
     i_am_at(homeless_bench),
@@ -432,7 +438,6 @@ describe(old_town) :-
         write('You find yourself in the heart of Old Town,'), nl,
         write('a desolate square filled with abandoned shops and crumbling facades.'), nl,
         write('Dust and debris cover the cobblestone streets, and a faint echo of past lives lingers in the air.'), nl,
-        write('Faded graffiti and strange symbols are scrawled across the walls, remnants of a forgotten era.'),
         nl,
         write('In the north there is a police station,'), nl,
         write('in the east you can see the main street.'), nl,
@@ -474,6 +479,11 @@ describe(hotel_room) :-
         write('You enter the hotel room.'), nl,
         write('The room is dark and dusty, and the bed is covered in old sheets.'), nl,
         write('The closet is empty, and the desk is covered in papers.'), nl,
+        (at(diary, hotel_room) ->
+                write('You notice a diary lying on the desk.'), nl
+        ;
+                true
+        ),
         nl,
         write('You can go east to return to the corridor.'), nl,
         nl.
@@ -496,4 +506,6 @@ describe(hotel_basement) :-
         ;
                 true
         ),
+        nl,
+        write('You can go east to return to the hotel lobby.'), nl,
         nl.
