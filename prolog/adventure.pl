@@ -41,33 +41,41 @@ at(amulet, car).
 /* These rules describe how to pick up an object. */
 
 take(X) :-
-        holding(X),
-        write('You''re already holding it!'),
-        !, nl.
-
-take(X) :-
-        i_am_at(Place),
-        at(X, Place),
-        retract(at(X, Place)),
-        assert(holding(X)),
-        write('OK.'),
-        !, nl.
-
-take(_) :-
-        write('I don''t see it here.'),
-        nl.
-
-/* Holding items rules */
-
-holding :-
     holding(X),
-    write('You are holding: '),
-    write(X), nl,
+    write('You are already holding the '), write(X), write('!'), nl,
     !.
 
-holding :-
-    write('You are not holding anything.'), nl.
+take(harnas) :-
+    \+ gave_cigarettes(homeless_bench),
+    write('The homeless man has not yet received the cigarettes from you. You need to give them to him first.'), nl,
+    !.
 
+take(X) :-
+    i_am_at(Place),
+    at(X, Place),
+    retract(at(X, Place)),
+    assert(holding(X)),
+    write('You have taken the '), write(X), nl.
+
+/* Take rules for the items */
+
+take(harnas) :-
+    holding(harnas),
+    write('You already have the Harnas beer that the homeless man gave you.'), nl,
+    !.
+
+take(harnas) :-
+    \+ gave_cigarettes(homeless_bench),
+    write('The homeless man has not given you the Harnas beer yet. You need to give him something first.'), nl,
+    !.
+
+take(harnas) :-
+    i_am_at(homeless_bench),
+    at(harnas, homeless_bench),
+    write('You take the cold can of Harnas beer from the homeless man after giving him cigarettes.'), nl,
+    retract(at(harnas, homeless_bench)),
+    assert(holding(harnas)),
+    !.
 
 /* These rules describe how to put down an object. */
 
@@ -158,6 +166,8 @@ instructions :-
         write('drop(Object).        -- to put down an object.'), nl,
         write('look.                -- to look around you again.'), nl,
         write('interact(Character). -- to interact with characters.'), nl,
+        write('give(Character, Object) -- to give object to character.'), nl,
+        write('inventory. -- to check inventory contents.'), nl,
         write('instructions.        -- to see this message again.'), nl,
         write('halt.                -- to end the game and quit.'), nl,
         nl.
@@ -168,6 +178,14 @@ instructions :-
 start :-
         instructions,
         look.
+
+/* Inventory rules */
+
+inventory :-
+    write('You are currently holding the following items: '), nl,
+    (holding(X), write('- '), write(X), nl, fail ; true),
+    \+ (holding(_)) -> write('You are not holding anything.'), nl.
+
 
 /* These rules describe the objects in the game. */
 
@@ -207,17 +225,6 @@ give(homeless, harnas) :-
     write('The homeless man rejects your offer to give him Harnas beer.'), nl,
     write('He already has plenty of those.'), nl.
 
-interact(homeless) :-
-    i_am_at(homeless_bench),
-    write('The homeless man seems to be uninterested for now.'), nl.
-
-interact(homeless) :-
-    i_am_at(homeless_bench),
-    holding(amulet),
-    write('The homeless man looks at you with wide eyes. "You hold that cursed thing," he says, '), nl,
-    write('his voice shaking. "I feel something watching... beware."'), nl,
-    !.
-
 give(caretaker, harnas) :-
     i_am_at(train_station),
     holding(harnas),
@@ -234,6 +241,22 @@ give(caretaker, cigarettes) :-
     holding(cigarettes),
     write('The caretaker rejects your offer to give her cigarettes.'), nl.
 
+interact(homeless) :-
+    i_am_at(homeless_bench),
+    write('The homeless man seems to be uninterested for now.'), nl.
+
+interact(homeless) :-
+    i_am_at(homeless_bench),
+    holding(cigarettes),
+    write('The homeless man seems to be more interested as he coughts intensively.'), nl.
+
+interact(homeless) :-
+    i_am_at(homeless_bench),
+    holding(amulet),
+    write('The homeless man looks at you with wide eyes. "You hold that cursed thing," he says, '), nl,
+    write('his voice shaking. "I feel something watching... beware."'), nl,
+    !.
+
 interact(caretaker) :-
     i_am_at(train_station),
     holding(amulet),
@@ -245,27 +268,6 @@ interact(caretaker) :-
     i_am_at(train_station),
     write('The caretaker seems more distant and uninterested for now.'), nl.
 
-/* Take rules for the items */
-
-take(harnas) :-
-    holding(harnas),
-    write('You already have the Harnas beer that the homeless man gave you.'), nl,
-    !.
-
-take(harnas) :-
-    \+ gave_cigarettes(homeless_bench),
-    write('The homeless man has not given you the Harnas beer yet. You need to give him something first.'), nl,
-    !.
-
-take(harnas) :-
-    i_am_at(homeless_bench),
-    at(harnas, homeless_bench),
-    write('You take the cold can of Harnas beer from the homeless man after giving him cigarettes.'), nl,
-    retract(at(harnas, homeless_bench)),
-    assert(holding(harnas)),
-    !.
-
-
 /* Rules for entering and exiting the car */
 
 enter(car) :-
@@ -274,7 +276,6 @@ enter(car) :-
     write('You unlock the car with the keys and sit inside, but it doesn''t start.'), nl,
     retract(i_am_at(parking)),
     assert(i_am_at(car)),
-    retract(holding(car_keys)),
     look.
 
 exit(car) :-
@@ -304,8 +305,10 @@ describe(train_station) :-
 
 describe(train_station) :-
     i_am_at(train_station),
-    (holding(harnas), \+ gave_harnas(train_station) ->
-        give_harnas(caretaker)
+    (\+ gave_harnas(train_station) ->
+        (holding(harnas) ->
+            write('You notice that caretaker is thirsty and there is no water nearby.'), nl;
+            true)
     ; true),
     write('The parking area lies to the west.'), nl.
 
@@ -329,16 +332,11 @@ describe(homeless_bench) :-
     write('You find yourself near a bench occupied by a homeless man, muttering under his breath.'), nl,
     write('He warns of the "shadows that follow at night" and clutches an old bottle with'), nl,
     write('a strange symbol scratched into it. He might know more if you listen closely.'), nl,
+    write('You notice that he cannot breathe properly, he probably ran out of cigarettes.'), nl,
     (\+ gave_cigarettes(homeless_bench) ->
-        'You notice that he cannot breathe properly; he probably ran out of cigarettes.'
-    ; true),
-    write(), nl,
-    write('The parking area lies to the south.'), nl.
-
-describe(homeless_bench) :-
-    i_am_at(homeless_bench),
-    (holding(cigarettes), \+ gave_cigarettes(homeless_bench) ->
-        give_cigarettes(homeless)
+        (holding(cigarettes) ->
+            write('You notice that you can help the homeless man with a cigarette.'), nl;
+            true)
     ; true),
     write('The parking area lies to the south.'), nl.
 
