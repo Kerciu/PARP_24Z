@@ -106,6 +106,9 @@ try_unlock_hotel_basement :-
                 nl,
                 write('You put all 3 fuses in the fuse box.'), nl,
                 write('The elevator starts working.'), nl,
+                retractall(holding(red_fuse)),
+                retractall(holding(blue_fuse)),
+                retractall(holding(green_fuse)),
                 retractall(door_unlocked(hotel_basement)),
                 assert(door_unlocked(hotel_basement)),
                 go(w)
