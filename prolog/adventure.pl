@@ -57,6 +57,17 @@ take(_) :-
         write('I don''t see it here.'),
         nl.
 
+/* Holding items rules */
+
+holding :-
+    holding(X),
+    write('You are holding: '),
+    write(X), nl,
+    !.
+
+holding :-
+    write('You are not holding anything.'), nl.
+
 
 /* These rules describe how to put down an object. */
 
@@ -117,20 +128,6 @@ notice_objects_at(Place) :-
         fail.
 
 notice_objects_at(_).
-
-/* Rules for character interaction */
-
-/* Rules for car interaction */
-
-enter(parking_car) :-
-    holding(car_keys),
-    i_am_at(parking),
-    write('You unlock the car with the keys and sit inside, but it doesn''t start.'), nl,
-    (not(holding(amulet)) ->
-        write('You notice a strange amulet on the dashboard.'), nl,
-        assert(holding(amulet))
-    ; true),
-    look.
 
 /* This rule tells how to die. */
 
@@ -243,21 +240,37 @@ take(harnas) :-
     assert(holding(harnas)),
     !.
 
+
+/* Rules for entering and exiting the car */
+
+enter(parking_car) :-
+    holding(car_keys),
+    i_am_at(parking),
+    write('You unlock the car with the keys and sit inside, but it doesn''t start.'), nl,
+    (not(holding(amulet)) ->
+        write('You notice a strange amulet on the dashboard.'), nl,
+        assert(holding(amulet))
+    ; true),
+    retract(holding(car_keys)),
+    look.
+
+exit(parking_car) :-
+    i_am_at(parking_car),
+    write('You get out of the car and return to the parking lot.'), nl,
+    retract(i_am_at(parking_car)),
+    assert(i_am_at(parking)).
+
+
 /* These rules describe the various rooms.  Depending on
    circumstances, a room may have more than one description. */
 
 describe(train_station) :-
+    i_am_at(train_station),
     write('You are at the train station, where your adventure started.'), nl,
     write('The clock points at 3:15 am and never moves.'), nl,
     write('The timetable is written in some out-of-this-world, unintelligible language.'), nl,
     write('The only person present at the station is the caretaker, who seems reluctant to chat.'), nl,
     write('To the west, you can see the parking area adjacent to the station.'), nl,
-    (holding(harnas) ->
-        write('The caretaker eyes the Harnas beer.'), nl
-    ; true).
-
-describe(train_station) :-
-    i_am_at(train_station),
     (holding(harnas) ->
         write('The caretaker eyes the Harnas beer. You offer it to her, and she accepts, taking a swig.'), nl,
         write('"Ahh, that takes me back," she sighs and tells you more about her story with the homeless man.'), nl,
@@ -265,15 +278,10 @@ describe(train_station) :-
         retract(holding(harnas)),
         assert(holding(car_keys))
     ; true),
-    write('The only person present at the station is the caretaker, who seems reluctant to chat.'), nl,
-    write('To the west, you can see the parking area adjacent to the station.'), nl.
-
-describe(train_station) :-
-    i_am_at(train_station),
     (holding(amulet) ->
-        write('The caretaker looks at you with suspicion as you hold the strange amulet. Something in the air shifts.'), nl;
-    true),
-    write('The only person present at the station is the caretaker, who seems reluctant to chat.'), nl.
+        write('The caretaker looks at you with suspicion as you hold the strange amulet. Something in the air shifts.'), nl
+    ; true).
+
 
 describe(parking) :-
     write('You are in a deserted parking lot near the train station. The ground is littered'), nl,
