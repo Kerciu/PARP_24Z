@@ -133,7 +133,7 @@ describe(hotel_lobby) :-
         write('You enter the lobby of the hotel.'), nl,
         write('There is glass scattered everywhere, and the old reception desk is covered in papers.'), nl,
         nl,
-        write('You can go south to return to Old Town.'), nl,
+        write('You can go north to return to Old Town.'), nl,
         write('There is a toilet to the east.'), nl,
         write('To the south, a dark hallway leads further into the hotel.'), nl,
         write('Looking to the west, you can see an elevator.'), nl,
