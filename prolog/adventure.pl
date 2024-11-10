@@ -1,7 +1,7 @@
 /* <The name of this game>, by <your name goes here>. */
 
-:- dynamic i_am_at/1, at/2, holding/1, gave_cigarettes/1, gave_harnas/1, interact/2.
-:- retractall(at(_, _)), retractall(i_am_at(_)), retractall(alive(_)), retractall(gave_cigarettes(_)), retractall(gave_harnas(_)).
+:- dynamic i_am_at/1, at/2, holding/1, gave_harnas/1, interact/2.
+:- retractall(at(_, _)), retractall(i_am_at(_)), retractall(alive(_)), retractall(gave_harnas(_)).
 
 /* Starting point in game */
 i_am_at(train_station).
@@ -35,7 +35,6 @@ path(forest_cave, n, ending).
 
 at(cigarettes, river_tracks).
 at(car_keys, train_station).
-at(harnas, homeless_bench).
 at(amulet, car).
 
 /* These rules describe how to pick up an object. */
@@ -45,11 +44,6 @@ take(X) :-
     write('You are already holding the '), write(X), write('!'), nl,
     !.
 
-take(harnas) :-
-    \+ gave_cigarettes(homeless_bench),
-    write('The homeless man has not yet received the cigarettes from you. You need to give them to him first.'), nl,
-    !.
-
 take(X) :-
     i_am_at(Place),
     at(X, Place),
@@ -57,25 +51,8 @@ take(X) :-
     assert(holding(X)),
     write('You have taken the '), write(X), nl.
 
-/* Take rules for the items */
-
-take(harnas) :-
-    holding(harnas),
-    write('You already have the Harnas beer that the homeless man gave you.'), nl,
-    !.
-
-take(harnas) :-
-    \+ gave_cigarettes(homeless_bench),
-    write('The homeless man has not given you the Harnas beer yet. You need to give him something first.'), nl,
-    !.
-
-take(harnas) :-
-    i_am_at(homeless_bench),
-    at(harnas, homeless_bench),
-    write('You take the cold can of Harnas beer from the homeless man after giving him cigarettes.'), nl,
-    retract(at(harnas, homeless_bench)),
-    assert(holding(harnas)),
-    !.
+take(_) :-
+    write('I don''t see that here.'), nl.
 
 /* These rules describe how to put down an object. */
 
@@ -131,7 +108,7 @@ look :-
 
 notice_objects_at(Place) :-
         at(X, Place),
-        \+ member(X, [amulet, harnas, car_keys]),
+        \+ member(X, [amulet, car_keys]),
         write('There is a '), write(X), write(' here.'), nl,
         fail.
 
@@ -212,12 +189,10 @@ check(_) :- nl.
 give(homeless, cigarettes) :-
     i_am_at(homeless_bench),
     holding(cigarettes),
-    \+ gave_cigarettes(homeless_bench),
     write('You give the pack of cigarettes to the homeless man. He takes them eagerly and thanks you.'), nl,
     write('He hands you a cold can of Harnas beer in return.'), nl,
     retract(holding(cigarettes)),
-    assert(holding(harnas)),
-    assert(gave_cigarettes(homeless_bench)).
+    assert(holding(harnas)).
 
 give(homeless, harnas) :-
     i_am_at(homeless_bench),
@@ -333,10 +308,8 @@ describe(homeless_bench) :-
     write('He warns of the "shadows that follow at night" and clutches an old bottle with'), nl,
     write('a strange symbol scratched into it. He might know more if you listen closely.'), nl,
     write('You notice that he cannot breathe properly, he probably ran out of cigarettes.'), nl,
-    (\+ gave_cigarettes(homeless_bench) ->
-        (holding(cigarettes) ->
-            write('You notice that you can help the homeless man with a cigarette.'), nl;
-            true)
+    (holding(cigarettes) ->
+        write('You notice that you can help the homeless man with a cigarette.'), nl
     ; true),
     write('The parking area lies to the south.'), nl.
 
