@@ -1,7 +1,7 @@
 /* <The name of this game>, by <your name goes here>. */
 
 :- dynamic i_am_at/1, at/2, holding/1, gave_cigarettes/1, gave_harnas/1.
-:- retractall(at(_, _)), retractall(i_am_at(_)), retractall(alive(_)), retractall(gave_cigarettes(_)), retractall(received_harnas(_)), retractall(gave_harnas(_)).
+:- retractall(at(_, _)), retractall(i_am_at(_)), retractall(alive(_)), retractall(gave_cigarettes(_)), retractall(gave_harnas(_)).
 
 /* Starting point in game */
 i_am_at(train_station).
@@ -271,17 +271,16 @@ describe(train_station) :-
     write('The timetable is written in some out-of-this-world, unintelligible language.'), nl,
     write('The only person present at the station is the caretaker, who seems reluctant to chat.'), nl,
     write('To the west, you can see the parking area adjacent to the station.'), nl,
-    (holding(harnas) ->
-        write('The caretaker eyes the Harnas beer. You offer it to her, and she accepts, taking a swig.'), nl,
-        write('"Ahh, that takes me back," she sighs and tells you more about her story with the homeless man.'), nl,
-        write('Grateful, she hands you the car keys.'), nl,
-        retract(holding(harnas)),
-        assert(holding(car_keys))
-    ; true),
     (holding(amulet) ->
         write('The caretaker looks at you with suspicion as you hold the strange amulet. Something in the air shifts.'), nl
     ; true).
 
+describe(train_station) :-
+    i_am_at(train_station),
+    (holding(harnas), \+ gave_harnas(train_station) ->
+        give_harnas.
+    ; true),
+    write('The parking area lies to the west.'), nl.
 
 describe(parking) :-
     write('You are in a deserted parking lot near the train station. The ground is littered'), nl,
