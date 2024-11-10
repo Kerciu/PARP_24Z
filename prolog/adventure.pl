@@ -172,6 +172,7 @@ start :-
         look.
 
 /* These rules describe the objects in the game. */
+
 check(cigarettes) :-
     nl,
     write('The pack of cigarettes is old, with some of the edges frayed. It might be useful to someone who needs a smoke.'), nl.
@@ -190,31 +191,56 @@ check(amulet) :-
 
 check(_) :- nl.
 
-/* Give cigarettes to homeless man */
+/* Interaction with characters */
 
-give_cigarettes :-
+interact(homeless_man, cigarettes) :-
     i_am_at(homeless_bench),
     holding(cigarettes),
     \+ gave_cigarettes(homeless_bench),
-    write('You give the pack of cigarettes to the homeless man. He takes them eagerly and thanks you.'),
-    nl,
-    write('He hands you a cold can of Harnas beer in return.'),
-    nl,
+    write('You give the pack of cigarettes to the homeless man. He takes them eagerly and thanks you.'), nl,
+    write('He hands you a cold can of Harnas beer in return.'), nl,
     retract(holding(cigarettes)),
     assert(holding(harnas)),
     assert(gave_cigarettes(homeless_bench)).
 
-give_cigarettes :-
+interact(homeless_man, _) :-
     i_am_at(homeless_bench),
-    holding(harnas),
-    gave_cigarettes(homeless_bench),
-    write('The homeless man seems satisfied with the cigarettes you gave him earlier.'), nl.
+    write('The homeless man seems content with the cigarettes you gave him earlier.'), nl.
 
-give_cigarettes :-
+interact(caretaker, harnas) :-
+    i_am_at(train_station),
+    holding(harnas),
+    \+ gave_harnas(train_station),
+    write('You offer the Harnas beer to the caretaker. She takes it gratefully and takes a swig.'), nl,
+    write('"Ahh, that takes me back," she sighs and tells you more about her story with the homeless man.'), nl,
+    write('Grateful, she hands you the car keys.'), nl,
+    retract(holding(harnas)),
+    assert(holding(car_keys)),
+    assert(gave_harnas(train_station)).
+
+interact(caretaker, _) :-
+    i_am_at(train_station),
+    write('The caretaker seems more distant and uninterested for now.'), nl.
+
+/* Take rules for the items */
+
+take(harnas) :-
+    holding(harnas),
+    write('You already have the Harnas beer that the homeless man gave you.'), nl,
+    !.
+
+take(harnas) :-
+    \+ gave_cigarettes(homeless_bench),
+    write('The homeless man has not given you the Harnas beer yet. You need to give him something first.'), nl,
+    !.
+
+take(harnas) :-
     i_am_at(homeless_bench),
-    \+ holding(cigarettes),
-    write('You don''t have any cigarettes to give to the homeless man.'),
-    nl.
+    at(harnas, homeless_bench),
+    write('You take the cold can of Harnas beer from the homeless man after giving him cigarettes.'), nl,
+    retract(at(harnas, homeless_bench)),
+    assert(holding(harnas)),
+    !.
 
 /* These rules describe the various rooms.  Depending on
    circumstances, a room may have more than one description. */
