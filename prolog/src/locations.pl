@@ -192,3 +192,14 @@ describe(hotel_basement) :-
         nl,
         write('You can go east to return to the hotel lobby.'), nl,
         nl.
+
+describe(police_station) :-
+        nl,
+        write('You enter the police station. The lights flicker, casting eerie shadows on the walls.'), nl,
+        write('To the left, you see a dusty counter with an old safe behind it. '), nl,
+        write('The smell of cheap liquor and stale cigarettes fills the air. He notices you and mutters something under his breath.'), nl,
+        write('A scruffy-looking man, with tangled hair and a worn-out jacket, stares at you with a glazed look.'), nl,
+        write('He seems to be clutching an old bottle. Perhaps he knows something useful?'), nl.
+        nl,
+        write('You can go south to return to the old town.'), nl,
+        nl.

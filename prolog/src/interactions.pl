@@ -29,6 +29,15 @@ give(caretaker, cigarettes) :-
     holding(cigarettes),
     write('The caretaker rejects your offer to give her cigarettes.'), nl.
 
+give(drunkard, kuflowe_mocne) :-
+    i_am_at(police_station),
+    holding(kuflowe_mocne),
+    write('The drunkard takes the Kuflowe Mocne with a greedy smile.'), nl,
+    write('"Alright, alright... here, take this."'), nl,
+    write('He hands you a crumpled leaf with the safe code scrawled on it.'), nl,
+    assert(holding(leaf_with_code)),
+    retract(holding(kuflowe_mocne)).
+
 give(_, _) :-
     write('You can''t give that to that person.'), nl.
 
@@ -46,6 +55,21 @@ interact(homeless) :-
 
 interact(homeless) :-
     i_am_at(homeless_bench),
+    holding(amulet),
+    write('The homeless man looks at you with wide eyes. "You hold that cursed thing," he says, '), nl,
+    write('his voice shaking. "I feel something watching... beware."'), nl,
+    !.
+
+interact(homeless) :-
+    \+ homeless_interaction,
+    drunkard_interaction,
+    write('The homeless man looks at you knowingly.'), nl,
+    write('"Oh, you need a drink for ol\' Bill? Here, take this Kuflowe Mocne. But don\'t tell him I gave it for free!"'), nl,
+    assert(holding(bottle)),
+    assert(homeless_interaction).
+
+interact(homeless) :-
+    i_am_at(homeless_bench),
     write('The homeless man seems to be uninterested for now.'), nl.
 
 interact(caretaker) :-
@@ -58,3 +82,10 @@ interact(caretaker) :-
 interact(caretaker) :-
     i_am_at(train_station),
     write('The caretaker seems more distant and uninterested for now.'), nl.
+
+interact(drunkard) :-
+    i_am_at(police_station),
+    write('The drunkard looks at you with a smirk.'), nl,
+    write('"Lookin\' for the safe code, eh? I might remember it... But I\'m real thirsty."'), nl,
+    write('"Maybe if you bring me something to drink, I\'ll let you in on the secret."'), nl,
+    assert(drunkard_interaction).
