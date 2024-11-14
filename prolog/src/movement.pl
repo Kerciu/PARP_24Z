@@ -125,6 +125,7 @@ try_unlock_hotel_basement :-
 
 open_safe(Code) :-
         /* The code can be found as an easter egg in the leaf code drunkard gave you */
+        i_am_at(police_station),
         safe_code(Code),
         Code =:= 2137,
         assert(holding(engraved_ring)),

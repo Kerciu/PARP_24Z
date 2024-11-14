@@ -93,4 +93,16 @@ check(basement_notes) :-
         write('We must be cautious. The energy here is unstable, and there are warnings in the old language about disturbing what lies beyond."'), nl,
         nl.
 
+check(leaf_with_code) :-
+        holding(leaf_with_code),
+        write('The leaf contains a mysterious riddle:'), nl,
+        write('"The code is hidden in two pairs of numbers."'), nl,
+        write('The first pair comes from multiplying three by the digit symbolizing fullness.'), nl,
+        write('The second pair is a sequence you receive from the natural order."'), nl,
+        write('You think about these pairs to solve the code.'), nl.
+
+check(engraved_ring) :-
+        holding(engraved_ring),
+        write('The ring is engraved with strange symbols and feels unusually heavy in your hand. It might hold some hidden significance or power.'), nl.
+
 check(_) :- nl.
