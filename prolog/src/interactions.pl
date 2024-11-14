@@ -89,3 +89,5 @@ interact(drunkard) :-
     write('"Lookin\' for the safe code, eh? I might remember it... But I\'m real thirsty."'), nl,
     write('"Maybe if you bring me something to drink, I\'ll let you in on the secret."'), nl,
     assert(drunkard_interaction).
+
+

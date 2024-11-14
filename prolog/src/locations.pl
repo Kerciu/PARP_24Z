@@ -45,9 +45,10 @@ path(library, w, hill_church).
 
 path(hill_church, n, forest_cave).
 path(hill_church, e, library).
+path(hill_church, w, ending_hill_church_escape).
 
 path(forest_cave, s, hill_church).
-path(forest_cave, n, ending).
+path(forest_cave, n, ending_cave).
 
 /* These rules describe the various rooms.  Depending on
    circumstances, a room may have more than one description. */
@@ -56,6 +57,7 @@ path(forest_cave, n, ending).
 
 describe(train_station) :-
     i_am_at(train_station),
+    check_timer,
     write('You are at the train station, where your adventure started.'), nl,
     write('The clock points at 3:15 am and never moves.'), nl,
     write('The timetable is written in some out-of-this-world, unintelligible language.'), nl,
@@ -203,3 +205,42 @@ describe(police_station) :-
         nl,
         write('You can go south to return to the old town.'), nl,
         nl.
+
+/* Hill Church Description */
+describe(hill_church) :-
+        i_am_at(hill_church),
+        check_timer,
+        write('You stand before an old, abandoned church on the hill.'), nl,
+        write('The dark interior and the smell of incense remind you of ancient rituals.'), nl,
+        write('The priest, the last witness of the former life in the city, looks at you with an expression of concern.'), nl,
+        (holding(amulet) ->
+            write('The priest notices the amulet in your hand and warns you: "That is the symbol of their cult; do not approach them with it."'), nl,
+            (holding(engraved_ring) ->
+                write('"Better hurry to forest cave to end it all. They are catching up on you!"'), n1
+            ;true)
+        ; true),
+        write('The path to the forest is to the north.'), nl.
+
+describe(ending_hill_church_escape) :-
+        i_am_at(ending_hill_church_escape),
+        write('They are closing on you, you must decide whether knowing everything will you still decide to fight with them or flee.'), n1,
+        write('Your only option to flee is to go west, if you are ready to fight go east'), n1.
+
+/* Forest Cave */
+describe(forest_cave) :-
+        i_am_at(forest_cave),
+        check_timer,
+        write('You enter a dark cave hidden deep in the forest. In the center of the cave stands an altar with a strange symbol.'), nl,
+        write('The symbol looks familiar—it might be an ancient artifact sought by the archaeologists.'), nl,
+        write('Here you find evidence that the cult still exists and conducts its rituals here.'), nl,
+        write('You feel that this place may be key to solving the mystery of the archaeologists’ disappearance.'), nl,
+        write('The path back leads south, returning to the church.'), nl.
+
+describe(ending_cave) :-
+        i_am_at(ending_cave),
+        (holding(engraved_ring)->
+                forest_cave_ending_weakened.;
+        ),
+        forest_cave_ending_killed.
+
+

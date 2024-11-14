@@ -52,8 +52,29 @@ go(w) :-
 go(w) :-
         i_am_at(hotel_lobby),
         \+ door_unlocked(hotel_basement),
-                try_unlock_hotel_basement,
-                !.
+        try_unlock_hotel_basement,
+        !.
+
+go(n) :-
+        i_am_at(forest_cave),
+        \+ holding(amulet),
+        write('A strange force seems to block your path. The entrance won’t budge.'), nl,
+        write('It feels like something is missing, something that could unlock the cave\'s secrets.'), nl,
+        !.
+
+go(n) :-
+        i_am_at(forest_cave),
+        holding(amulet),
+        write('The amulet in your possession glows faintly, and you feel an ancient force giving way.'), nl,
+        write('The entrance opens, allowing you to pass into the unknown.'), nl,
+        go(n).
+
+go(w) :-
+        i_am_at(ending_hill_church_escape),
+        hill_church_ending_excape.
+go(e) :-
+        i_am_at(ending_hill_church_escape),
+        hill_church_ending_killed.
 
 /* General rules for moving */
 go(Direction) :-
@@ -137,3 +158,20 @@ open_safe(Code) :-
 open_safe(_) :-
         write('Wrong code.'), nl,
         !, look.
+
+check_timer :-
+        start_time(StartTime),
+        get_time(CurrentTime),
+        ElapsedTime is CurrentTime - StartTime,
+        ElapsedTime >= 900,
+        (       i_am_at(train_station)->
+                escape_city_ending
+        ;       i_am_at(hill_church)->
+                (holding(engraved_ring)->
+                        go(w);
+                hill_church_ending_killed
+                )
+        ;       i_am_at(forest_cave)->
+                forest_cave_ending_killed
+        ;       true
+        ).
