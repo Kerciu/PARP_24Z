@@ -13,7 +13,6 @@ i_am_at(train_station).
 
 start :-
         instructions,
-        start_timer,
         look.
 
 /* This rule just writes out game instructions. */
