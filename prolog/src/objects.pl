@@ -55,6 +55,7 @@ at(ancient_rune, hotel_basement).
 at(notes, hotel_basement).
 at(newspaper, library).
 at(green_fuse, archive).
+at(key, library).
 
 /* These rules describe objects that can be picked up. */
 
