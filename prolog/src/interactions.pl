@@ -6,6 +6,8 @@ give(homeless, cigarettes) :-
     holding(cigarettes),
     write('You give the pack of cigarettes to the homeless man. He takes them eagerly and thanks you.'), nl,
     write('He hands you a cold can of Harnas beer in return.'), nl,
+    write('And weird box saying "I found it a while ago, it is useless for me but maybe u can get it open"'), n1,
+    assert(holding(weird_box)),
     retract(holding(cigarettes)),
     assert(holding(harnas)).
 

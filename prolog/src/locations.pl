@@ -45,7 +45,9 @@ path(library, w, hill_church).
 
 path(hill_church, n, forest_cave).
 path(hill_church, e, library).
-path(hill_church, w, ending_hill_church_escape).
+path(hill_church, w, hill_church_second_floor).
+
+path(hill_church_second_floor, e, hill_church).
 
 path(forest_cave, s, hill_church).
 path(forest_cave, n, ending_cave).
@@ -57,7 +59,6 @@ path(forest_cave, n, ending_cave).
 
 describe(train_station) :-
     i_am_at(train_station),
-    check_timer,
     write('You are at the train station, where your adventure started.'), nl,
     write('The clock points at 3:15 am and never moves.'), nl,
     write('The timetable is written in some out-of-this-world, unintelligible language.'), nl,
@@ -74,7 +75,7 @@ describe(train_station) :-
     (holding(harnas) ->
             write('You notice that caretaker is thirsty and there is no water nearby.'), nl
     ; true),
-    write('The parking area lies to the west.'), nl.
+    write('The parking area lies to the west, there is also a returning train with which you can go back with in the east.'), nl.
 
 /* Parking */
 
@@ -201,46 +202,46 @@ describe(police_station) :-
         write('To the left, you see a dusty counter with an old safe behind it. '), nl,
         write('The smell of cheap liquor and stale cigarettes fills the air. He notices you and mutters something under his breath.'), nl,
         write('A scruffy-looking man, with tangled hair and a worn-out jacket, stares at you with a glazed look.'), nl,
-        write('He seems to be clutching an old bottle. Perhaps he knows something useful?'), nl.
-        nl,
+        write('He seems to be clutching an old bottle. Perhaps he knows something useful?'), nl,
         write('You can go south to return to the old town.'), nl,
         nl.
 
 /* Hill Church Description */
 describe(hill_church) :-
         i_am_at(hill_church),
-        check_timer,
         write('You stand before an old, abandoned church on the hill.'), nl,
         write('The dark interior and the smell of incense remind you of ancient rituals.'), nl,
         write('The priest, the last witness of the former life in the city, looks at you with an expression of concern.'), nl,
         (holding(amulet) ->
             write('The priest notices the amulet in your hand and warns you: "That is the symbol of their cult; do not approach them with it."'), nl,
-            (holding(engraved_ring) ->
-                write('"Better hurry to forest cave to end it all. They are catching up on you!"'), n1
-            ;true)
+            write('He continues: "I can''t tell you more, just be careful"'), n1,
+            write('He points at the old staircase, at the west side of the church, that leads to second floor of the church'), n1
         ; true),
         write('The path to the forest is to the north.'), nl.
 
-describe(ending_hill_church_escape) :-
-        i_am_at(ending_hill_church_escape),
-        write('They are closing on you, you must decide whether knowing everything will you still decide to fight with them or flee.'), n1,
-        write('Your only option to flee is to go west, if you are ready to fight go east'), n1.
+describe(hill_church_second_floor) :-
+        i_am_at(hill_church_second_floor),
+        write('You are now at the second floor of the church.'), n1,
+        write('You see some king of weird numbers that seem out of order at the wall'), n1,
+        write('4 6 1 2 6 7 3 4 1 5 6 2 7 3 5 7 3 2 5 3 6 4 3 6 7 2 '), n1,
+        write('You notice also a sentance:"That''a code to the truth of this mystery."'), n1,
+        write('To go back to first floor go east'), n1.
 
 /* Forest Cave */
 describe(forest_cave) :-
         i_am_at(forest_cave),
-        check_timer,
         write('You enter a dark cave hidden deep in the forest. In the center of the cave stands an altar with a strange symbol.'), nl,
         write('The symbol looks familiar—it might be an ancient artifact sought by the archaeologists.'), nl,
         write('Here you find evidence that the cult still exists and conducts its rituals here.'), nl,
         write('You feel that this place may be key to solving the mystery of the archaeologists’ disappearance.'), nl,
+        write('You see far far to the north of this huge cave a weird doors that must lead to something.'), n1,
         write('The path back leads south, returning to the church.'), nl.
 
 describe(ending_cave) :-
         i_am_at(ending_cave),
         (holding(engraved_ring)->
-                forest_cave_ending_weakened.;
-        ),
-        forest_cave_ending_killed.
+                forest_cave_ending_weakened;
+                forest_cave_ending_killed
+        ).
 
 

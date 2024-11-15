@@ -1,7 +1,8 @@
 
 escape_city_ending :-
-    write('After piecing together some of the fragments of the archaeologists'' fate, feeling growing, chilling sense of dread about this place.'), n1,
-    write('The city''s shadows grow darker with each discovery, hinting at forces far beyond human understanding.'), n1,
+    write('After piecing together some of the fragments of the city''s history you decide to leave.'), n1,
+    write('Pathetic isn''t it.'), n1,
+    write('Either way city''s shadows grow darker with each discovery, hinting at forces far beyond human understanding.'), n1,
     write('You relized the danger, deciding to abandon the case, leaving the mysteries of the City of Shadows unsolved.'), n1,
     write('That might''ve been a wise decision, who knows?'), n1,
     write('The chilling secrets of this forgotten town remain buried, but you manages to escape with their life—though haunted by unanswered questions.'),
@@ -11,13 +12,6 @@ hill_church_ending_excape :-
     write('You''ve discovered everything that was possible to be disctovered.'), n1,
     write('Yet, decided to leave. Might''ve been wise or because of your fear you left this city for the doom.'), n1,
     write('So be it, farewell.'),
-    finish.
-
-hill_church_ending_killed :-
-    write('The cult for long knew that you were on their tails.'), n1,
-    write('Yet, as you were so close to grasp the full horror of the sect''s motives, you are caught in a trap, surrounded by the sect’s followers.'), n1,
-    write('They cought up on you and there is nothing more to be done.'), n1,
-    write('Your journey ends here, as they are drawn into the dark embrace of the city, their fate forever tied to its haunting secrets.'),
     finish.
 
 forest_cave_ending_weakened :-

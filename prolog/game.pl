@@ -1,5 +1,5 @@
 /* main.pl */
-:- dynamic i_am_at/1, at/2, holding/1, door_unlocked/1, interact/2, get_time/1.
+:- dynamic i_am_at/1, at/2, holding/1, door_unlocked/1, interact/2.
 :- retractall(at(_, _)), retractall(i_am_at(_)), retractall(alive(_)), retractall(door_unlocked(_)).
 
 /* Load all the files */
@@ -51,7 +51,3 @@ finish :-
         write('The game is over. Please enter the "halt." command.'),
         nl.
 
-
-start_timer :-
-        get_time(StartTime),
-        assert(start_time(StartTime)).
