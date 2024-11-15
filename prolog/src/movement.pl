@@ -5,6 +5,7 @@
 /* State of rooms */
 door_unlocked(hotel_room) :- fail.
 door_unlocked(hotel_basement) :- fail.
+door_unlocked(archive) :- fail.
 
 /* This rule tells how to look around you. */
 look :-
@@ -54,6 +55,19 @@ go(w) :-
         \+ door_unlocked(hotel_basement),
                 try_unlock_hotel_basement,
                 !.
+
+go(s) :-
+        i_am_at(library),
+        \+ door_unlocked(archive),
+                ( holding(key) ->
+                        write('You open the door with the key.'), nl,
+                        retractall(holding(key)),
+                        assert(door_unlocked(archive)),
+                        go(s)
+                ;
+                        write('The door is locked.'), nl,
+                        write('You need a key to unlock it.'), nl
+                ).
 
 /* General rules for moving */
 go(Direction) :-
