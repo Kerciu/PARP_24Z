@@ -7,6 +7,7 @@
 :- [src/objects].
 :- [src/interactions].
 :- [src/movement].
+:- [src/endings].
 
 i_am_at(train_station).
 
@@ -48,3 +49,4 @@ finish :-
         nl,
         write('The game is over. Please enter the "halt." command.'),
         nl.
+

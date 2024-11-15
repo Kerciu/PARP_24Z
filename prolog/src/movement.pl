@@ -39,6 +39,9 @@ w :- go(w).
 /* These rules tells how to move in a given direction. */
 
 /* Conditional rules for moving */
+go(e) :-
+        i_am_at(train_station),
+        escape_city_ending.
 go(w) :-
         i_am_at(hotel_corridor),
         \+ door_unlocked(hotel_room),
@@ -52,8 +55,27 @@ go(w) :-
 go(w) :-
         i_am_at(hotel_lobby),
         \+ door_unlocked(hotel_basement),
-                try_unlock_hotel_basement,
-                !.
+        try_unlock_hotel_basement,
+        !.
+
+go(n) :-
+        i_am_at(hill_church_second_floor),
+        holding(weird_box),
+        hill_church_ending_excape.
+
+go(n) :-
+        i_am_at(forest_cave),
+        \+ holding(amulet),
+        write('A strange force seems to block your path. The entrance won’t budge.'), nl,
+        write('It feels like something is missing, something that could unlock the cave\'s secrets.'), nl,
+        !.
+
+go(n) :-
+        i_am_at(forest_cave),
+        holding(amulet),
+        write('The amulet in your possession glows faintly, and you feel an ancient force giving way.'), nl,
+        write('The entrance opens, allowing you to pass into the unknown.'), nl,
+        go(n).
 
 /* General rules for moving */
 go(Direction) :-

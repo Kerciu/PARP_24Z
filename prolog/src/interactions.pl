@@ -6,6 +6,8 @@ give(homeless, cigarettes) :-
     holding(cigarettes),
     write('You give the pack of cigarettes to the homeless man. He takes them eagerly and thanks you.'), nl,
     write('He hands you a cold can of Harnas beer in return.'), nl,
+    write('And weird box saying "I found it a while ago, it is useless for me but maybe u can get it open"'), n1,
+    assert(holding(weird_box)),
     retract(holding(cigarettes)),
     assert(holding(harnas)).
 
@@ -89,3 +91,5 @@ interact(drunkard) :-
     write('"Lookin\' for the safe code, eh? I might remember it... But I\'m real thirsty."'), nl,
     write('"Maybe if you bring me something to drink, I\'ll let you in on the secret."'), nl,
     assert(drunkard_interaction).
+
+
