@@ -1,12 +1,12 @@
 /* Interaction with characters */
-:- dynamic i_am_at/1, holding/1.
+:- dynamic i_am_at/1, holding/1, drunkard_interaction/0, homeless_interaction/0.
 
 give(homeless, cigarettes) :-
     i_am_at(homeless_bench),
     holding(cigarettes),
     write('You give the pack of cigarettes to the homeless man. He takes them eagerly and thanks you.'), nl,
     write('He hands you a cold can of Harnas beer in return.'), nl,
-    write('And weird box saying "I found it a while ago, it is useless for me but maybe u can get it open"'), n1,
+    write('And weird box saying "I found it a while ago, it is useless for me but maybe u can get it open"'), nl,
     assert(holding(weird_box)),
     retract(holding(cigarettes)),
     assert(holding(harnas)).
@@ -92,4 +92,7 @@ interact(drunkard) :-
     write('"Maybe if you bring me something to drink, I\'ll let you in on the secret."'), nl,
     assert(drunkard_interaction).
 
+interact(priest) :-
+    i_am_at(hill_church),
+    write('I can''t tell you more, just go.'), nl.
 

@@ -41,7 +41,10 @@ path(secret_room, n, hotel_lobby).
 path(police_station, s, old_town).
 
 path(library, e, old_town).
+path(library, s, archive).
 path(library, w, hill_church).
+
+path(archive, n, library).
 
 path(hill_church, n, forest_cave).
 path(hill_church, e, library).
@@ -64,6 +67,7 @@ describe(train_station) :-
     write('The timetable is written in some out-of-this-world, unintelligible language.'), nl,
     write('The only person present at the station is the caretaker, who seems reluctant to chat.'), nl,
     write('To the west, you can see the parking area adjacent to the station.'), nl,
+    write('To the east, there is a train which you can use to escape from city.'), nl,
     (holding(amulet) ->
     (write('The caretaker looks at you with suspicion as you hold the strange amulet. Something in the air shifts.'), nl)
     ;
@@ -85,10 +89,12 @@ describe(parking) :-
     write('To the north, you can see a homeless man sitting on a bench.'), nl,
     write('To the south is the main street,'), nl,
     write('and the train station is to the east.'), nl,
-    (holding(car_keys) -> write('You have the car keys so you can try to open the abandoned car.'), nl ; true).
+    (holding(car_keys) -> write('You have the car keys so you can try to open the abandoned car.'), nl,
+        write('Type in enter(car) in order to get into the vehicle.'), nl ; true).
 
 describe(car) :-
     write('You sit inside the car, but it refuses to start.'), nl,
+    write('Type in exit(car) in order to get out of the vehicle.'), nl,
     (at(amulet, car) -> write('You spotted weird amulet lying on the backseat of the car.'), nl ; true).
 
 /* Bench with Homeless Man */
@@ -187,7 +193,7 @@ describe(hotel_basement) :-
         ;
                 true
         ),
-        ( at(basement_notes, hotel_basement) ->
+        ( at(notes, hotel_basement) ->
                 write('You notice a set of old, crumbling notes scattered across a dusty table.'), nl
         ;
                 true
@@ -201,9 +207,32 @@ describe(police_station) :-
         write('You enter the police station. The lights flicker, casting eerie shadows on the walls.'), nl,
         write('To the left, you see a dusty counter with an old safe behind it. '), nl,
         write('The smell of cheap liquor and stale cigarettes fills the air. He notices you and mutters something under his breath.'), nl,
-        write('A scruffy-looking man, with tangled hair and a worn-out jacket, stares at you with a glazed look.'), nl,
+        write('A drunkard, with tangled hair and a worn-out jacket, stares at you with a glazed look.'), nl,
         write('He seems to be clutching an old bottle. Perhaps he knows something useful?'), nl,
+        print('You can interact with him by interact(drunkard)'), nl,
         write('You can go south to return to the old town.'), nl,
+        nl.
+
+describe(library) :-
+        nl,
+        write('You enter the library. The room is quiet, filled with towering shelves of old, dusty books.'), nl,
+        ( at(newspaper, library) ->
+                write('In the center, there is a small table with a newspaper lying on it.'), nl
+        ;
+                true
+        ),
+        write('To the south, you see a door leading to the archive room, but it appears to be locked.'), nl,
+        nl.
+
+describe(archive) :-
+        nl,
+        write('You enter the archive room. It is small and cramped, filled with stacks of old papers and documents.'), nl,
+        write('Most of the documents are unreadable due to age.'), nl,
+        ( at(green_fuse, archive) ->
+                write('However you notice a bright green fuse lying on a nearby shelf.'), nl
+        ;
+                true
+        ),
         nl.
 
 /* Hill Church Description */
@@ -214,27 +243,27 @@ describe(hill_church) :-
         write('The priest, the last witness of the former life in the city, looks at you with an expression of concern.'), nl,
         (holding(amulet) ->
             write('The priest notices the amulet in your hand and warns you: "That is the symbol of their cult; do not approach them with it."'), nl,
-            write('He continues: "I can''t tell you more, just be careful"'), n1,
-            write('He points at the old staircase, at the west side of the church, that leads to second floor of the church'), n1
+            write('He continues: "I can''t tell you more, just be careful"'), nl,
+            write('He points at the old staircase, at the west side of the church, that leads to second floor of the church'), nl
         ; true),
         write('The path to the forest is to the north.'), nl.
 
 describe(hill_church_second_floor) :-
         i_am_at(hill_church_second_floor),
-        write('You are now at the second floor of the church.'), n1,
-        write('You see some king of weird numbers that seem out of order at the wall'), n1,
-        write('4 6 1 2 6 7 3 4 1 5 6 2 7 3 5 7 3 2 5 3 6 4 3 6 7 2 '), n1,
-        write('You notice also a sentance:"That''a code to the truth of this mystery."'), n1,
-        write('To go back to first floor go east'), n1.
+        write('You are now at the second floor of the church.'), nl,
+        write('You see some king of weird numbers that seem out of order at the wall'), nl,
+        write('4 6 1 2 6 7 3 4 1 5 6 2 7 3 5 7 3 2 5 3 6 4 3 6 7 2 '), nl,
+        write('You notice also a sentance:"That''a code to the truth of this mystery."'), nl,
+        write('To go back to first floor go east'), nl.
 
 /* Forest Cave */
 describe(forest_cave) :-
         i_am_at(forest_cave),
         write('You enter a dark cave hidden deep in the forest. In the center of the cave stands an altar with a strange symbol.'), nl,
-        write('The symbol looks familiar—it might be an ancient artifact sought by the archaeologists.'), nl,
+        write('The symbol looks familiar, it might be an ancient artifact sought by the archaeologists.'), nl,
         write('Here you find evidence that the cult still exists and conducts its rituals here.'), nl,
         write('You feel that this place may be key to solving the mystery of the archaeologists’ disappearance.'), nl,
-        write('You see far far to the north of this huge cave a weird doors that must lead to something.'), n1,
+        write('You see far far to the north of this huge cave a weird doors that must lead to something.'), nl,
         write('The path back leads south, returning to the church.'), nl.
 
 describe(ending_cave) :-
@@ -243,5 +272,3 @@ describe(ending_cave) :-
                 forest_cave_ending_weakened;
                 forest_cave_ending_killed
         ).
-
-
