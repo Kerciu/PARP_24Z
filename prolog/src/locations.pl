@@ -69,17 +69,11 @@ describe(train_station) :-
     write('To the west, you can see the parking area adjacent to the station.'), nl,
     write('To the east, there is a train which you can use to escape from city.'), nl,
     (holding(amulet) ->
-    (write('The caretaker looks at you with suspicion as you hold the strange amulet. Something in the air shifts.'), nl)
-    ;
-    true
-    ).
-
-describe(train_station) :-
-    i_am_at(train_station),
-    (holding(harnas) ->
-            write('You notice that caretaker is thirsty and there is no water nearby.'), nl
+            write('The caretaker looks at you with suspicion as you hold the strange amulet. Something in the air shifts.'), nl
     ; true),
-    write('The parking area lies to the west, there is also a returning train with which you can go back with in the east.'), nl.
+    (holding(harnas) ->
+        write('You notice that caretaker is thirsty and there is no water nearby.'), nl
+    ; true).
 
 /* Parking */
 
@@ -94,7 +88,7 @@ describe(parking) :-
 
 describe(car) :-
     write('You sit inside the car, but it refuses to start.'), nl,
-    write('Type in exit(car) in order to get out of the vehicle.'), nl
+    write('Type in exit(car) in order to get out of the vehicle.'), nl,
     (at(amulet, car) -> write('You spotted weird amulet lying on the backseat of the car.'), nl ; true).
 
 /* Bench with Homeless Man */
@@ -121,9 +115,10 @@ describe(river_tracks) :-
 
 describe(main_street) :-
     write('You are on the main street, flanked by old, abandoned shops. The cracked windows'), nl,
-    write('and faded signs give the area a ghostly feel. Farther down the street, you spot'), nl,
-    write('a shifty figure lurking in the shadows.'), nl,
-    write('To the west is the old town, while the river tracks are to the east, and the parking lot to the north.'), nl.
+    write('and faded signs give the area a ghostly feel.'), nl,
+    write('To the west is the old town,'), nl,
+    write('while the river tracks are to the east,'), nl,
+    write('and the parking lot to the north.'), nl.
 
 describe(old_town) :-
         nl,
