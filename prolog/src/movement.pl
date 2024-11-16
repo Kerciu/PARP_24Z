@@ -5,6 +5,7 @@
 /* State of rooms */
 door_unlocked(hotel_room) :- fail.
 door_unlocked(hotel_basement) :- fail.
+door_unlocked(archive) :- fail.
 
 /* This rule tells how to look around you. */
 look :-
@@ -76,6 +77,19 @@ go(n) :-
         write('The amulet in your possession glows faintly, and you feel an ancient force giving way.'), nl,
         write('The entrance opens, allowing you to pass into the unknown.'), nl,
         go(n).
+
+go(s) :-
+        i_am_at(library),
+        \+ door_unlocked(archive),
+                ( holding(key) ->
+                        write('You open the door with the key.'), nl,
+                        retractall(holding(key)),
+                        assert(door_unlocked(archive)),
+                        go(s)
+                ;
+                        write('The door is locked.'), nl,
+                        write('You need a key to unlock it.'), nl
+                ).
 
 /* General rules for moving */
 go(Direction) :-

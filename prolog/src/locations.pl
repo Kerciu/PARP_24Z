@@ -41,7 +41,10 @@ path(secret_room, n, hotel_lobby).
 path(police_station, s, old_town).
 
 path(library, e, old_town).
+path(library, s, archive).
 path(library, w, hill_church).
+
+path(archive, n, library).
 
 path(hill_church, n, forest_cave).
 path(hill_church, e, library).
@@ -187,7 +190,7 @@ describe(hotel_basement) :-
         ;
                 true
         ),
-        ( at(basement_notes, hotel_basement) ->
+        ( at(notes, hotel_basement) ->
                 write('You notice a set of old, crumbling notes scattered across a dusty table.'), nl
         ;
                 true
@@ -204,6 +207,28 @@ describe(police_station) :-
         write('A scruffy-looking man, with tangled hair and a worn-out jacket, stares at you with a glazed look.'), nl,
         write('He seems to be clutching an old bottle. Perhaps he knows something useful?'), nl,
         write('You can go south to return to the old town.'), nl,
+        nl.
+        
+describe(library) :-
+        nl,
+        write('You enter the library. The room is quiet, filled with towering shelves of old, dusty books.'), nl,
+        ( at(newspaper, library) ->
+                write('In the center, there is a small table with a newspaper lying on it.'), nl
+        ;
+                true
+        ),
+        write('To the south, you see a door leading to the archive room, but it appears to be locked.'), nl,
+        nl.
+
+describe(archive) :-
+        nl,
+        write('You enter the archive room. It is small and cramped, filled with stacks of old papers and documents.'), nl,
+        write('Most of the documents are unreadable due to age.'), nl,
+        ( at(green_fuse, archive) ->
+                write('However you notice a bright green fuse lying on a nearby shelf.'), nl
+        ;
+                true
+        ),
         nl.
 
 /* Hill Church Description */
@@ -243,5 +268,3 @@ describe(ending_cave) :-
                 forest_cave_ending_weakened;
                 forest_cave_ending_killed
         ).
-
-

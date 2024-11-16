@@ -51,9 +51,11 @@ at(amulet, car).
 at(diary, hotel_room).
 at(red_fuse, hotel_toilet).
 at(blue_fuse, hotel_room).
-at(green_fuse, hotel_lobby).
 at(ancient_rune, hotel_basement).
-at(basement_notes, hotel_basement).
+at(notes, hotel_basement).
+at(newspaper, library).
+at(green_fuse, archive).
+at(key, library).
 
 /* These rules describe objects that can be picked up. */
 
@@ -87,35 +89,53 @@ check(amulet) :-
     write('A strange amulet, cold to the touch. It seems to have an otherworldly aura, as if it carries a hidden power.'), nl.
 
 check(diary) :-
-        nl,
-        write('The diary is yellowed and fragile.'), nl,
-        write('Some pages are barely readable, but one section stands out, scribbled with urgency:'), nl,
-        nl,
-        write('"We have found traces of an entrance near the old oak in the forest.'), nl,
-        write('It must be the cave mentioned in the legends... The symbols match.'), nl,
-        write('It is said the cave holds more than relics — perhaps a power that should remain undisturbed.'), nl,
-        write('We must proceed with caution."'), nl,
-        nl.
+    nl,
+    write('The diary is yellowed and fragile.'), nl,
+    write('Some pages are barely readable, but one section stands out, scribbled with urgency:'), nl,
+    nl,
+    write('"We have found traces of an entrance near the old oak in the forest.'), nl,
+    write('It must be the cave mentioned in the legends... The symbols match.'), nl,
+    write('It is said the cave holds more than relics — perhaps a power that should remain undisturbed.'), nl,
+    write('We must proceed with caution."'), nl,
+    nl.
 
-check(basement_notes) :-
-        nl,
-        write('The notes are brittle and covered in dust, with several pages missing or torn.'), nl,
-        nl,
-        write('"We found it — the ruin from the old texts.'), nl,
-        write('It is said this ruin is the key to something ancient, hidden deep within the caves.'), nl,
-        write('We must be cautious. The energy here is unstable, and there are warnings in the old language about disturbing what lies beyond."'), nl,
-        nl.
+check(notes) :-
+    nl,
+    write('The notes are brittle and covered in dust, with several pages missing or torn.'), nl,
+    nl,
+    write('"We found it — the ruin from the old texts.'), nl,
+    write('It is said this ruin is the key to something ancient, hidden deep within the caves.'), nl,
+    write('We must be cautious. The energy here is unstable, and there are warnings in the old language about disturbing what lies beyond."'), nl,
+    nl.
+
+check(ancient_rune) :-
+    nl,
+    write('The rune is etched with symbols that seem to shift and change as you look at them.'), nl,
+    write('It feels warm to the touch, as if it is alive.'), nl,
+    nl.
+
+check(newspaper) :-
+    nl,
+    write('You start reading it. The headline catches your eye:'), nl,
+    write('"Team of Archaeologists Arrives to Uncover the Secrets of the Ancient Ruins in Town."'), nl,
+    nl,
+    write('The article mentions several archaeologists by name:'), nl,
+    write('- Sarah Miller (born 1952)'), nl,
+    write('- John Roberts (born 1968)'), nl,
+    write('- Michael Turner (born 1974)'), nl,
+    write('- Emma Carter (born 1980)'), nl,
+    nl.
 
 check(leaf_with_code) :-
-        holding(leaf_with_code),
-        write('The leaf contains a mysterious riddle:'), nl,
-        write('"The code is hidden in two pairs of numbers."'), nl,
-        write('The first pair comes from multiplying three by the digit symbolizing fullness.'), nl,
-        write('The second pair is a sequence you receive from the natural order."'), nl,
-        write('You think about these pairs to solve the code.'), nl.
+    holding(leaf_with_code),
+    write('The leaf contains a mysterious riddle:'), nl,
+    write('"The code is hidden in two pairs of numbers."'), nl,
+    write('The first pair comes from multiplying three by the digit symbolizing fullness.'), nl,
+    write('The second pair is a sequence you receive from the natural order."'), nl,
+    write('You think about these pairs to solve the code.'), nl.
 
 check(engraved_ring) :-
-        holding(engraved_ring),
-        write('The ring is engraved with strange symbols and feels unusually heavy in your hand. It might hold some hidden significance or power.'), nl.
+    holding(engraved_ring),
+    write('The ring is engraved with strange symbols and feels unusually heavy in your hand. It might hold some hidden significance or power.'), nl.
 
 check(_) :- nl.
