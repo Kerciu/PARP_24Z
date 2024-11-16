@@ -92,4 +92,7 @@ interact(drunkard) :-
     write('"Maybe if you bring me something to drink, I\'ll let you in on the secret."'), nl,
     assert(drunkard_interaction).
 
+interact(priest) :-
+    i_am_at(hill_church),
+    write('I can''t tell you more, just go.'), nl.
 
