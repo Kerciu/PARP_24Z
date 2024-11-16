@@ -43,63 +43,63 @@ go(e) :-
         i_am_at(train_station),
         escape_city_ending.
 go(w) :-
-        i_am_at(hotel_corridor),
-        \+ door_unlocked(hotel_room),
-                write('Door is locked.'), nl,
-                write('Next to the door, there is a sign that reads: "Michael Turner".'), nl,
-                write('You have to enter 4 digit code to unlock the door.'), nl,
-                read(Code),
-                try_unlock_hotel_room(Code),
-                !.
+    i_am_at(hotel_corridor),
+    \+ door_unlocked(hotel_room),
+        write('Door is locked.'), nl,
+        write('Next to the door, there is a sign that reads: "Michael Turner".'), nl,
+        write('You have to enter 4 digit code to unlock the door.'), nl,
+        read(Code),
+        try_unlock_hotel_room(Code),
+        !.
 
 go(w) :-
-        i_am_at(hotel_lobby),
-        \+ door_unlocked(hotel_basement),
-        try_unlock_hotel_basement,
-        !.
+    i_am_at(hotel_lobby),
+    \+ door_unlocked(hotel_basement),
+    try_unlock_hotel_basement,
+    !.
 
 go(n) :-
-        i_am_at(hill_church_second_floor),
-        holding(weird_box),
-        hill_church_ending_excape.
+    i_am_at(hill_church_second_floor),
+    holding(weird_box),
+    hill_church_ending_excape.
 
 go(n) :-
-        i_am_at(forest_cave),
-        \+ holding(amulet),
-        write('A strange force seems to block your path. The entrance won’t budge.'), nl,
-        write('It feels like something is missing, something that could unlock the cave\'s secrets.'), nl,
-        !.
+    i_am_at(forest_cave),
+    \+ holding(amulet),
+    write('A strange force seems to block your path. The entrance won’t budge.'), nl,
+    write('It feels like something is missing, something that could unlock the cave\'s secrets.'), nl,
+    !.
 
 go(n) :-
-        i_am_at(forest_cave),
-        holding(amulet),
-        write('The amulet in your possession glows faintly, and you feel an ancient force giving way.'), nl,
-        write('The entrance opens, allowing you to pass into the unknown.'), nl,
-        go(n).
+    i_am_at(forest_cave),
+    holding(amulet),
+    write('The amulet in your possession glows faintly, and you feel an ancient force giving way.'), nl,
+    write('The entrance opens, allowing you to pass into the unknown.'), nl,
+    go(n).
 
 go(s) :-
-        i_am_at(library),
-        \+ door_unlocked(archive),
-                ( holding(key) ->
-                        write('You open the door with the key.'), nl,
-                        retractall(holding(key)),
-                        assert(door_unlocked(archive)),
-                        go(s)
-                ;
-                        write('The door is locked.'), nl,
-                        write('You need a key to unlock it.'), nl
-                ).
+    i_am_at(library),
+    \+ door_unlocked(archive),
+        ( holding(key) ->
+            write('You open the door with the key.'), nl,
+            retractall(holding(key)),
+            assert(door_unlocked(archive)),
+            go(s)
+        ;
+            write('The door is locked.'), nl,
+            write('You need a key to unlock it.'), nl
+        ).
 
 /* General rules for moving */
 go(Direction) :-
-        i_am_at(Here),
-        path(Here, Direction, There),
-        retract(i_am_at(Here)),
-        assert(i_am_at(There)),
-        !, look.
+    i_am_at(Here),
+    path(Here, Direction, There),
+    retract(i_am_at(Here)),
+    assert(i_am_at(There)),
+    !, look.
 
 go(_) :-
-        write('You can''t go that way.').
+    write('You can''t go that way.').
 
 /* Rules for entering and exiting the car */
 
@@ -120,55 +120,55 @@ exit(car) :-
 /* This rule tells how to unlock the hotel room door. */
 
 try_unlock_hotel_room(Code) :-
-        /* The code can be found in a different location as year of birth of Michael Turner */
-        number(Code),
-        Code =:= 1974,
-        retractall(door_unlocked(hotel_room)),
-        assert(door_unlocked(hotel_room)),
-        nl,
-        write('You have unlocked the door.'), nl,
-        go(w),
-        !.
+    /* The code can be found in a different location as year of birth of Michael Turner */
+    number(Code),
+    Code =:= 1974,
+    retractall(door_unlocked(hotel_room)),
+    assert(door_unlocked(hotel_room)),
+    nl,
+    write('You have unlocked the door.'), nl,
+    go(w),
+    !.
 
 try_unlock_hotel_room(_) :-
-        write('Wrong code.'), nl,
-        !, look.
+    write('Wrong code.'), nl,
+    !, look.
 
 /* This rule tells how to unlock the hotel basement door. */
 
 try_unlock_hotel_basement :-
-        (holding(red_fuse), holding(blue_fuse), holding(green_fuse) ->
-                nl,
-                write('You put all 3 fuses in the fuse box.'), nl,
-                write('The elevator starts working.'), nl,
-                retractall(holding(red_fuse)),
-                retractall(holding(blue_fuse)),
-                retractall(holding(green_fuse)),
-                retractall(door_unlocked(hotel_basement)),
-                assert(door_unlocked(hotel_basement)),
-                go(w)
-        ;
-                nl,
-                write('The elevator is not working.'), nl,
-                write('However, you notice a fuse box next to the elevator with 3 fuses missing.'), nl,
-                nl,
-                write('"Maybe if I find the fuses, I can get the elevator working."'), nl,
-                look
-        ).
+    (holding(red_fuse), holding(blue_fuse), holding(green_fuse) ->
+        nl,
+        write('You put all 3 fuses in the fuse box.'), nl,
+        write('The elevator starts working.'), nl,
+        retractall(holding(red_fuse)),
+        retractall(holding(blue_fuse)),
+        retractall(holding(green_fuse)),
+        retractall(door_unlocked(hotel_basement)),
+        assert(door_unlocked(hotel_basement)),
+        go(w)
+    ;
+        nl,
+        write('The elevator is not working.'), nl,
+        write('However, you notice a fuse box next to the elevator with 3 fuses missing.'), nl,
+        nl,
+        write('"Maybe if I find the fuses, I can get the elevator working."'), nl,
+        look
+    ).
 
 /* This rule tells how to unlock the safe. */
 
 open_safe(Code) :-
-        /* The code can be found as an easter egg in the leaf code drunkard gave you */
-        i_am_at(police_station),
-        safe_code(Code),
-        Code =:= 2137,
-        assert(holding(engraved_ring)),
-        nl,
-        write('The safe opens, revealing an engraved ring inside.'), nl,
-        write('You take the engraved ring.'), nl,
-        !.
+    /* The code can be found as an easter egg in the leaf code drunkard gave you */
+    i_am_at(police_station),
+    safe_code(Code),
+    Code =:= 2137,
+    assert(holding(engraved_ring)),
+    nl,
+    write('The safe opens, revealing an engraved ring inside.'), nl,
+    write('You take the engraved ring.'), nl,
+    !.
 
 open_safe(_) :-
-        write('Wrong code.'), nl,
-        !, look.
+    write('Wrong code.'), nl,
+    !, look.
