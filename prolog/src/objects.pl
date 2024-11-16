@@ -95,10 +95,20 @@ check(diary) :-
     nl,
     write('"We have found traces of an entrance near the old oak in the forest.'), nl,
     write('It must be the cave mentioned in the legends... The symbols match.'), nl,
-    write('It is said the cave holds more than relics, perhaps a power that should remain undisturbed.'), nl,
+    write('It is said the cave holds more than relics — perhaps a power that should remain undisturbed.'), nl,
     write('We must proceed with caution."'), nl,
     nl.
 
+check(notes) :-
+    nl,
+    write('The diary is yellowed and fragile.'), nl,
+    write('Some pages are barely readable, but one section stands out, scribbled with urgency:'), nl,
+    nl,
+    write('"We have found traces of an entrance near the old oak in the forest.'), nl,
+    write('It must be the cave mentioned in the legends... The symbols match.'), nl,
+    write('It is said the cave holds more than relics, perhaps a power that should remain undisturbed.'), nl,
+    write('We must proceed with caution."'), nl,
+    nl.
 check(notes) :-
     nl,
     write('The notes are brittle and covered in dust, with several pages missing or torn.'), nl,
@@ -107,13 +117,11 @@ check(notes) :-
     write('It is said this ruin is the key to something ancient, hidden deep within the caves.'), nl,
     write('We must be cautious. The energy here is unstable, and there are warnings in the old language about disturbing what lies beyond."'), nl,
     nl.
-
 check(ancient_rune) :-
     nl,
     write('The rune is etched with symbols that seem to shift and change as you look at them.'), nl,
     write('It feels warm to the touch, as if it is alive.'), nl,
     nl.
-
 check(newspaper) :-
     nl,
     write('You start reading it. The headline catches your eye:'), nl,

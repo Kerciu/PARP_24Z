@@ -2,13 +2,13 @@
 escape_city_ending :-
     (holding(diary) ->
         write('After piecing together some of the fragments of the city''s history you decide to leave.'), nl;
-        write('You have''t learned anything yey decided to leave this town.'), nl
+        write('You haven''t learned anything yet decided to leave this town.'), nl
     ),
     write('Pathetic isn''t it.'), nl,
     write('Either way city''s shadows grow darker with each discovery, hinting at forces far beyond human understanding.'), nl,
     write('You relized the danger, deciding to abandon the case, leaving the mysteries of the City of Shadows unsolved.'), nl,
     write('That might''ve been a wise decision, who knows?'), nl,
-    write('The chilling secrets of this forgotten town remain buried, but you manages to escape with your life haunted by unanswered questions.'),
+    write('The chilling secrets of this forgotten town remain buried, but you manage to escape with your life haunted by unanswered questions.'),
     finish.
 
 hill_church_ending_excape :-

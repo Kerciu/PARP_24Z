@@ -94,7 +94,7 @@ describe(parking) :-
 
 describe(car) :-
     write('You sit inside the car, but it refuses to start.'), nl,
-    write('Type in exit(car) in order to get out of the vehicle.'), nl,
+    write('Type in exit(car) in order to get out of the vehicle.'), nl
     (at(amulet, car) -> write('You spotted weird amulet lying on the backseat of the car.'), nl ; true).
 
 /* Bench with Homeless Man */
