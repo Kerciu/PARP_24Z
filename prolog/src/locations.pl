@@ -208,7 +208,7 @@ describe(police_station) :-
         write('He seems to be clutching an old bottle. Perhaps he knows something useful?'), nl,
         write('You can go south to return to the old town.'), nl,
         nl.
-        
+
 describe(library) :-
         nl,
         write('You enter the library. The room is quiet, filled with towering shelves of old, dusty books.'), nl,
@@ -239,18 +239,18 @@ describe(hill_church) :-
         write('The priest, the last witness of the former life in the city, looks at you with an expression of concern.'), nl,
         (holding(amulet) ->
             write('The priest notices the amulet in your hand and warns you: "That is the symbol of their cult; do not approach them with it."'), nl,
-            write('He continues: "I can''t tell you more, just be careful"'), n1,
-            write('He points at the old staircase, at the west side of the church, that leads to second floor of the church'), n1
+            write('He continues: "I can''t tell you more, just be careful"'), nl,
+            write('He points at the old staircase, at the west side of the church, that leads to second floor of the church'), nl
         ; true),
         write('The path to the forest is to the north.'), nl.
 
 describe(hill_church_second_floor) :-
         i_am_at(hill_church_second_floor),
-        write('You are now at the second floor of the church.'), n1,
-        write('You see some king of weird numbers that seem out of order at the wall'), n1,
-        write('4 6 1 2 6 7 3 4 1 5 6 2 7 3 5 7 3 2 5 3 6 4 3 6 7 2 '), n1,
-        write('You notice also a sentance:"That''a code to the truth of this mystery."'), n1,
-        write('To go back to first floor go east'), n1.
+        write('You are now at the second floor of the church.'), nl,
+        write('You see some king of weird numbers that seem out of order at the wall'), nl,
+        write('4 6 1 2 6 7 3 4 1 5 6 2 7 3 5 7 3 2 5 3 6 4 3 6 7 2 '), nl,
+        write('You notice also a sentance:"That''a code to the truth of this mystery."'), nl,
+        write('To go back to first floor go east'), nl.
 
 /* Forest Cave */
 describe(forest_cave) :-
@@ -259,7 +259,7 @@ describe(forest_cave) :-
         write('The symbol looks familiar—it might be an ancient artifact sought by the archaeologists.'), nl,
         write('Here you find evidence that the cult still exists and conducts its rituals here.'), nl,
         write('You feel that this place may be key to solving the mystery of the archaeologists’ disappearance.'), nl,
-        write('You see far far to the north of this huge cave a weird doors that must lead to something.'), n1,
+        write('You see far far to the north of this huge cave a weird doors that must lead to something.'), nl,
         write('The path back leads south, returning to the church.'), nl.
 
 describe(ending_cave) :-
