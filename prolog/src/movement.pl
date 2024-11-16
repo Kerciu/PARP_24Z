@@ -40,6 +40,9 @@ w :- go(w).
 /* These rules tells how to move in a given direction. */
 
 /* Conditional rules for moving */
+go(e) :-
+        i_am_at(train_station),
+        escape_city_ending.
 go(w) :-
         i_am_at(hotel_corridor),
         \+ door_unlocked(hotel_room),
@@ -53,8 +56,27 @@ go(w) :-
 go(w) :-
         i_am_at(hotel_lobby),
         \+ door_unlocked(hotel_basement),
-                try_unlock_hotel_basement,
-                !.
+        try_unlock_hotel_basement,
+        !.
+
+go(n) :-
+        i_am_at(hill_church_second_floor),
+        holding(weird_box),
+        hill_church_ending_excape.
+
+go(n) :-
+        i_am_at(forest_cave),
+        \+ holding(amulet),
+        write('A strange force seems to block your path. The entrance won’t budge.'), nl,
+        write('It feels like something is missing, something that could unlock the cave\'s secrets.'), nl,
+        !.
+
+go(n) :-
+        i_am_at(forest_cave),
+        holding(amulet),
+        write('The amulet in your possession glows faintly, and you feel an ancient force giving way.'), nl,
+        write('The entrance opens, allowing you to pass into the unknown.'), nl,
+        go(n).
 
 go(s) :-
         i_am_at(library),
@@ -134,3 +156,20 @@ try_unlock_hotel_basement :-
                 write('"Maybe if I find the fuses, I can get the elevator working."'), nl,
                 look
         ).
+
+/* This rule tells how to unlock the safe. */
+
+open_safe(Code) :-
+        /* The code can be found as an easter egg in the leaf code drunkard gave you */
+        i_am_at(police_station),
+        safe_code(Code),
+        Code =:= 2137,
+        assert(holding(engraved_ring)),
+        nl,
+        write('The safe opens, revealing an engraved ring inside.'), nl,
+        write('You take the engraved ring.'), nl,
+        !.
+
+open_safe(_) :-
+        write('Wrong code.'), nl,
+        !, look.
