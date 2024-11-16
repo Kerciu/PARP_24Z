@@ -46,29 +46,22 @@ give(_, _) :-
 interact(homeless) :-
     i_am_at(homeless_bench),
     holding(cigarettes),
-    write('The homeless man seems to be more interested as he coughts intensively.'), nl.
-
-interact(homeless) :-
-    i_am_at(homeless_bench),
-    holding(amulet),
-    write('The homeless man looks at you with wide eyes. "You hold that cursed thing," he says, '), nl,
-    write('his voice shaking. "I feel something watching... beware."'), nl,
-    !.
-
-interact(homeless) :-
-    i_am_at(homeless_bench),
-    holding(amulet),
-    write('The homeless man looks at you with wide eyes. "You hold that cursed thing," he says, '), nl,
-    write('his voice shaking. "I feel something watching... beware."'), nl,
-    !.
+    write('The homeless man seems to be more interested as he coughs intensively.'), nl.
 
 interact(homeless) :-
     \+ homeless_interaction,
     drunkard_interaction,
     write('The homeless man looks at you knowingly.'), nl,
     write('"Oh, you need a drink for ol\' Bill? Here, take this Kuflowe Mocne. But don\'t tell him I gave it for free!"'), nl,
-    assert(holding(bottle)),
+    assert(holding(kuflowe_mocne)),
     assert(homeless_interaction).
+
+interact(homeless) :-
+    i_am_at(homeless_bench),
+    holding(amulet),
+    write('The homeless man looks at you with wide eyes. "You hold that cursed thing," he says, '), nl,
+    write('his voice shaking. "I feel something watching... beware."'), nl,
+    !.
 
 interact(homeless) :-
     i_am_at(homeless_bench),
@@ -95,4 +88,3 @@ interact(drunkard) :-
 interact(priest) :-
     i_am_at(hill_church),
     write('I can''t tell you more, just go.'), nl.
-

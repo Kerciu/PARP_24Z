@@ -64,7 +64,7 @@ describe(train_station) :-
     write('You are at the train station, where your adventure started.'), nl,
     write('The clock points at 3:15 am and never moves.'), nl,
     write('The timetable is written in some out-of-this-world, unintelligible language.'), nl,
-    write('The only person present at the station is the caretaker, who seems reluctant to chat.'), nl,
+    write('The only person present at the station is the caretaker.'), nl,
     write('To the west, you can see the parking area adjacent to the station.'), nl,
     write('To the east, there is a train which you can use to escape from city.'), nl,
     (holding(amulet) ->
@@ -97,6 +97,7 @@ describe(homeless_bench) :-
     write('He warns of the "shadows that follow at night" and clutches an old bottle with'), nl,
     write('a strange symbol scratched into it. He might know more if you listen closely.'), nl,
     write('You notice that he cannot breathe properly, he probably ran out of cigarettes.'), nl,
+    write('You can interact with him by interact(homeless)'), nl,
     (holding(cigarettes) ->
         write('You notice that you can help the homeless man with a cigarette.'), nl
     ; true),
@@ -180,7 +181,6 @@ describe(hotel_basement) :-
     write('It leads to the basement of the hotel.'), nl,
     write('The basement is dark and damp, with a faint, musty odor filling the air.'), nl,
     nl,
-    /* Describe objects in the basement only if they are actually there */
     ( at(ancient_rune, hotel_basement) ->
         write('Among the piles of old crates and broken furniture, something stands out -'), nl,
         write('a strange, ancient rune carved from dark stone, positioned in the center of the room.'), nl
@@ -200,10 +200,11 @@ describe(police_station) :-
     nl,
     write('You enter the police station. The lights flicker, casting eerie shadows on the walls.'), nl,
     write('To the left, you see a dusty counter with an old safe behind it. '), nl,
-    write('The smell of cheap liquor and stale cigarettes fills the air. He notices you and mutters something under his breath.'), nl,
+    write('The smell of cheap liquor and stale cigarettes fills the air.'), nl,
     write('A drunkard, with tangled hair and a worn-out jacket, stares at you with a glazed look.'), nl,
     write('He seems to be clutching an old bottle. Perhaps he knows something useful?'), nl,
-    print('You can interact with him by interact(drunkard)'), nl,
+    write('You can interact with him by interact(drunkard)'), nl,
+    write('You can enter the code to the safe by open_safe(Code).'), nl,
     write('You can go south to return to the old town.'), nl,
     nl.
 
@@ -215,7 +216,7 @@ describe(library) :-
     ;
         true
     ),
-    write('To the south, you see a door leading to the archive room, but it appears to be locked.'), nl,
+    write('To the south, you see a door leading to the archive room.'), nl,
     nl.
 
 describe(archive) :-
@@ -245,9 +246,9 @@ describe(hill_church) :-
 describe(hill_church_second_floor) :-
     i_am_at(hill_church_second_floor),
     write('You are now at the second floor of the church.'), nl,
-    write('You see some king of weird numbers that seem out of order at the wall'), nl,
+    write('You see some kind of weird numbers that seem out of order at the wall'), nl,
     write('4 6 1 2 6 7 3 4 1 5 6 2 7 3 5 7 3 2 5 3 6 4 3 6 7 2 '), nl,
-    write('You notice also a sentance:"That''a code to the truth of this mystery."'), nl,
+    write('You notice also a sentence:"That''s a code to the truth of this mystery."'), nl,
     write('To go back to first floor go east'), nl.
 
 /* Forest Cave */

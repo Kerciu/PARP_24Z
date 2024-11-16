@@ -67,7 +67,7 @@ check(weird_box) :-
     holding(weird_box),
     (i_am_at(hill_church_second_floor)->
         write('You find weird notes inside.'), nl,
-        write('One of thoose says: "U CANNOT DEFEAT THEM FLEE FROM THE CITY AS FAST AS YOU CAN, THEY ARE CLOSING UP ON ME. THIS IS MY FAREWELL, GOODBYE THE ONE THAT READ THOOSE".'), nl,
+        write('One of those says: "U CANNOT DEFEAT THEM FLEE FROM THE CITY AS FAST AS YOU CAN, THEY ARE CLOSING UP ON ME. THIS IS MY FAREWELL, GOODBYE THE ONE THAT READ THOOSE".'), nl,
         write('You are now able to decide, whether to continue your journy or run away from the city.'), nl,
         write('Decide fast or maybe you will meet the same fate as a writer of thoose notes'), nl,
         write('To flee from the city to train station you have to go north for a secret passage in the church'), nl
@@ -109,6 +109,7 @@ check(notes) :-
     write('It is said the cave holds more than relics, perhaps a power that should remain undisturbed.'), nl,
     write('We must proceed with caution."'), nl,
     nl.
+
 check(notes) :-
     nl,
     write('The notes are brittle and covered in dust, with several pages missing or torn.'), nl,
@@ -117,11 +118,13 @@ check(notes) :-
     write('It is said this ruin is the key to something ancient, hidden deep within the caves.'), nl,
     write('We must be cautious. The energy here is unstable, and there are warnings in the old language about disturbing what lies beyond."'), nl,
     nl.
+
 check(ancient_rune) :-
     nl,
     write('The rune is etched with symbols that seem to shift and change as you look at them.'), nl,
     write('It feels warm to the touch, as if it is alive.'), nl,
     nl.
+
 check(newspaper) :-
     nl,
     write('You start reading it. The headline catches your eye:'), nl,

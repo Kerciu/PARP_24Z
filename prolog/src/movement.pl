@@ -1,5 +1,5 @@
 /* movement.pl */
-:- multifile i_am_at/1, at/2, holding/1, path/3, door_unlocked/1, interact/2, safe_code/1, describe/1, escape_city_ending/0, hill_church_ending_excape/0.
+:- multifile i_am_at/1, at/2, holding/1, path/3, door_unlocked/1, interact/2, safe_code/1, describe/1, escape_city_ending/0, hill_church_ending_escape/0.
 
 /* State of rooms */
 door_unlocked(hotel_room) :- fail.
@@ -61,7 +61,7 @@ go(w) :-
 go(n) :-
     i_am_at(hill_church_second_floor),
     holding(weird_box),
-    hill_church_ending_excape.
+    hill_church_ending_escape.
 
 go(n) :-
     i_am_at(forest_cave),
