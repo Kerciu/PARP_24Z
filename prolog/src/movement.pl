@@ -1,4 +1,4 @@
-:- dynamic i_am_at/1, at/2, holding/1, door_unlocked/1, interact/2.
+:- dynamic i_am_at/1, at/2, holding/1, door_unlocked/1, interact/2, safe_code/1.
 
 :- [locations].
 
