@@ -1,3 +1,4 @@
+:- multifile holding/1, finish/0.
 
 escape_city_ending :-
     (holding(diary) ->

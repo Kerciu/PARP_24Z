@@ -1,5 +1,5 @@
 /* Interaction with characters */
-:- dynamic i_am_at/1, holding/1, drunkard_interaction/0, homeless_interaction/0.
+:- multifile i_am_at/1, holding/1, drunkard_interaction/0, homeless_interaction/0.
 
 give(homeless, cigarettes) :-
     i_am_at(homeless_bench),

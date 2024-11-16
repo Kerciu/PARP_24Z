@@ -1,5 +1,5 @@
 /* These rules describe the objects in the game. */
-:- dynamic i_am_at/1, holding/1, at/2.
+:- multifile i_am_at/1, holding/1, at/2.
 
 /* Inventory rules */
 

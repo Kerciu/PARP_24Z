@@ -1,6 +1,5 @@
-:- dynamic i_am_at/1, at/2, holding/1, door_unlocked/1, interact/2, safe_code/1.
-
-:- [locations].
+/* movement.pl */
+:- multifile i_am_at/1, at/2, holding/1, path/3, door_unlocked/1, interact/2, safe_code/1, describe/1, escape_city_ending/0, hill_church_ending_excape/0.
 
 /* State of rooms */
 door_unlocked(hotel_room) :- fail.

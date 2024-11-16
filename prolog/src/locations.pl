@@ -1,6 +1,5 @@
 /* locations.pl */
-:- dynamic i_am_at/1, at/2, holding/1.
-
+:- multifile i_am_at/1, at/2, holding/1, forest_cave_ending_killed/0, forest_cave_ending_weakened/0.
 
 /* Locations to go to */
 path(train_station, w, parking).
