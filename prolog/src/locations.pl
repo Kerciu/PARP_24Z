@@ -88,10 +88,12 @@ describe(parking) :-
     write('To the north, you can see a homeless man sitting on a bench.'), nl,
     write('To the south is the main street,'), nl,
     write('and the train station is to the east.'), nl,
-    (holding(car_keys) -> write('You have the car keys so you can try to open the abandoned car.'), nl ; true).
+    (holding(car_keys) -> write('You have the car keys so you can try to open the abandoned car.'), nl,
+        write('Type in enter(car) in order to get into the vehicle.'), nl ; true).
 
 describe(car) :-
     write('You sit inside the car, but it refuses to start.'), nl,
+    write('Type in exit(car) in order to get out of the vehicle.'), nl
     (at(amulet, car) -> write('You spotted weird amulet lying on the backseat of the car.'), nl ; true).
 
 /* Bench with Homeless Man */
