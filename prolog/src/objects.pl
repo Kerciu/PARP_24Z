@@ -79,6 +79,10 @@ check(harnas) :-
     holding(harnas),
     write('A can of Harnas beer, cold and seemingly untouched. It might help you in your interactions with certain characters.'), nl.
 
+check(kuflowe_mocne) :-
+    holding(kuflowe_mocne),
+    write('A bottle of Kuflowe Mocne, a strong beer. It might be useful for someone who needs a drink.'), nl.
+
 check(car_keys) :-
     holding(car_keys),
     write('A set of car keys. They seem to belong to the abandoned car in the parking lot. Maybe you can unlock it.'), nl.
@@ -131,4 +135,13 @@ check(engraved_ring) :-
     holding(engraved_ring),
     write('The ring is engraved with strange symbols and feels unusually heavy in your hand. It might hold some hidden significance or power.'), nl.
 
-check(_) :- nl.
+check(key) :-
+    holding(key),
+    write('A small, rusted key. It might be useful for unlocking something.'), nl.
+
+check(Object) :-
+    holding(Object),
+    write('There is nothing special about the '), write(Object), write('.'), nl.
+
+check(_) :-
+    write('You are not holding it.'), nl.
