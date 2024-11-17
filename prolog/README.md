@@ -30,11 +30,11 @@ To run this game, you need the following:
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/yourusername/text-adventure-game.git
+   git clone https://github.com/Kerciu/PARP_24Z.git
    ```
 2. **Navigate to the game directory**:
    ```bash
-   cd text-adventure-game
+   cd PARP_24Z/prolog
    ```
 3. **Ensure all game files are present**:
    - `game.pl`
