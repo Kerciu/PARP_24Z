@@ -88,7 +88,7 @@ describe(parking) :-
 describe(car) :-
     write('You sit inside the car, but it refuses to start.'), nl,
     write('Type in exit(car) in order to get out of the vehicle.'), nl,
-    (at(amulet, car) -> write('You spotted weird amulet lying on the backseat of the car.'), nl ; true).
+    (at(key, car) -> write('You noticed an old key lying on the passenger seat.'), nl ; true).
 
 /* Bench with Homeless Man */
 
@@ -181,9 +181,9 @@ describe(hotel_basement) :-
     write('It leads to the basement of the hotel.'), nl,
     write('The basement is dark and damp, with a faint, musty odor filling the air.'), nl,
     nl,
-    ( at(ancient_rune, hotel_basement) ->
+    ( at(amulet, hotel_basement) ->
         write('Among the piles of old crates and broken furniture, something stands out -'), nl,
-        write('a strange, ancient rune carved from dark stone, positioned in the center of the room.'), nl
+        write('a strange amulet positioned in the center of the room.'), nl
     ;
         true
     ),

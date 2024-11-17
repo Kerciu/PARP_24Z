@@ -19,7 +19,6 @@ in your vicinity. */
 
 notice_objects_at(Place) :-
     at(X, Place),
-    \+ member(X, [amulet]),
     write('There is '), write(X), write(' here.'), nl,
     fail.
 
