@@ -25,6 +25,7 @@ instructions :-
     write('n.  s.  e.  w.           -- to go in that direction.'), nl,
     write('take(Object).            -- to pick up an object.'), nl,
     write('drop(Object).            -- to put down an object.'), nl,
+    write('check(Object).           -- to check object in inventory.'), nl,
     write('look.                    -- to look around you again.'), nl,
     write('interact(Character).     -- to interact with characters.'), nl,
     write('give(Character, Object)  -- to give object to character.'), nl,
