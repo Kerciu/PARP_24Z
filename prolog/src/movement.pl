@@ -74,7 +74,9 @@ go(n) :-
     holding(amulet),
     write('The amulet in your possession glows faintly, and you feel an ancient force giving way.'), nl,
     write('The entrance opens, allowing you to pass into the unknown.'), nl,
-    go(n).
+    retract(i_am_at(forest_cave)),
+    assert(i_am_at(ending_cave)),
+    !, look.
 
 go(s) :-
     i_am_at(library),
