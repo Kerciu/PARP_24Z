@@ -65,6 +65,7 @@ describe(train_station) :-
     write('The clock points at 3:15 am and never moves.'), nl,
     write('The timetable is written in some out-of-this-world, unintelligible language.'), nl,
     write('The only person present at the station is the caretaker.'), nl,
+    write('You can interact with her by interact(caretaker)'), nl,
     write('To the west, you can see the parking area adjacent to the station.'), nl,
     write('To the east, there is a train which you can use to escape from city.'), nl,
     (holding(amulet) ->
@@ -240,6 +241,7 @@ describe(hill_church) :-
     write('You stand before an old, abandoned church on the hill.'), nl,
     write('The dark interior and the smell of incense remind you of ancient rituals.'), nl,
     write('The priest, the last witness of the former life in the city, looks at you with an expression of concern.'), nl,
+    write('You can interact with him by interact(priest)'), nl,
     (holding(amulet) ->
         write('The priest notices the amulet in your hand and warns you: "That is the symbol of their cult; do not approach them with it."'), nl,
         write('He continues: "I can''t tell you more, just be careful"'), nl,

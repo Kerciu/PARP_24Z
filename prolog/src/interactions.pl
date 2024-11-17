@@ -79,6 +79,11 @@ interact(caretaker) :-
     write('her eyes narrowing. "You should be careful where you go with that."'), nl,
     !.
 
+interact(homeless) :-
+    i_am_at(homeless_bench),
+    holding(harnas),
+    write('The caretaker seems more enticed to talk as she sees a can of cold Harnas.'), nl.
+
 interact(caretaker) :-
     i_am_at(train_station),
     write('The caretaker seems more distant and uninterested for now.'), nl.
