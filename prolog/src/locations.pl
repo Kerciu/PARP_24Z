@@ -218,7 +218,9 @@ describe(library) :-
     ;
         true
     ),
+    write('There is the old town to the east.'), nl,
     write('To the south, you see a door leading to the archive room.'), nl,
+    write('To the west, there is a church on the hill.'), nl,
     nl.
 
 describe(archive) :-

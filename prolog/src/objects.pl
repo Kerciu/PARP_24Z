@@ -67,9 +67,10 @@ check(weird_box) :-
     (i_am_at(hill_church_second_floor)->
         write('You find weird notes inside.'), nl,
         write('One of those says: "U CANNOT DEFEAT THEM FLEE FROM THE CITY AS FAST AS YOU CAN, THEY ARE CLOSING UP ON ME. THIS IS MY FAREWELL, GOODBYE THE ONE THAT READ THOOSE".'), nl,
-        write('You are now able to decide, whether to continue your journy or run away from the city.'), nl,
-        write('Decide fast or maybe you will meet the same fate as a writer of thoose notes'), nl,
-        write('To flee from the city to train station you have to go north for a secret passage in the church'), nl
+        write('You are now able to decide, whether to continue your journey or run away from the city.'), nl,
+        write('Decide fast or maybe you will meet the same fate as a writer of thoose notes.'), nl,
+        write('To flee from the city to train station you have to go north for a secret passage in the church.'), nl,
+        write('To return to the first floor of the church go east.'), nl
     ;
         write('A box with a lock that opens with more than 20 digits.'), nl,
         write('Impossible to open for now, but maybe it will prove useful in the future.'), nl
