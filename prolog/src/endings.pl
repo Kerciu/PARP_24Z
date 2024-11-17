@@ -1,3 +1,4 @@
+:- multifile holding/1, finish/0.
 
 escape_city_ending :-
     (holding(diary) ->
@@ -11,14 +12,14 @@ escape_city_ending :-
     write('The chilling secrets of this forgotten town remain buried, but you manage to escape with your life haunted by unanswered questions.'),
     finish.
 
-hill_church_ending_excape :-
+hill_church_ending_escape :-
     write('You''ve discovered everything that was possible to be disctovered.'), nl,
     write('Yet, decided to leave. Might''ve been wise or because of your fear you left this city for the doom.'), nl,
     write('So be it, farewell.'),
     finish.
 
 forest_cave_ending_weakened :-
-    write('The weird ring started to glowing giving you the power to destroy all of the cult places.'), nl,
+    write('The weird ring started to glow giving you the power to destroy all of the cult places.'), nl,
     write('Armed with every piece of the puzzle, the detective confronts the heart of the sect’s power.'), nl,
     write('Having the power of ring you easly destroys the most powerful place of cult.'), nl,
     write('The city, now freed from its dark binds, is left desolate and cursed, but you walk away victorious.'), nl,

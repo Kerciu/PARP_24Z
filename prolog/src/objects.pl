@@ -1,5 +1,5 @@
 /* These rules describe the objects in the game. */
-:- dynamic i_am_at/1, holding/1, at/2.
+:- multifile i_am_at/1, holding/1, at/2.
 
 /* Inventory rules */
 
@@ -33,29 +33,28 @@ take(_) :-
 /* These rules describe how to put down an object. */
 
 drop(X) :-
-        holding(X),
-        i_am_at(Place),
-        retract(holding(X)),
-        assert(at(X, Place)),
-        write('You dropped the '), write(X), write('.'),
-        !, nl.
+    holding(X),
+    i_am_at(Place),
+    retract(holding(X)),
+    assert(at(X, Place)),
+    write('You dropped the '), write(X), write('.'),
+    !, nl.
 
 drop(_) :-
-        write('You aren''t holding it!'),
-        nl.
+    write('You aren''t holding it!'),
+    nl.
 
 
 /* Locations of objects */
 at(cigarettes, river_tracks).
-at(amulet, car).
+at(amulet, hotel_basement).
 at(diary, hotel_room).
 at(red_fuse, hotel_toilet).
 at(blue_fuse, hotel_room).
-at(ancient_rune, hotel_basement).
 at(notes, hotel_basement).
 at(newspaper, library).
 at(green_fuse, archive).
-at(key, library).
+at(key, car).
 
 /* These rules describe objects that can be picked up. */
 
@@ -67,7 +66,7 @@ check(weird_box) :-
     holding(weird_box),
     (i_am_at(hill_church_second_floor)->
         write('You find weird notes inside.'), nl,
-        write('One of thoose says: "U CANNOT DEFEAT THEM FLEE FROM THE CITY AS FAST AS YOU CAN, THEY ARE CLOSING UP ON ME. THIS IS MY FAREWELL, GOODBYE THE ONE THAT READ THOOSE".'), nl,
+        write('One of those says: "U CANNOT DEFEAT THEM FLEE FROM THE CITY AS FAST AS YOU CAN, THEY ARE CLOSING UP ON ME. THIS IS MY FAREWELL, GOODBYE THE ONE THAT READ THOOSE".'), nl,
         write('You are now able to decide, whether to continue your journy or run away from the city.'), nl,
         write('Decide fast or maybe you will meet the same fate as a writer of thoose notes'), nl,
         write('To flee from the city to train station you have to go north for a secret passage in the church'), nl
@@ -101,27 +100,13 @@ check(diary) :-
 
 check(notes) :-
     nl,
-    write('The diary is yellowed and fragile.'), nl,
-    write('Some pages are barely readable, but one section stands out, scribbled with urgency:'), nl,
-    nl,
-    write('"We have found traces of an entrance near the old oak in the forest.'), nl,
-    write('It must be the cave mentioned in the legends... The symbols match.'), nl,
-    write('It is said the cave holds more than relics, perhaps a power that should remain undisturbed.'), nl,
-    write('We must proceed with caution."'), nl,
-    nl.
-check(notes) :-
-    nl,
     write('The notes are brittle and covered in dust, with several pages missing or torn.'), nl,
     nl,
-    write('"We found it — the ruin from the old texts.'), nl,
-    write('It is said this ruin is the key to something ancient, hidden deep within the caves.'), nl,
+    write('"We found it — the amulet from the old texts.'), nl,
+    write('It is said this amulet is the key to something ancient, hidden deep within the caves.'), nl,
     write('We must be cautious. The energy here is unstable, and there are warnings in the old language about disturbing what lies beyond."'), nl,
     nl.
-check(ancient_rune) :-
-    nl,
-    write('The rune is etched with symbols that seem to shift and change as you look at them.'), nl,
-    write('It feels warm to the touch, as if it is alive.'), nl,
-    nl.
+
 check(newspaper) :-
     nl,
     write('You start reading it. The headline catches your eye:'), nl,
