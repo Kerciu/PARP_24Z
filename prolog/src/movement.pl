@@ -103,12 +103,24 @@ go(_) :-
 /* Rules for entering and exiting the car */
 
 enter(car) :-
-    holding(car_keys),
     i_am_at(parking),
-    write('You unlock the car with the keys and sit inside, but it doesn''t start.'), nl,
+    holding(car_keys),
+    write('You unlock the car with the keys.'), nl,
     retract(i_am_at(parking)),
     assert(i_am_at(car)),
     look.
+
+enter(car) :-
+    i_am_at(parking),
+    \+ holding(car_keys),
+    write('You need the car keys to enter the car.'), nl.
+
+enter(car) :-
+    i_am_at(car),
+    write('You are already inside the car.'), nl.
+
+enter(car) :-
+    write('There is no car here.'), nl.
 
 exit(car) :-
     i_am_at(car),
