@@ -1,5 +1,5 @@
 /* main.pl */
-:- dynamic i_am_at/1, at/2, holding/1, door_unlocked/1, interact/2, safe_code/1, drunkard_interaction/0, homeless_interaction/0.
+:- dynamic i_am_at/1, at/2, holding/1, door_unlocked/1, interact/2, safe_code/1, drunkard_interaction/0, first_homeless_interaction/0, second_homeless_interaction/0.
 :- retractall(at(_, _)), retractall(i_am_at(_)), retractall(alive(_)), retractall(door_unlocked(_)).
 
 /* Load all the files */

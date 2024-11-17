@@ -1,5 +1,5 @@
 /* Interaction with characters */
-:- multifile i_am_at/1, holding/1, drunkard_interaction/0, homeless_interaction/0.
+:- multifile i_am_at/1, holding/1, drunkard_interaction/0, first_homeless_interaction/0, second_homeless_interaction/0.
 
 give(homeless, cigarettes) :-
     i_am_at(homeless_bench),
@@ -7,6 +7,7 @@ give(homeless, cigarettes) :-
     write('You give the pack of cigarettes to the homeless man. He takes them eagerly and thanks you.'), nl,
     write('He hands you a cold can of Harnas beer in return.'), nl,
     write('And weird box saying "I found it a while ago, it is useless for me but maybe u can get it open"'), nl,
+    assert(first_homeless_interaction),
     assert(holding(weird_box)),
     retract(holding(cigarettes)),
     assert(holding(harnas)).
@@ -40,6 +41,10 @@ give(drunkard, kuflowe_mocne) :-
     assert(holding(leaf_with_code)),
     retract(holding(kuflowe_mocne)).
 
+give(_, Object) :-
+    \+ holding(Object),
+    write('You don''t have that.'), nl.
+
 give(_, _) :-
     write('You can''t give that to that person.'), nl.
 
@@ -49,12 +54,12 @@ interact(homeless) :-
     write('The homeless man seems to be more interested as he coughs intensively.'), nl.
 
 interact(homeless) :-
-    \+ homeless_interaction,
+    \+ second_homeless_interaction,
     drunkard_interaction,
     write('The homeless man looks at you knowingly.'), nl,
     write('"Oh, you need a drink for ol\' Bill? Here, take this Kuflowe Mocne. But don\'t tell him I gave it for free!"'), nl,
     assert(holding(kuflowe_mocne)),
-    assert(homeless_interaction).
+    assert(second_homeless_interaction).
 
 interact(homeless) :-
     i_am_at(homeless_bench),

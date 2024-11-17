@@ -1,5 +1,5 @@
 /* locations.pl */
-:- multifile i_am_at/1, at/2, holding/1, forest_cave_ending_killed/0, forest_cave_ending_weakened/0.
+:- multifile i_am_at/1, at/2, holding/1, forest_cave_ending_killed/0, forest_cave_ending_weakened/0, first_homeless_interaction/0.
 
 /* Locations to go to */
 path(train_station, w, parking).
@@ -94,13 +94,15 @@ describe(car) :-
 
 describe(homeless_bench) :-
     write('You find yourself near a bench occupied by a homeless man, muttering under his breath.'), nl,
-    write('He warns of the "shadows that follow at night" and clutches an old bottle with'), nl,
-    write('a strange symbol scratched into it. He might know more if you listen closely.'), nl,
-    write('You notice that he cannot breathe properly, he probably ran out of cigarettes.'), nl,
-    write('You can interact with him by interact(homeless)'), nl,
+    (\+first_homeless_interaction -> (
+        write('He warns of the "shadows that follow at night" and clutches an old bottle with'), nl,
+        write('a strange symbol scratched into it. He might know more if you listen closely.'), nl,
+        write('You notice that he cannot breathe properly, he probably ran out of cigarettes.'), nl
+    ); true),
     (holding(cigarettes) ->
-        write('You notice that you can help the homeless man with a cigarette.'), nl
+    write('You notice that you can help the homeless man with a cigarette.'), nl
     ; true),
+    write('You can interact with him by interact(homeless)'), nl,
     write('The parking area lies to the south.'), nl.
 
 /* River Next to the Train Tracks */
