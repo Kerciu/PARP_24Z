@@ -68,7 +68,7 @@ car :: Location
 car = Location {
     locationName = "Car",
     locationDescription = "You sit inside the car, but it refuses to start." ++
-    "Type in exit(car) in order to get out of the vehicle.",
+    "Type in exit Car in order to get out of the vehicle.",
     directions = Map.fromList [
         ()
     ]
@@ -78,10 +78,10 @@ homelessBench :: Location
 homelessBench = Location {
     locationName = "Homeless Bench",
     locationDescription = "You find yourself near a bench occupied by a homeless man, muttering under his breath." ++
-    "You can interact with him by interact(homeless)" ++
+    "You can interact with him by interact Homeless" ++
     "The parking area lies to the south.",
     directions = Map.fromList [
-        ()
+        (South, ("Main Street", True))
     ]
 }
 
@@ -92,7 +92,7 @@ riverTracks = Location {
     "in the moonlight." ++
     "To the west, you see the main street.",
     directions = Map.fromList [
-        ()
+        (West, ("Main Street", True))
     ]
 }
 
@@ -105,7 +105,9 @@ mainStreet = Location {
     "while the river tracks are to the east," ++
     "and the parking lot to the north.",
     directions = Map.fromList [
-        ()
+        (West, ("Old Town", True)),
+        (East, ("River Tracks", True)),
+        (North, ("Parking", True))
     ]
 }
 
@@ -120,7 +122,10 @@ oldTown = Location {
     "There is an old hotel to the south" ++
     "and a library to the west.",
     directions = Map.fromList [
-        ()
+        (North, ("Police Station", True)),
+        (South, ("Hotel Lobby", True)),
+        (West, ("Library", True)),
+        (East, ("Main Street", True))
     ]
 }
 
@@ -134,7 +139,10 @@ hotelLobby = Location {
     "To the south, a dark hallway leads further into the hotel." ++
     "Looking to the west, you can see an elevator.",
     directions = Map.fromList [
-        ()
+        (North, ("Old Town", True)),
+        (East, ("Hotel Toilet", True)),
+        (South, ("Hotel Corridor", True)),
+        (West, ("Hotel Basement", True))
     ]
 }
 
@@ -146,7 +154,7 @@ hotelToilet = Location {
     "The toilet is broken and the sink is covered in grime." ++
     "You can go west to return to the hotel lobby.",
     directions = Map.fromList [
-        ()
+        (West, ("Hotel Lobby", True))
     ]
 }
 
@@ -158,7 +166,8 @@ hotelCorridor = Location {
     "Only one room to the west remains accessible." ++
     "You can go north to return to the hotel lobby.",
     directions = Map.fromList [
-        ()
+        (North, ("Hotel Lobby", True)),
+        (West, ("Hotel Room", True))
     ]
 }
 
@@ -170,7 +179,7 @@ hotelRoom = Location {
     "The closet is empty, and the desk is covered in papers." ++
     "You can go east to return to the corridor.",
     directions = Map.fromList [
-        ()
+        (East, ("Hotel Corridor", True))
     ]
 }
 
@@ -182,7 +191,7 @@ hotelBasement = Location {
     "The basement is dark and damp, with a faint, musty odor filling the air." ++
     "You can go east to return to the hotel lobby.",
     directions = Map.fromList [
-        ()
+        (East, ("Hotel Lobby", True))
     ]
 }
 
@@ -198,19 +207,21 @@ policeStation = Location {
     "You can enter the code to the safe by openSafe Code." ++
     "You can go south to return to the old town.",
     directions = Map.fromList [
-        ()
+        (South, ("Old Town", True))
     ]
 }
 
-libraryBuilding :: Location
-libraryBuilding = Location {
+library :: Location
+library = Location {
     locationName = "Library" ++
     locationDescription = "You enter the library. The room is quiet, filled with towering shelves of old, dusty books." ++
     "There is the old town to the east." ++
     "To the south, you see a door leading to the archive room." ++
     "To the west, there is a church on the hill.",
     directions = Map.fromList [
-        ()
+        (East, ("Old Town", True)),
+        (South, ("Archive", True)),
+        (West, ("Hill Church", True))
     ]
 }
 
@@ -220,7 +231,7 @@ archiveRoom = Location {
     locationDescription = "You enter the archive room. It is small and cramped, filled with stacks of old papers and documents." ++
     "Most of the documents are unreadable due to age.",
     directions = Map.fromList [
-        ()
+        (North, ("Library", True))
     ]
 }
 
@@ -233,7 +244,8 @@ hillChurch = Location {
     "You can interact with him by interact Priest" ++
     "The path to the forest is to the north.".
     directions = Map.fromList [
-        ()
+        (North, ("Forest Cave", True)),
+        (East, ("Library", True))
     ]
 }
 
@@ -246,7 +258,7 @@ hillChurchSecondFloor = Location {
     "You notice also a sentence:\"That's a code to the truth of this mystery.\"" ++
     "To go back to first floor go east".
     directions = Map.fromList [
-        ()
+        (East, ("Hill Church", True))
     ]
 }
 
@@ -261,6 +273,7 @@ forestCave = Location {
     "You see far far to the north of this huge cave a weird doors that must lead to something." ++
     "The path back leads south, returning to the church.".
     directions = Map.fromList [
-        ()
+        (South, ("Hill Church", True)),
+        (North, ("Ending Cave", True))
     ]
 }
