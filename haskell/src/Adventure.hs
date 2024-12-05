@@ -3,24 +3,15 @@
 
 introductionText :: [String]
 introductionText = [
-    "A long time ago, in a galaxy far, far away...",
+    "Welcome to the City of Shadows!",
     "",
-    "It is a period of civil war. Rebel",
-    "spaceships, striking from a hidden",
-    "base, have won their first victory",
-    "against the evil Galactic Empire.",
-    "",
-    "During the battle, Rebel spies managed",
-    "to steal secret plans to the Empire's",
-    "ultimate weapon, the Death Star, an",
-    "armored space station with enough",
-    "power to destroy an entire planet.",
-    "",
-    "Pursued by the Empire's sinister agents,",
-    "Princess Leia races home aboard her",
-    "starship, custodian of the stolen plans",
-    "that can save her people and restore",
-    "freedom to the galaxy....",
+    "Your adventure begins in a desolate town filled with strange locations, cryptic symbols, and unsettling figures.",
+    "You find yourself at a train station, the clock forever stuck at 3:15 AM.",
+    "An eerie silence lingers as the caretaker of the station watches you suspiciously.",
+    "Resolving mystery of an ominous cult seem to be central to your quest.",
+    "But be warned — the path ahead is fraught with danger and mystery.",
+    "As you explore, remember that the choices you make could shape your fate.",
+    "Good luck, adventurer — the mystery awaits you!",
     ""
     ]
 
@@ -45,7 +36,7 @@ instructionsText = [
 -- print strings from list in separate lines
 printLines :: [String] -> IO ()
 printLines xs = putStr (unlines xs)
-                  
+
 printIntroduction :: IO ()
 printIntroduction = printLines introductionText
 printInstructions :: IO ()
@@ -56,7 +47,7 @@ readCommand = do
     putStr "> "
     xs <- getLine
     return xs
-    
+
 -- note that the game loop may take the game state as
 -- an argument, eg. gameLoop :: State -> IO ()
 gameLoop :: IO ()
