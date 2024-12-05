@@ -87,7 +87,7 @@ homelessBench = Location {
 
 riverTracks :: Location
 riverTracks = Location {
-    locationName = "Homeless Bench",
+    locationName = "River Tracks",
     locationDescription = "You stand by the river tracks. The water flows sluggishly, casting eerie reflections" ++
     "in the moonlight." ++
     "To the west, you see the main street.",
@@ -98,7 +98,7 @@ riverTracks = Location {
 
 mainStreet :: Location
 mainStreet = Location {
-    locationName = "Homeless Bench",
+    locationName = "Main Street",
     locationDescription = "You are on the main street, flanked by old, abandoned shops. The cracked windows" ++
     "and faded signs give the area a ghostly feel." ++
     "To the west is the old town," ++
@@ -111,7 +111,7 @@ mainStreet = Location {
 
 oldTown :: Location
 oldTown = Location {
-    locationName = "Homeless Bench",
+    locationName = "Old Town",
     locationDescription = "You find yourself in the heart of Old Town," ++
     "a desolate square filled with abandoned shops and crumbling facades." ++
     "Dust and debris cover the cobblestone streets, and a faint echo of past lives lingers in the air." ++
@@ -126,7 +126,7 @@ oldTown = Location {
 
 hotelLobby :: Location
 hotelLobby = Location {
-    locationName = "Homeless Bench",
+    locationName = "Hotel Lobby",
     locationDescription = "You enter the lobby of the hotel." ++
     "There is glass scattered everywhere, and the old reception desk is covered in papers." ++
     "You can go north to return to Old Town." ++
@@ -140,7 +140,7 @@ hotelLobby = Location {
 
 hotelToilet :: Location
 hotelToilet = Location {
-    locationName = "Homeless Bench",
+    locationName = "Hotel Toilet",
     locationDescription = "You enter the toilet." ++
     "The room is dark and damp, and the smell of mold and decay fills the air." ++
     "The toilet is broken and the sink is covered in grime." ++
@@ -150,9 +150,9 @@ hotelToilet = Location {
     ]
 }
 
-homelessCorridor :: Location
-homelessCorridor = Location {
-    locationName = "Homeless Bench",
+hotelCorridor :: Location
+hotelCorridor = Location {
+    locationName = "Hotel Corridor",
     locationDescription = "You enter a dark hallway." ++
     "The ceiling has collapsed, thus most of the corridor is blocked off by rubble." ++
     "Only one room to the west remains accessible." ++
@@ -164,7 +164,7 @@ homelessCorridor = Location {
 
 hotelRoom :: Location
 hotelRoom = Location {
-    locationName = "Homeless Bench",
+    locationName = "Hotel Room",
     locationDescription = "You enter the hotel room." ++
     "The room is dark and dusty, and the bed is covered in old sheets." ++
     "The closet is empty, and the desk is covered in papers." ++
@@ -176,7 +176,7 @@ hotelRoom = Location {
 
 hotelBasement :: Location
 hotelBasement = Location {
-    locationName = "Homeless Bench",
+    locationName = "Hotel Basement",
     locationDescription = "The elevator can only go down." ++
     "It leads to the basement of the hotel." ++
     "The basement is dark and damp, with a faint, musty odor filling the air." ++
@@ -188,7 +188,7 @@ hotelBasement = Location {
 
 policeStation :: Location
 policeStation = Location {
-    locationName = "Homeless Bench",
+    locationName = "Police Station",
     locationDescription = "You enter the police station. The lights flicker, casting eerie shadows on the walls." ++
     "To the left, you see a dusty counter with an old safe behind it. " ++
     "The smell of cheap liquor and stale cigarettes fills the air." ++
@@ -204,7 +204,7 @@ policeStation = Location {
 
 libraryBuilding :: Location
 libraryBuilding = Location {
-    locationName = "Homeless Bench" ++
+    locationName = "Library" ++
     locationDescription = "You enter the library. The room is quiet, filled with towering shelves of old, dusty books." ++
     "There is the old town to the east." ++
     "To the south, you see a door leading to the archive room." ++
@@ -216,7 +216,7 @@ libraryBuilding = Location {
 
 archiveRoom :: Location
 archiveRoom = Location {
-    locationName = "Homeless Bench",
+    locationName = "Archive Room",
     locationDescription = "You enter the archive room. It is small and cramped, filled with stacks of old papers and documents." ++
     "Most of the documents are unreadable due to age.",
     directions = Map.fromList [
@@ -226,7 +226,7 @@ archiveRoom = Location {
 
 hillChurch :: Location
 hillChurch = Location {
-    locationName = "Homeless Bench",
+    locationName = "Hill Church",
     locationDescription = "You stand before an old, abandoned church on the hill." ++
     "The dark interior and the smell of incense remind you of ancient rituals." ++
     "The priest, the last witness of the former life in the city, looks at you with an expression of concern." ++
@@ -239,7 +239,7 @@ hillChurch = Location {
 
 hillChurchSecondFloor :: Location
 hillChurchSecondFloor = Location {
-    locationName = "Homeless Bench",
+    locationName = "Second Floor of Hill Church",
     locationDescription = "You are now at the second floor of the church." ++
     "You see some kind of weird numbers that seem out of order at the wall" ++
     "4 6 1 2 6 7 3 4 1 5 6 2 7 3 5 7 3 2 5 3 6 4 3 6 7 2 " ++
@@ -252,7 +252,7 @@ hillChurchSecondFloor = Location {
 
 forestCave :: Location
 forestCave = Location {
-    locationName = "Homeless Bench",
+    locationName = "Forest Cave",
     locationDescription = "You enter a dark cave hidden deep in the forest." ++
     "In the center of the cave stands an altar with a strange symbol." ++
     "The symbol looks familiar, it might be an ancient artifact sought by the archaeologists." ++
