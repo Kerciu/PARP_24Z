@@ -1,5 +1,6 @@
 module Locations where
 import Data.Map (Map)
+import Interactable
 import qualified Data.Map as Map
 
 data Direction = North | South | West | East deriving (Eq, Ord, Show)
@@ -25,6 +26,8 @@ parseDirection _ = Nothing
 data Location = Location {
     locationName :: String,
     locationDescription :: String,
+    locationItems :: [Interactable],
+    locationInteractables :: [Interactable],    -- for example safe
     directions :: Map Direction (String, Bool)  -- location name and flag if is unlocked
 }
 deriving Show
