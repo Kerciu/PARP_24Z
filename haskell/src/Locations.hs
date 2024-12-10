@@ -29,11 +29,10 @@ data Location = Location {
     locationItems :: [Interactable],
     locationInteractables :: [Interactable],    -- for example safe
     directions :: Map Direction (String, Bool)  -- location name and flag if is unlocked
-}
-deriving Show
+} deriving (Show)
 
 -- map of all locations by their names
-type locations = Map String Location
+type Locations = Map String Location
 
 trainStation :: Location
 trainStation = Location {
@@ -72,9 +71,7 @@ car = Location {
     locationName = "Car",
     locationDescription = "You sit inside the car, but it refuses to start." ++
     "Type in exit Car in order to get out of the vehicle.",
-    directions = Map.fromList [
-        ()
-    ]
+    directions = Map.Empty
 }
 
 homelessBench :: Location
@@ -245,7 +242,7 @@ hillChurch = Location {
     "The dark interior and the smell of incense remind you of ancient rituals." ++
     "The priest, the last witness of the former life in the city, looks at you with an expression of concern." ++
     "You can interact with him by interact Priest" ++
-    "The path to the forest is to the north.".
+    "The path to the forest is to the north.",
     directions = Map.fromList [
         (North, ("Forest Cave", True)),
         (East, ("Library", True))
@@ -259,7 +256,7 @@ hillChurchSecondFloor = Location {
     "You see some kind of weird numbers that seem out of order at the wall" ++
     "4 6 1 2 6 7 3 4 1 5 6 2 7 3 5 7 3 2 5 3 6 4 3 6 7 2 " ++
     "You notice also a sentence:\"That's a code to the truth of this mystery.\"" ++
-    "To go back to first floor go east".
+    "To go back to first floor go east",
     directions = Map.fromList [
         (East, ("Hill Church", True))
     ]

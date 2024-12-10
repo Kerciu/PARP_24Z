@@ -1,3 +1,4 @@
+import GameState
 -- The germ of a text adventure game
 -- Marcin Szlenk 2024
 
@@ -48,20 +49,30 @@ readCommand = do
     xs <- getLine
     return xs
 
+initialState :: GameState
+initialState = GameState {
+    currentLocation = trainStation,
+    inventory = [],
+    drunkardInteraction = False,
+    firstHomelessInteraction = False,
+    secondHomelessInteraction = False,
+    escapeCityEnding = False,
+    hillChurchEndingEscape = False,
+    forestCaveEndingKilled = False,
+    forestCaveEndingWeakened = False,
+    gameOver = False
+}
+
 -- note that the game loop may take the game state as
 -- an argument, eg. gameLoop :: State -> IO ()
-gameLoop :: IO ()
-gameLoop = do
+gameLoop :: GameState -> IO ()
+gameLoop state = do
     cmd <- readCommand
-    case cmd of
-        "instructions" -> do printInstructions
-                             gameLoop
-        "quit" -> return ()
-        _ -> do printLines ["Unknown command.", ""]
-                gameLoop
+    newState <- handleCommand cmd state
+    gameLoop newState
 
 main = do
     printIntroduction
     printInstructions
-    gameLoop
+    gameLoop initialState
 
