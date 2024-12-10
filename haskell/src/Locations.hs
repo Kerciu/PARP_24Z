@@ -213,7 +213,7 @@ policeStation = Location {
 
 library :: Location
 library = Location {
-    locationName = "Library" ++
+    locationName = "Library",
     locationDescription = "You enter the library. The room is quiet, filled with towering shelves of old, dusty books." ++
     "There is the old town to the east." ++
     "To the south, you see a door leading to the archive room." ++
@@ -271,7 +271,7 @@ forestCave = Location {
     "Here you find evidence that the cult still exists and conducts its rituals here." ++
     "You feel that this place may be key to solving the mystery of the archaeologists’ disappearance." ++
     "You see far far to the north of this huge cave a weird doors that must lead to something." ++
-    "The path back leads south, returning to the church.".
+    "The path back leads south, returning to the church.",
     directions = Map.fromList [
         (South, ("Hill Church", True)),
         (North, ("Ending Cave", True))
