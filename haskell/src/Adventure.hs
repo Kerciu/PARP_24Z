@@ -2,6 +2,10 @@ import GameState
 -- The germ of a text adventure game
 -- Marcin Szlenk 2024
 
+import Utils (printLines)
+import CommandHandler (printInstructions)
+import CommandParser
+
 introductionText :: [String]
 introductionText = [
     "Welcome to the City of Shadows!",
@@ -32,7 +36,7 @@ readCommand = do
 gameLoop :: GameState -> IO ()
 gameLoop state = do
     cmd <- readCommand
-    newState <- handleCommand cmd state
+    newState <- parseCommand cmd state
     gameLoop newState
 
 main = do

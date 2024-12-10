@@ -1,11 +1,14 @@
-module CommandParser (handleCommand) where
+module CommandParser (parseCommand) where
 
 import GameState
 import Objects
 import Utils (printLines)
+import Interactable
+import CommandHandler
+import qualified Data.Map as Map
 
-handleCommand :: String -> GameState -> IO GameState
-handleCommand cmd state = case words cmd of
+parseCommand :: String -> GameState -> IO GameState
+parseCommand cmd state = case words cmd of
     ["instructions"] -> handleInstructions state
     ["quit"] -> handleQuit state
     ["inventory"] -> handleInventory state
