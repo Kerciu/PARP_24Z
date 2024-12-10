@@ -49,3 +49,12 @@ dropItem itemName state =
         noItemFound itemName = do
             putStrLn $ "You don't have the '" ++ itemName ++ "' in your inventory."
             return state
+
+-- Handle checking inventory
+showInventory :: GameState -> IO ()
+showInventory state =
+    case inventory state of
+        [] -> putStrLn "Your inventory is empty."
+        items -> do
+            putStrLn "You are carrying the following items:"
+            putStrLn (unlines (map name items))
