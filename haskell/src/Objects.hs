@@ -1,4 +1,5 @@
 module Objects where
+import Interactable
 
 cigarettes :: Interactable
 cigarettes = Interactable {
