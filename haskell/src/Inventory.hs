@@ -3,7 +3,7 @@ module Inventory where
 import GameState
 import Interactable
 import CommandParser
-import Distribution.InstalledPackageInfo (InstalledPackageInfo(description))
+import Locations
 
 -- Handle taking an item
 takeItem :: String -> GameState -> IO GameState
