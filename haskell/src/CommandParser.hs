@@ -1,36 +1,49 @@
-module CommandParser (handleCommand) where
+module CommandParser (parseCommand) where
 
 import GameState
 import Objects
+import Utils (printLines)
+import Interactable
+import CommandHandler
+import qualified Data.Map as Map
 
-handleCommand :: String -> GameState -> IO GameState
-handleCommand cmd state = case words cmd of
-    ["instructions"] -> do
-        printInstructions
-        return state
-    ["quit"] -> do
-        putStrLn "Goodbye!"
-        return state
-    ["inventory"] -> do
-        handleInventoryCommand state
-        return state
+parseCommand :: String -> GameState -> IO GameState
+parseCommand cmd state = case words cmd of
+    ["instructions"] -> handleInstructions state
+    ["quit"] -> handleQuit state
+    ["inventory"] -> handleInventory state
+    ["n"] -> handleMovement "North" state
+    ["s"] -> handleMovement "South" state
+    ["e"] -> handleMovement "East" state
+    ["w"] -> handleMovement "West" state
+    ["n"] -> handleMovement "North" state
+    ["s"] -> handleMovement "South" state
+    ["e"] -> handleMovement "East" state
+    ["w"] -> handleMovement "West" state
+    ["take", object] -> handleItems "take" object state
+    ["drop", object] -> handleItems "drop" object state
+    ["check", object] -> handleItems "check" object state
+    ["look"] -> handleLook state
+    ["interact", character] -> handleInteractions character state
+    ["give", character, object] -> handleGive character object state
     _ -> do
         printLines ["Unknown command.", ""]
         return state
 
 findItem :: String -> Maybe Interactable
-findItem itemName =
-    case itemName of
-        "Cigarettes" -> Just cigarettes
-        "WeirdBox" -> Just weirdBox
-        "Harnas" -> Just harnas
-        "KufloweMocne" -> Just kufloweMocne
-        "CarKeys" -> Just carKeys
-        "Amulet" -> Just amulet
-        "Diary" -> Just diary
-        "Notes" -> Just notes
-        "Newspaper" -> Just newspaper
-        "LeafWithCode" -> Just leafWithCode
-        "EngravedRing" -> Just engravedRing
-        "Key" -> Just key
-        _ -> Nothing
+findItem itemName = Map.lookup itemName itemsMap
+  where
+    itemsMap = Map.fromList
+        [ ("Cigarettes", cigarettes)
+        , ("WeirdBox", weirdBox)
+        , ("Harnas", harnas)
+        , ("KufloweMocne", kufloweMocne)
+        , ("CarKeys", carKeys)
+        , ("Amulet", amulet)
+        , ("Diary", diary)
+        , ("Notes", notes)
+        , ("Newspaper", newspaper)
+        , ("LeafWithCode", leafWithCode)
+        , ("EngravedRing", engravedRing)
+        , ("Key", key)
+        ]

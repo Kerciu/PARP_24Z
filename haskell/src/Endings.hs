@@ -42,4 +42,3 @@ forestCaveEndingKilledText = unlines [
     "Expecting you, the ambush and they easily kill you.",
     "Your journey ends here, as they are drawn into the dark embrace of the city, their fate forever tied to its haunting secrets."
   ]
-
