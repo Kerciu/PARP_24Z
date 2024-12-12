@@ -4,6 +4,7 @@ import Inventory
 import Locations
 import Movement
 import GameState
+import Interactions
 import Utils (printLines)
 
 printInstructions :: IO ()
@@ -44,11 +45,11 @@ handleLook state = do
 handleInteractions :: String -> GameState -> IO GameState
 handleInteractions character state = do
     printLines ["Interacting with " ++ character ++ "..."]
-    -- character interactions logic
+    interactWith state character
     return state
 
 handleGive :: String -> String -> GameState -> IO GameState
 handleGive character object state = do
     printLines ["Giving " ++ object ++ " to " ++ character ++ "..."]
-    -- item giving logic
+    give state character object
     return state
