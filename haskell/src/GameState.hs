@@ -3,28 +3,24 @@ import Locations
 import Interactable
 
 data GameState = GameState {
-    currentLocation :: Location,
+    location :: Location,
     inventory :: [Interactable],
-    drunkardInteraction :: Bool,
-    firstHomelessInteraction :: Bool,
-    secondHomelessInteraction :: Bool,
     escapeCityEnding :: Bool,
     hillChurchEndingEscape :: Bool,
     forestCaveEndingKilled :: Bool,
     forestCaveEndingWeakened :: Bool,
-    gameOver :: Bool
+    gameOver :: Bool,
+    flags :: [String]
 }
 
 initialState :: GameState
 initialState = GameState {
-    currentLocation = trainStation,
+    location = trainStation,
     inventory = [],
-    drunkardInteraction = False,
-    firstHomelessInteraction = False,
-    secondHomelessInteraction = False,
     escapeCityEnding = False,
     hillChurchEndingEscape = False,
     forestCaveEndingKilled = False,
     forestCaveEndingWeakened = False,
-    gameOver = False
+    gameOver = False,
+    flags = []
 }
