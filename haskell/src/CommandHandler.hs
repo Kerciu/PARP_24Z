@@ -1,6 +1,7 @@
 module CommandHandler where
 import Instructions (instructionsText)
 import Inventory
+import Locations
 import GameState
 import Utils (printLines)
 
@@ -36,8 +37,7 @@ handleItems action object state = do
 
 handleLook :: GameState -> IO GameState
 handleLook state = do
-    printLines ["You look around..."]
-    -- looking around logic
+    printLines [locationDescription (currentLocation state)]
     return state
 
 handleInteractions :: String -> GameState -> IO GameState
