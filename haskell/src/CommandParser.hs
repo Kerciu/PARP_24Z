@@ -12,10 +12,10 @@ parseCommand cmd state = case words cmd of
     ["instructions"] -> handleInstructions state
     ["quit"] -> handleQuit state
     ["inventory"] -> handleInventory state
-    ["n"] -> handleMovement "North" state
-    ["s"] -> handleMovement "South" state
-    ["e"] -> handleMovement "East" state
-    ["w"] -> handleMovement "West" state
+    ["n"] -> handleMovement "north" state
+    ["s"] -> handleMovement "south" state
+    ["e"] -> handleMovement "east" state
+    ["w"] -> handleMovement "west" state
     ["take", object] -> handleItems "take" object state
     ["drop", object] -> handleItems "drop" object state
     ["check", object] -> handleItems "check" object state

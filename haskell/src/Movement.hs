@@ -4,29 +4,28 @@ import GameState
 import Locations
 import qualified Data.Map as Map
 
-move :: String -> Locations -> GameState -> IO GameState
-move strDirection locations gameState =
+move :: String -> GameState -> IO GameState
+move strDirection gameState =
     case parseDirection strDirection of
         Nothing ->
             putStrLn "Invalid direction" >> return gameState
         Just direction ->
             case Map.lookup direction (directions (currentLocation gameState)) of
-                Just (nextRoomName, True) -> goNextRoom nextRoomName
-                Just (nextRoomName, False) -> roomBlocked nextRoomName
+                Just (nextLocationName, True) -> goNextLocation nextLocationName
+                Just (nextLocationName, False) -> locationBlocked nextLocationName
                 Nothing ->
                     putStrLn "You can't go that way" >> return gameState
     
     where
-        goNextRoom nextRoomName =
-            case Map.lookup nextRoomName locations of
-                Just nextRoom ->
+        goNextLocation nextLocationName =
+            case Map.lookup nextLocationName locations of
+                Just nextLocation ->
                     do
-                        putStrLn $ locationDescription nextRoom
-                        return gameState { currentLocation = nextRoom }
+                        return gameState { currentLocation = nextLocation }
                 Nothing ->
                     do
-                        putStrLn "Error: Room not found!"
+                        putStrLn "Error: Location not found!"
                         return gameState
         
-        roomBlocked nextRoomName =
-            putStrLn ("The way to " ++ nextRoomName ++ " is blocked.") >> return gameState
+        locationBlocked nextLocationName =
+            putStrLn ("The way to " ++ nextLocationName ++ " is blocked.") >> return gameState

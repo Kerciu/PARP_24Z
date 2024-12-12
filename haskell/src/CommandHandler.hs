@@ -2,6 +2,7 @@ module CommandHandler where
 import Instructions (instructionsText)
 import Inventory
 import Locations
+import Movement
 import GameState
 import Utils (printLines)
 
@@ -25,8 +26,8 @@ handleInventory state = do
 
 handleMovement :: String -> GameState -> IO GameState
 handleMovement direction state = do
-    printLines ["Moving " ++ direction ++ "..."]
-    -- movement logic
+    move direction state
+    handleLook state
     return state
 
 handleItems :: String -> String -> GameState -> IO GameState
