@@ -16,10 +16,6 @@ parseCommand cmd state = case words cmd of
     ["s"] -> handleMovement "South" state
     ["e"] -> handleMovement "East" state
     ["w"] -> handleMovement "West" state
-    ["n"] -> handleMovement "North" state
-    ["s"] -> handleMovement "South" state
-    ["e"] -> handleMovement "East" state
-    ["w"] -> handleMovement "West" state
     ["take", object] -> handleItems "take" object state
     ["drop", object] -> handleItems "drop" object state
     ["check", object] -> handleItems "check" object state
@@ -29,21 +25,3 @@ parseCommand cmd state = case words cmd of
     _ -> do
         printLines ["Unknown command.", ""]
         return state
-
-findItem :: String -> Maybe Interactable
-findItem itemName = Map.lookup itemName itemsMap
-  where
-    itemsMap = Map.fromList
-        [ ("Cigarettes", cigarettes)
-        , ("WeirdBox", weirdBox)
-        , ("Harnas", harnas)
-        , ("KufloweMocne", kufloweMocne)
-        , ("CarKeys", carKeys)
-        , ("Amulet", amulet)
-        , ("Diary", diary)
-        , ("Notes", notes)
-        , ("Newspaper", newspaper)
-        , ("LeafWithCode", leafWithCode)
-        , ("EngravedRing", engravedRing)
-        , ("Key", key)
-        ]

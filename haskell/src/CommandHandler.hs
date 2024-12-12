@@ -1,5 +1,6 @@
 module CommandHandler where
 import Instructions (instructionsText)
+import Inventory
 import GameState
 import Utils (printLines)
 
@@ -18,7 +19,7 @@ handleQuit state = do
 
 handleInventory :: GameState -> IO GameState
 handleInventory state = do
-    -- inventory printing logic
+    showInventory state
     return state
 
 handleMovement :: String -> GameState -> IO GameState

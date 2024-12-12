@@ -2,8 +2,28 @@ module Inventory where
 
 import GameState
 import Interactable
-import CommandParser
 import Locations
+import Objects
+import qualified Data.Map as Map
+
+
+findItem :: String -> Maybe Interactable
+findItem itemName = Map.lookup itemName itemsMap
+  where
+    itemsMap = Map.fromList
+        [ ("Cigarettes", cigarettes)
+        , ("WeirdBox", weirdBox)
+        , ("Harnas", harnas)
+        , ("KufloweMocne", kufloweMocne)
+        , ("CarKeys", carKeys)
+        , ("Amulet", amulet)
+        , ("Diary", diary)
+        , ("Notes", notes)
+        , ("Newspaper", newspaper)
+        , ("LeafWithCode", leafWithCode)
+        , ("EngravedRing", engravedRing)
+        , ("Key", key)
+        ]
 
 -- Handle taking an item
 takeItem :: String -> GameState -> IO GameState
@@ -21,7 +41,7 @@ takeItem itemName state =
                         inventory = item : inventory state
                     }
                 putStrLn $ "You have taken the " ++ name item ++ "."
-                putStrLn & description item
+                putStrLn $ description item
                 return updatedState
             else noItemFound itemName
     where

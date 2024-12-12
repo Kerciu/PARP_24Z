@@ -10,15 +10,13 @@ move strDirection locations gameState =
         Nothing ->
             putStrLn "Invalid direction" >> return gameState
         Just direction ->
-            case nextRoom of
+            case Map.lookup direction (directions (currentLocation gameState)) of
                 Just (nextRoomName, True) -> goNextRoom nextRoomName
                 Just (nextRoomName, False) -> roomBlocked nextRoomName
                 Nothing ->
                     putStrLn "You can't go that way" >> return gameState
     
     where
-        nextRoom = Map.lookup direction (directions (currentLocation gameState))
-        
         goNextRoom nextRoomName =
             case Map.lookup nextRoomName locations of
                 Just nextRoom ->
