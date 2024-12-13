@@ -78,7 +78,6 @@ give state "homeless" "harnas" =
     else do
       putStrLn "You cannot give this item to that person."
       return state
-
 give state "caretaker" "harnas" =
   if isAtLocation state "train_station" && hasItem state "harnas"
     then do
@@ -90,7 +89,6 @@ give state "caretaker" "harnas" =
     else do
       putStrLn "You cannot give this item to that person."
       return state
-
 give state "caretaker" "cigarettes" =
   if isAtLocation state "train_station" && hasItem state "cigarettes"
     then do
@@ -99,7 +97,6 @@ give state "caretaker" "cigarettes" =
     else do
       putStrLn "You cannot give this item to that person."
       return state
-
 give state "drunkard" "kuflowe_mocne" =
   if isAtLocation state "police_station" && hasItem state "kuflowe_mocne"
     then do
@@ -111,15 +108,55 @@ give state "drunkard" "kuflowe_mocne" =
     else do
       putStrLn "You cannot give this item to that person."
       return state
-    
 give state _ object = do
   putStrLn "You cannot give this item to that person."
   return state
-  
 
--- interactWith :: GameState -> String -> IO ()
+interactWith :: GameState -> String -> IO GameState
+interactWith state "homeless" = do
+  if isAtLocation state "homeless_bench"
+    then do
+      if hasItem state "cigarettes"
+        then do
+          putStrLn "The homeless man seems to be more interested as he coughs intensively."
+          return state
+        else
+          if not (hasFlag state "second_homeless_interaction") && hasFlag state "drunkard_interaction"
+            then do
+              putStrLn "The homeless man looks at you knowingly."
+              putStrLn "'Oh, you need a drink for ol' Bill? Here, take this Kuflowe Mocne. But don't tell him I gave it for free!'"
+              newState <- addItem state "kuflowe_mocne"
+              addFlag newState "second_homeless_interaction"
+            else
+              if hasItem state "amulet"
+                then do
+                  putStrLn "The homeless man looks at you with wide eyes. 'You hold that cursed thing,' he says, "
+                  putStrLn "his voice shaking. 'I feel something watching... beware.'"
+                  return state
+                else do
+                  putStrLn "The homeless man seems to be uninterested for now."
+                  return state
+    else do
+      putStrLn "There is no homeless here"
+      return state
+
+-- "homeless_bench"
+--   | hasItem state "cigarettes" ->
+--       putStrLn "The homeless man seems to be more interested as he coughs intensively."
+-- "homeless_bench" | not (hasFlag state "second_homeless_interaction") -> do
+--   putStrLn "The homeless man looks at you knowingly."
+--   putStrLn "'Oh, you need a drink for ol' Bill? Here, take this Kuflowe Mocne. But don't tell him I gave it for free!'"
+--   addItem state "kuflowe_mocne"
+--   addFlag state "second_homeless_interaction"
+-- "homeless_bench" | hasItem state "amulet" -> do
+--   putStrLn "The homeless man looks at you with wide eyes. 'You hold that cursed thing,' he says, "
+--   putStrLn "his voice shaking. 'I feel something watching... beware.'"
+-- "homeless_bench" ->
+--   putStrLn "The homeless man seems to be uninterested for now."
+-- _ -> return ()
+
 -- interactWith state "homeless" = do
---   case location state of
+--   case locationName (location state) of
 --     "homeless_bench"
 --       | hasItem state "cigarettes" ->
 --           putStrLn "The homeless man seems to be more interested as he coughs intensively."
