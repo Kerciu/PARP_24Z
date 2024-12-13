@@ -1,6 +1,3 @@
--- The germ of a text adventure game
--- Marcin Szlenk 2024
-
 import GameState
 import Utils (printLines)
 import CommandHandler (printInstructions)
@@ -43,4 +40,3 @@ main = do
     printIntroduction
     printInstructions
     gameLoop initialState
-

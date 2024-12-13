@@ -5,7 +5,6 @@ import Locations
 import Objects
 import Types
 
-
 -- Handle taking an item
 takeItem :: String -> GameState -> IO GameState
 takeItem itemName state =
@@ -72,5 +71,5 @@ displayItemDescription itemName state =
             then putStrLn $ description item
             else noItemFound itemName
     where
-        noItemFound itemName = 
-           putStrLn $ "You are not holding the " ++ itemName ++ "." 
+        noItemFound itemName =
+           putStrLn $ "You are not holding the " ++ itemName ++ "."
