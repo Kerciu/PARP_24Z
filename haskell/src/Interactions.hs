@@ -164,3 +164,29 @@ interactWith state "caretaker" =
       putStrLn "There is no caretaker here"
       return state
 
+-- Drunkard interaction
+interactWith state "drunkard" =
+  if isAtLocation state "police_station"
+    then
+      if not (hasFlag state "second_drunkard_interaction")
+        then do
+          putStrLn "The drunkard looks at you with a smirk."
+          putStrLn "'Lookin' for the safe code, eh? I might remember it... But I'm real thirsty.'"
+          putStrLn "'Maybe if you bring me something to drink, I'll let you in on the secret.'"
+          addFlag state "first_drunkard_interaction"
+        else do
+          putStrLn "I've already helped you, now let me enjoy my beer."
+          return state
+    else do
+      putStrLn "There is no drunkard here"
+      return state
+
+-- Priest interaction
+interactWith state "priest" =
+  if isAtLocation state "hill_church"
+    then do
+      putStrLn "I can't tell you more, just go."
+      return state
+    else do
+      putStrLn "There is no priest here"
+      return state
