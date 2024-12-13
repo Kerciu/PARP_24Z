@@ -15,16 +15,40 @@ hasItem state item =
 hasFlag :: GameState -> String -> Bool
 hasFlag state flag = flag `elem` flags state
 
-addItem :: GameState -> String -> IO ()
-addItem state item = modifyState state $ \state -> state { inventory = item : inventory state }
+addItem :: GameState -> String -> IO GameState
+addItem state itemName =
+    case findItem itemName of
+        Nothing -> do
+            putStrLn $ "Item '" ++ itemName ++ "' does not exist."
+            return state
+        Just item -> do
+            let updatedState = state { inventory = item : inventory state }
+            return updatedState
 
-removeItem :: GameState -> String -> IO ()
-removeItem state item = modifyState state $ \state -> state { inventory = filter (/= item) (inventory state) }
+removeItem :: GameState -> String -> IO GameState
+removeItem state itemName =
+    case findItem itemName of
+        Nothing -> do
+            putStrLn $ "Item '" ++ itemName ++ "' does not exist."
+            return state
+        Just item ->
+            if item `elem` inventory state
+            then do
+                let updatedState = state { inventory = filter (/= item) (inventory state) }
+                return updatedState
+            else do
+                return state
 
-addFlag :: GameState -> String -> IO ()
-addFlag state flag = modifyState state $ \state -> state { flags = flag : flags state }
+addFlag :: GameState -> String -> IO GameState
+addFlag state flag = do
+    if flag `elem` flags state
+    then do
+        return state
+    else do
+        let updatedState = state { flags = flag : flags state }
+        return updatedState
 
-give :: GameState -> String -> String -> IO ()
+give :: GameState -> String -> String -> IO GameState
 give state "homeless" "cigarettes" = do
     when (location state == "homeless_bench" && hasItem state "cigarettes") $ do
         putStrLn "You give the pack of cigarettes to the homeless man. He takes them eagerly and thanks you."
