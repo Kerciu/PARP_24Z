@@ -18,7 +18,7 @@ move strDirection gameState =
     
     where
         goNextLocation nextLocationName =
-            case Map.lookup nextLocationName locations of
+            case findLocation nextLocationName of
                 Just nextLocation ->
                     do
                         putStrLn $ locationDescription nextLocation

@@ -36,26 +36,29 @@ data Location = Location {
 -- type Locations = Map String Location
 
 -- locations :: Locations
-locations = Map.fromList [
-    ("Train Station", trainStation),
-    ("Parking", parking),
-    ("Car", car),
-    ("Homeless Bench", homelessBench),
-    ("River Tracks", riverTracks),
-    ("Main Street", mainStreet),
-    ("Old Town", oldTown),
-    ("Hotel Lobby", hotelLobby),
-    ("Hotel Toilet", hotelToilet),
-    ("Hotel Corridor", hotelCorridor),
-    ("Hotel Room", hotelRoom),
-    ("Hotel Basement", hotelBasement),
-    ("Police Station", policeStation),
-    ("Library", library),
-    ("Archive", archiveRoom),
-    ("Hill Church", hillChurch),
-    ("Second Floor of Hill Church", hillChurchSecondFloor),
-    ("Forest Cave", forestCave)
-    ]
+findLocation :: String -> Maybe Location
+findLocation locationName = Map.lookup locationName locationsMap
+  where
+    locationsMap = Map.fromList
+        [ ("Train Station", trainStation)
+        , ("Parking", parking)
+        , ("Car", car)
+        , ("Homeless Bench", homelessBench)
+        , ("River Tracks", riverTracks)
+        , ("Main Street", mainStreet)
+        , ("Old Town", oldTown)
+        , ("Hotel Lobby", hotelLobby)
+        , ("Hotel Toilet", hotelToilet)
+        , ("Hotel Corridor", hotelCorridor)
+        , ("Hotel Room", hotelRoom)
+        , ("Hotel Basement", hotelBasement)
+        , ("Police Station", policeStation)
+        , ("Library", library)
+        , ("Archive", archiveRoom)
+        , ("Hill Church", hillChurch)
+        , ("Second Floor of Hill Church", hillChurchSecondFloor)
+        , ("Forest Cave", forestCave)
+        ]
 
 trainStation :: Location
 trainStation = Location {
