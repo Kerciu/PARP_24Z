@@ -45,7 +45,7 @@ handleLook state = do
 handleInteractions :: String -> GameState -> IO GameState
 handleInteractions character state = do
     printLines ["Interacting with " ++ character ++ "..."]
-    interactWith state character
+    -- interactWith state character
     return state
 
 handleGive :: String -> String -> GameState -> IO GameState
