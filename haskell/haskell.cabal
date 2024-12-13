@@ -38,6 +38,7 @@ library
       Movement
       Objects
       Utils
+
   other-modules:
       Paths_haskell
   autogen-modules:

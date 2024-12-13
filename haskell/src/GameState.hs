@@ -1,11 +1,10 @@
 module GameState where
 import Locations
-import Interactable
 import Objects
-import qualified Data.Map as Map
+import Types
 
 data GameState = GameState {
-    currentLocation :: Location,
+    location :: Location,
     inventory :: [Interactable],
     escapeCityEnding :: Bool,
     hillChurchEndingEscape :: Bool,
@@ -17,7 +16,7 @@ data GameState = GameState {
 
 initialState :: GameState
 initialState = GameState {
-    currentLocation = trainStation,
+    location = trainStation,
     inventory = [],
     escapeCityEnding = False,
     hillChurchEndingEscape = False,
@@ -26,37 +25,3 @@ initialState = GameState {
     gameOver = False,
     flags = []
 }
-
-modifyState :: GameState -> (GameState -> GameState) -> IO ()
-modifyState state f = do
-    let newState = f state
-    return ()
-
-location :: GameState -> String
-location state = locationName (currentLocation state)
-
-hasItem :: GameState -> String -> Bool
-hasItem state item = case findItem item of
-    Just i  -> i `elem` inventory state
-    Nothing -> False
-
-getState :: GameState -> IO GameState
-getState state = return state
-
-findItem :: String -> Maybe Interactable
-findItem itemName = Map.lookup itemName itemsMap
-  where
-    itemsMap = Map.fromList
-        [ ("Cigarettes", cigarettes)
-        , ("WeirdBox", weirdBox)
-        , ("Harnas", harnas)
-        , ("KufloweMocne", kufloweMocne)
-        , ("CarKeys", carKeys)
-        , ("Amulet", amulet)
-        , ("Diary", diary)
-        , ("Notes", notes)
-        , ("Newspaper", newspaper)
-        , ("LeafWithCode", leafWithCode)
-        , ("EngravedRing", engravedRing)
-        , ("Key", key)
-        ]

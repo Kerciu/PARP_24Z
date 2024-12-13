@@ -10,7 +10,7 @@ move strDirection gameState =
         Nothing ->
             putStrLn "Invalid direction" >> return gameState
         Just direction ->
-            case Map.lookup direction (directions (currentLocation gameState)) of
+            case Map.lookup direction (directions (location gameState)) of
                 Just (nextLocationName, True) -> goNextLocation nextLocationName
                 Just (nextLocationName, False) -> locationBlocked nextLocationName
                 Nothing ->
@@ -21,7 +21,8 @@ move strDirection gameState =
             case Map.lookup nextLocationName locations of
                 Just nextLocation ->
                     do
-                        return gameState { currentLocation = nextLocation }
+                        putStrLn $ locationDescription nextRoom
+                        return gameState { location = nextRoom }
                 Nothing ->
                     do
                         putStrLn "Error: Location not found!"

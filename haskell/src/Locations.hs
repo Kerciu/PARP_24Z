@@ -1,6 +1,7 @@
 module Locations where
 import Data.Map (Map)
-import Interactable
+import Objects
+import Types
 import qualified Data.Map as Map
 
 data Direction = North | South | West | East deriving (Eq, Ord, Show)
