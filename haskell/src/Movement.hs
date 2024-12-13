@@ -21,8 +21,8 @@ move strDirection gameState =
             case Map.lookup nextLocationName locations of
                 Just nextLocation ->
                     do
-                        putStrLn $ locationDescription nextRoom
-                        return gameState { location = nextRoom }
+                        putStrLn $ locationDescription nextLocation
+                        return gameState { location = nextLocation }
                 Nothing ->
                     do
                         putStrLn "Error: Location not found!"

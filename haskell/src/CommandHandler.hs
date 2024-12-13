@@ -4,7 +4,7 @@ import Inventory
 import Locations
 import Movement
 import GameState
-import Interactable
+import Interactions
 import Utils (printLines)
 
 printInstructions :: IO ()
@@ -39,7 +39,7 @@ handleItems action object state = do
 
 handleLook :: GameState -> IO GameState
 handleLook state = do
-    printLines [locationDescription (currentLocation state)]
+    printLines [locationDescription (location state)]
     return state
 
 handleInteractions :: String -> GameState -> IO GameState

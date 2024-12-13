@@ -3,7 +3,7 @@ module Inventory where
 import GameState
 import Locations
 import Objects
-import Types
+import Interactable
 
 -- Handle taking an item
 takeItem :: String -> GameState -> IO GameState

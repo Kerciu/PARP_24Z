@@ -1,6 +1,6 @@
 module Objects where
 
-import Types
+import Interactable
 import qualified Data.Map as Map
 
 findItem :: String -> Maybe Interactable

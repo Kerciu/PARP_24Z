@@ -1,27 +1,54 @@
 module Interactions where
+import Utils
 import GameState
+import Interactable
 
-import Control.Monad (when)
-import Data.Maybe (fromMaybe)
+import Objects
+
+hasItem :: GameState -> String -> Bool
+hasItem state item =
+    let itemObject = findItem item
+    in case itemObject of
+        Nothing -> False
+        Just item -> item `elem` inventory state
 
 hasFlag :: GameState -> String -> Bool
 hasFlag state flag = flag `elem` flags state
 
-addItem :: GameState -> String -> IO ()
-addItem game itemName = case findItem itemName of
-    Just item -> modifyState game $ \state -> state { inventory = item : inventory state }
-    Nothing   -> putStrLn ("Item " ++ itemName ++ " not found.")
+addItem :: GameState -> String -> IO GameState
+addItem state itemName =
+    case findItem itemName of
+        Nothing -> do
+            putStrLn $ "Item '" ++ itemName ++ "' does not exist."
+            return state
+        Just item -> do
+            let updatedState = state { inventory = item : inventory state }
+            return updatedState
 
-removeItem :: GameState -> String -> IO ()
-removeItem game itemName = case findItem itemName of
-    Just item -> modifyState game $ \state -> state { inventory = filter (/= item) (inventory state) }
-    Nothing   -> putStrLn ("Item " ++ itemName ++ " not found.")
+removeItem :: GameState -> String -> IO GameState
+removeItem state itemName =
+    case findItem itemName of
+        Nothing -> do
+            putStrLn $ "Item '" ++ itemName ++ "' does not exist."
+            return state
+        Just item ->
+            if item `elem` inventory state
+            then do
+                let updatedState = state { inventory = filter (/= item) (inventory state) }
+                return updatedState
+            else do
+                return state
 
+addFlag :: GameState -> String -> IO GameState
+addFlag state flag = do
+    if flag `elem` flags state
+    then do
+        return state
+    else do
+        let updatedState = state { flags = flag : flags state }
+        return updatedState
 
-addFlag :: GameState -> String -> IO ()
-addFlag game flag = modifyState game $ \state -> state { flags = flag : flags state }
-
-give :: GameState -> String -> String -> IO ()
+give :: GameState -> String -> String -> IO GameState
 give state "homeless" "cigarettes" = do
     when (location state == "homeless_bench" && hasItem state "cigarettes") $ do
         putStrLn "You give the pack of cigarettes to the homeless man. He takes them eagerly and thanks you."
