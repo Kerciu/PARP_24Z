@@ -1,29 +1,11 @@
 module Inventory where
 
 import GameState
+import GameState (findItem)
 import Interactable
 import Locations
 import Objects
 import qualified Data.Map as Map
-
-
-findItem :: String -> Maybe Interactable
-findItem itemName = Map.lookup itemName itemsMap
-  where
-    itemsMap = Map.fromList
-        [ ("Cigarettes", cigarettes)
-        , ("WeirdBox", weirdBox)
-        , ("Harnas", harnas)
-        , ("KufloweMocne", kufloweMocne)
-        , ("CarKeys", carKeys)
-        , ("Amulet", amulet)
-        , ("Diary", diary)
-        , ("Notes", notes)
-        , ("Newspaper", newspaper)
-        , ("LeafWithCode", leafWithCode)
-        , ("EngravedRing", engravedRing)
-        , ("Key", key)
-        ]
 
 -- Handle taking an item
 takeItem :: String -> GameState -> IO GameState
@@ -91,5 +73,5 @@ displayItemDescription itemName state =
             then putStrLn $ description item
             else noItemFound itemName
     where
-        noItemFound itemName = 
-           putStrLn $ "You are not holding the " ++ itemName ++ "." 
+        noItemFound itemName =
+           putStrLn $ "You are not holding the " ++ itemName ++ "."
