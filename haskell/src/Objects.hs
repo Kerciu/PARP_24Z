@@ -1,5 +1,25 @@
 module Objects where
-import Interactable
+
+import Types
+import qualified Data.Map as Map
+
+findItem :: String -> Maybe Interactable
+findItem itemName = Map.lookup itemName itemsMap
+  where
+    itemsMap = Map.fromList
+        [ ("Cigarettes", cigarettes)
+        , ("WeirdBox", weirdBox)
+        , ("Harnas", harnas)
+        , ("KufloweMocne", kufloweMocne)
+        , ("CarKeys", carKeys)
+        , ("Amulet", amulet)
+        , ("Diary", diary)
+        , ("Notes", notes)
+        , ("Newspaper", newspaper)
+        , ("LeafWithCode", leafWithCode)
+        , ("EngravedRing", engravedRing)
+        , ("Key", key)
+        ]
 
 cigarettes :: Interactable
 cigarettes = Interactable {

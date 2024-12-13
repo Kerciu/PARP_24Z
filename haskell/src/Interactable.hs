@@ -1,10 +1,28 @@
 module Interactable where
 import Utils
+import GameState
+import Types
 
-data Interactable = Interactable {
-  name :: String,
-  description :: String
-} deriving (Show, Eq)
+import Objects
+
+hasItem :: GameState -> String -> Bool
+hasItem state item =
+    let itemObject = findItem item
+    in case itemObject of
+        Nothing -> False
+        Just item -> item `elem` inventory state
+
+hasFlag :: GameState -> String -> Bool
+hasFlag state flag = flag `elem` flags state
+
+addItem :: GameState -> String -> IO ()
+addItem state item = modifyState state $ \state -> state { inventory = item : inventory state }
+
+removeItem :: GameState -> String -> IO ()
+removeItem state item = modifyState state $ \state -> state { inventory = filter (/= item) (inventory state) }
+
+addFlag :: GameState -> String -> IO ()
+addFlag state flag = modifyState state $ \state -> state { flags = flag : flags state }
 
 give :: GameState -> String -> String -> IO ()
 give state "homeless" "cigarettes" = do

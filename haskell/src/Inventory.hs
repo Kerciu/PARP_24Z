@@ -1,29 +1,10 @@
 module Inventory where
 
 import GameState
-import Interactable
 import Locations
 import Objects
-import qualified Data.Map as Map
+import Types
 
-
-findItem :: String -> Maybe Interactable
-findItem itemName = Map.lookup itemName itemsMap
-  where
-    itemsMap = Map.fromList
-        [ ("Cigarettes", cigarettes)
-        , ("WeirdBox", weirdBox)
-        , ("Harnas", harnas)
-        , ("KufloweMocne", kufloweMocne)
-        , ("CarKeys", carKeys)
-        , ("Amulet", amulet)
-        , ("Diary", diary)
-        , ("Notes", notes)
-        , ("Newspaper", newspaper)
-        , ("LeafWithCode", leafWithCode)
-        , ("EngravedRing", engravedRing)
-        , ("Key", key)
-        ]
 
 -- Handle taking an item
 takeItem :: String -> GameState -> IO GameState
@@ -31,13 +12,13 @@ takeItem itemName state =
     case findItem itemName of
         Nothing -> noItemFound itemName
         Just item ->
-            if item `elem` locationItems (currentLocation state)
+            if item `elem` locationItems (location state)
             then do
-                let updatedLocation = (currentLocation state) {
-                        locationItems = filter (/= item) (locationItems $ currentLocation state)
+                let updatedLocation = (location state) {
+                        locationItems = filter (/= item) (locationItems $ location state)
                     }
                 let updatedState = state {
-                        currentLocation = updatedLocation,
+                        location = updatedLocation,
                         inventory = item : inventory state
                     }
                 putStrLn $ "You have taken the " ++ name item ++ "."
@@ -58,11 +39,11 @@ dropItem itemName state =
             if item `elem` inventory state
             then do
                 putStrLn $ "You have dropped the " ++ name item ++ "."
-                let updatedLocation = (currentLocation state) {
-                        locationItems = item : locationItems (currentLocation state)
+                let updatedLocation = (location state) {
+                        locationItems = item : locationItems (location state)
                     }
                 let updatedState = state {
-                        currentLocation = updatedLocation,
+                        location = updatedLocation,
                         inventory = filter (/= item) (inventory state)
                     }
                 return updatedState

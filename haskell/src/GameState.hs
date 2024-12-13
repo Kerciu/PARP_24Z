@@ -1,6 +1,7 @@
 module GameState where
 import Locations
-import Interactable
+import Objects
+import Types
 
 data GameState = GameState {
     location :: Location,
