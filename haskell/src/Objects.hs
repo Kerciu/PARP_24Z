@@ -8,31 +8,31 @@ findItem itemName = Map.lookup itemName itemsMap
   where
     itemsMap =
       Map.fromList
-        [ ("Cigarettes", cigarettes),
-          ("Weird Box", weirdBox),
-          ("Harnas", harnas),
-          ("Kuflowe Mocne", kufloweMocne),
-          ("Car Keys", carKeys),
-          ("Amulet", amulet),
-          ("Diary", diary),
-          ("Notes", notes),
-          ("Newspaper", newspaper),
-          ("Leaf with Code", leafWithCode),
-          ("Engraved Ring", engravedRing),
-          ("Key", key)
+        [ ("cigarettes", cigarettes),
+          ("weird_box", weirdBox),
+          ("harnas", harnas),
+          ("kuflowe_mocne", kufloweMocne),
+          ("car_keys", carKeys),
+          ("amulet", amulet),
+          ("diary", diary),
+          ("notes", notes),
+          ("newspaper", newspaper),
+          ("leaf_with_code", leafWithCode),
+          ("engraved_ring", engravedRing),
+          ("key", key)
         ]
 
 cigarettes :: Interactable
 cigarettes =
   Interactable
-    { name = "Cigarettes",
+    { name = "cigarettes",
       description = "The pack of cigarettes is old, with some of the edges frayed. It might be useful to someone who needs a smoke."
     }
 
 weirdBox :: Interactable
 weirdBox =
   Interactable
-    { name = "Weird Box",
+    { name = "weird_box",
       description =
         "A box with a lock that opens with more than 20 digits."
           ++ "Impossible to open for now, but maybe it will prove useful in the future."
@@ -41,35 +41,35 @@ weirdBox =
 harnas :: Interactable
 harnas =
   Interactable
-    { name = "Harnas Beer",
+    { name = "harnas_beer",
       description = "A can of Harnas beer, cold and seemingly untouched. It might help you in your interactions with certain characters."
     }
 
 kufloweMocne :: Interactable
 kufloweMocne =
   Interactable
-    { name = "Kuflowe Mocne",
+    { name = "kuflowe_mocne",
       description = "A bottle of Kuflowe Mocne, a strong beer. It might be useful for someone who needs a drink."
     }
 
 carKeys :: Interactable
 carKeys =
   Interactable
-    { name = "Car Keys",
+    { name = "car_keys",
       description = "A set of car keys. They seem to belong to the abandoned car in the parking lot. Maybe you can unlock it."
     }
 
 amulet :: Interactable
 amulet =
   Interactable
-    { name = "Amulet",
+    { name = "amulet",
       description = "A strange amulet, cold to the touch. It seems to have an otherworldly aura, as if it carries a hidden power."
     }
 
 diary :: Interactable
 diary =
   Interactable
-    { name = "Diary",
+    { name = "diary",
       description =
         "The diary is yellowed and fragile."
           ++ "Some pages are barely readable, but one section stands out, scribbled with urgency:"
@@ -83,7 +83,7 @@ diary =
 notes :: Interactable
 notes =
   Interactable
-    { name = "Notes",
+    { name = "notes",
       description =
         "The notes are brittle and covered in dust, with several pages missing or torn."
           ++ ""
@@ -95,7 +95,7 @@ notes =
 newspaper :: Interactable
 newspaper =
   Interactable
-    { name = "Newspaper",
+    { name = "newspaper",
       description =
         "You start reading it. The headline catches your eye:"
           ++ "\"Team of Archaeologists Arrives to Uncover the Secrets of the Ancient Ruins in Town.\""
@@ -110,7 +110,7 @@ newspaper =
 leafWithCode :: Interactable
 leafWithCode =
   Interactable
-    { name = "Leaft with Code",
+    { name = "leaf_with_code",
       description =
         "The leaf contains a mysterious riddle:"
           ++ "The code is hidden in two pairs of numbers."
@@ -122,7 +122,7 @@ leafWithCode =
 engravedRing :: Interactable
 engravedRing =
   Interactable
-    { name = "Engraved Ring",
+    { name = "engraved_ring",
       description =
         "The ring is engraved with strange symbols and feels unusually heavy in your hand."
           ++ "It might hold some hidden significance or power."
@@ -131,6 +131,6 @@ engravedRing =
 key :: Interactable
 key =
   Interactable
-    { name = "Key",
+    { name = "key",
       description = "A small, rusted key. It might be useful for unlocking something."
     }
