@@ -70,7 +70,7 @@ trainStation =
           ++ "You can interact with her by interact Caretaker"
           ++ "To the west, you can see the parking area adjacent to the station."
           ++ "To the east, there is a train which you can use to escape from city.",
-      locationItems = [],
+      locationItems = [notes],
       locationInteractables = [],
       directions =
         Map.fromList

@@ -54,7 +54,7 @@ isAtLocation :: String -> GameState -> Bool
 isAtLocation locationString state =
   case findLocation locationString of
     Nothing -> False
-    Just loc -> locationName (location state) == locationName loc
+    Just loc -> locationName (currentLocation state) == locationName loc
 
 give :: String -> String -> GameState -> IO GameState
 give "homeless" "cigarettes" state =

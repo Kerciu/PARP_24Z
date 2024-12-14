@@ -37,7 +37,7 @@ handleItems action object state = do
 
 handleLook :: GameState -> IO GameState
 handleLook state = do
-    printLines [locationDescription (location state)]
+    printLines [locationDescription (currentLocation state)]
     return state
 
 handleInteractions :: String -> GameState -> IO GameState
