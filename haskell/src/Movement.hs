@@ -53,4 +53,16 @@ openHotelBasement :: GameState -> IO GameState
 openHotelBasement state = putStrLn "Unlocking the hotel basement is not implemented yet." >> return state
 
 openArchive :: GameState -> IO GameState
-openArchive state = putStrLn "Unlocking the archive is not implemented yet." >> return state
+openArchive state =
+  if key `elem` inventory state
+    then do
+      let updatedState =
+            state
+              { inventory = filter (/= key) (inventory state),
+                closedLocations = filter (/= "archive") (closedLocations state)
+              }
+      putStrLn "You have unlocked the archive."
+      goNextLocation "archive" updatedState
+    else do
+      putStrLn "The archive is locked. You need a key to open it."
+      return state
