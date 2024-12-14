@@ -52,6 +52,22 @@ dropItem itemName state =
             putStrLn $ "You don't have the " ++ itemName ++ " in your inventory."
             return state
 
+-- Handle checking an item
+checkItem :: String -> GameState -> IO GameState
+checkItem itemName state =
+    case findItem itemName of
+        Nothing -> noItemFound itemName
+        Just item ->
+            if item `elem` inventory state
+            then do
+                putStrLn $ description item
+                return state
+            else noItemFound itemName
+    where
+        noItemFound itemName = do
+            putStrLn $ "You are not holding the " ++ itemName ++ "."
+            return state
+
 -- Handle checking inventory
 showInventory :: GameState -> IO ()
 showInventory state =
