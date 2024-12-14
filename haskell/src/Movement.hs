@@ -1,11 +1,11 @@
 module Movement where
 
+import Control.Monad.State (MonadState (put))
 import Data.Map qualified as Map
 import GameState
 import Locations
 import Look
 import Objects
-import Control.Monad.State (MonadState(put))
 
 move :: String -> GameState -> IO GameState
 move strDirection state =
@@ -50,7 +50,23 @@ openHotelRoom :: GameState -> IO GameState
 openHotelRoom state = putStrLn "Unlocking the hotel room is not implemented yet." >> return state
 
 openHotelBasement :: GameState -> IO GameState
-openHotelBasement state = putStrLn "Unlocking the hotel basement is not implemented yet." >> return state
+openHotelBasement state =
+  if redFuse `elem` inventory state
+    && blueFuse `elem` inventory state
+    && greenFuse `elem` inventory state
+    then do
+      let updatedState =
+            state
+              { inventory = filter (`notElem` [redFuse, greenFuse, blueFuse]) (inventory state),
+                closedLocations = filter (/= "hotel_basement") (closedLocations state)
+              }
+      putStrLn "You placed the fuses in the fuse box and the elevator started working."
+      goNextLocation "hotel_basement" updatedState
+    else do
+      putStrLn "The elevator is not working."
+      putStrLn "However, you noticed a fuse box next to the elevator with 3 fuses missing."
+      putStrLn "Maybe you can find them somewhere."
+      return state
 
 openArchive :: GameState -> IO GameState
 openArchive state =
