@@ -2,6 +2,7 @@ module Movement where
 
 import GameState
 import Locations
+import Look
 import qualified Data.Map as Map
 
 move :: String -> GameState -> IO GameState
@@ -22,8 +23,8 @@ goNextLocation nextLocationName state =
     case findLocation nextLocationName of
         Just nextLocation ->
             do
-                putStrLn $ locationDescription nextLocation
-                return state { currentLocation = nextLocation }
+                let updatedState = state { currentLocation = nextLocation }
+                lookAround updatedState
         Nothing ->
             do
                 putStrLn "Error: Location not found!"
