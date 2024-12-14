@@ -47,3 +47,9 @@ handleGive = give
 
 handleOpen :: String -> GameState -> IO GameState
 handleOpen = open
+
+handleEnterCar :: GameState -> IO GameState
+handleEnterCar = enterCar
+
+handleExitCar :: GameState -> IO GameState
+handleExitCar = exitCar

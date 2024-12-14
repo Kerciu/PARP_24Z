@@ -24,7 +24,7 @@ initialState = GameState {
     inventory = [weirdBox, redFuse, blueFuse, greenFuse],
     locationItems = Map.fromList
         [ ("train_station", [notes]),
-          ("parking", [newspaper])
+          ("parking", [carKeys])
         ],
     closedLocations = [
         "hotel_room",

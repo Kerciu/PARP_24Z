@@ -4,6 +4,7 @@ import Data.Text.Array (new)
 import GameState
 import Interactable
 import Locations
+import Movement
 import Objects
 import Utils
 
@@ -55,6 +56,40 @@ isAtLocation locationString state =
   case findLocation locationString of
     Nothing -> False
     Just loc -> locationName (currentLocation state) == locationName loc
+
+enterCar :: GameState -> IO GameState
+enterCar state
+  | isAtLocation "parking" state =
+      if hasFlag "car_opened" state
+        then
+          goNextLocation "car" state
+        else
+          if hasItem "car_keys" state
+            then do
+              putStrLn "You unlock the car with keys."
+              newState <- removeItem "car_keys" state
+              newState <- addFlag "car_opened" newState
+              goNextLocation "car" newState
+            else do
+              putStrLn "You need keys to enter the car."
+              return state
+  | isAtLocation "car" state =
+      do
+        putStrLn "You are already in the car."
+        return state
+  | otherwise =
+      do
+        putStrLn "There is no car here."
+        return state
+
+exitCar :: GameState -> IO GameState
+exitCar state =
+  if isAtLocation "car" state
+    then
+      goNextLocation "parking" state
+    else do
+      putStrLn "You are not in the car."
+      return state
 
 open :: String -> GameState -> IO GameState
 open "weird_box" state =
