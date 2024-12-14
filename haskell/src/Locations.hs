@@ -123,7 +123,7 @@ homelessBench =
       locationInteractables = [],
       directions =
         Map.fromList
-          [ (South, ("main_street", True))
+          [ (South, ("parking", True))
           ]
     }
 

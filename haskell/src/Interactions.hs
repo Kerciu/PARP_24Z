@@ -110,7 +110,7 @@ give "drunkard" "kuflowe_mocne" state =
     else do
       putStrLn "You cannot give this item to that person."
       return state
-give _ object state = do
+give _ _ state = do
   putStrLn "You cannot give this item to that person."
   return state
 
@@ -190,3 +190,8 @@ interactWith "priest" state =
     else do
       putStrLn "There is no priest here"
       return state
+
+-- No interaction
+interactWith person state = do
+  putStrLn $ "There is no " ++ person ++ " here"
+  return state
