@@ -37,9 +37,7 @@ handleItems action object state = do
         "check" -> checkItem object state
 
 handleLook :: GameState -> IO GameState
-handleLook state = do
-    lookAround state
-    return state
+handleLook = lookAround
 
 handleInteractions :: String -> GameState -> IO GameState
 handleInteractions = interactWith

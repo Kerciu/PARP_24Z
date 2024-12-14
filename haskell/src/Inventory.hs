@@ -22,6 +22,12 @@ removeItemFromLocation item locationName state =
       updatedLocationItems = Map.insert locationName updatedItems (locationItems state)
    in state {locationItems = updatedLocationItems}
 
+addItemToLocation :: Location -> Interactable -> Location
+addItemToLocation loc item = loc { locationItems = item : locationItems loc }
+
+removeItemFromLocation :: Location -> Interactable -> Location
+removeItemFromLocation loc item = loc { locationItems = filter (/= item) (locationItems loc) }
+
 -- Handle taking an item
 takeItem :: String -> GameState -> IO GameState
 takeItem itemName state =
