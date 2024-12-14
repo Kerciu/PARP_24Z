@@ -6,17 +6,21 @@ import Interactable
 import Locations
 import Objects
 
-addItemToLocation :: Interactable -> GameState -> GameState
-addItemToLocation item state =
-  let updatedCurrentLocation = (currentLocation state) {locationItems = item : locationItems (currentLocation state)}
-      updatedLocations = Map.insert (locationName (currentLocation state)) updatedCurrentLocation (locations state)
-   in state {currentLocation = updatedCurrentLocation, locations = updatedLocations}
+addItemToLocation :: Interactable -> String -> GameState -> GameState
+addItemToLocation item locationName state =
+  let updatedItems = case Map.lookup locationName (locationItems state) of
+        Nothing -> [item]
+        Just items -> item : items
+      updatedLocationItems = Map.insert locationName updatedItems (locationItems state)
+   in state {locationItems = updatedLocationItems}
 
-removeItemFromLocation :: Interactable -> GameState -> GameState
-removeItemFromLocation item state =
-  let updatedCurrentLocation = (currentLocation state) {locationItems = filter (/= item) (locationItems (currentLocation state))}
-      updatedLocations = Map.insert (locationName (currentLocation state)) updatedCurrentLocation (locations state)
-   in state {currentLocation = updatedCurrentLocation, locations = updatedLocations}
+removeItemFromLocation :: Interactable -> String -> GameState -> GameState
+removeItemFromLocation item locationName state =
+  let updatedItems = case Map.lookup locationName (locationItems state) of
+        Nothing -> []
+        Just items -> filter (/= item) items
+      updatedLocationItems = Map.insert locationName updatedItems (locationItems state)
+   in state {locationItems = updatedLocationItems}
 
 -- Handle taking an item
 takeItem :: String -> GameState -> IO GameState
@@ -26,14 +30,20 @@ takeItem itemName state =
       putStrLn $ "Item '" ++ itemName ++ "' does not exist."
       return state
     Just item ->
-      if item `elem` locationItems (currentLocation state)
-        then do
-          let updatedState = removeItemFromLocation item state {inventory = item : inventory state}
-          putStrLn $ "You have taken the " ++ name item ++ "."
-          return updatedState
-        else do
-          putStrLn $ "There is no " ++ itemName ++ " here."
-          return state
+      let locationString = locationName (currentLocation state)
+       in case Map.lookup locationString (locationItems state) of
+            Nothing -> do
+              putStrLn $ "There is no " ++ itemName ++ " here."
+              return state
+            Just items ->
+              if item `elem` items
+                then do
+                  let updatedState = (removeItemFromLocation item locationString state) {inventory = item : inventory state}
+                  putStrLn $ "You have taken the " ++ name item ++ "."
+                  return updatedState
+                else do
+                  putStrLn $ "There is no " ++ itemName ++ " here."
+                  return state
 
 -- Handle dropping an item
 dropItem :: String -> GameState -> IO GameState
@@ -45,11 +55,12 @@ dropItem itemName state =
     Just item ->
       if item `elem` inventory state
         then do
-          let updatedState = addItemToLocation item state {inventory = filter (/= item) (inventory state)}
+          let locationString = locationName (currentLocation state)
+          let updatedState = (addItemToLocation item locationString state) {inventory = filter (/= item) (inventory state)}
           putStrLn $ "You have dropped the " ++ name item ++ "."
           return updatedState
         else do
-          putStrLn $ "You are not holding the " ++ itemName ++ "."
+          putStrLn $ "You don't have " ++ itemName ++ " in your inventory."
           return state
 
 -- Handle checking an item
