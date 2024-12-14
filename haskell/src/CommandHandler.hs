@@ -30,9 +30,10 @@ handleMovement = move
 
 handleItems :: String -> String -> GameState -> IO GameState
 handleItems action object state = do
-    printLines ["You " ++ action ++ " the " ++ object ++ "."]
-    -- take, drop or check logic
-    return state
+    case action of
+        "take" -> takeItem object state
+        "drop" -> dropItem object state
+        "check" -> checkItem object state
 
 handleLook :: GameState -> IO GameState
 handleLook state = do
