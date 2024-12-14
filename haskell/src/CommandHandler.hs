@@ -26,10 +26,7 @@ handleInventory state = do
     return state
 
 handleMovement :: String -> GameState -> IO GameState
-handleMovement direction state = do
-    move direction state
-    handleLook state
-    return state
+handleMovement = move
 
 handleItems :: String -> String -> GameState -> IO GameState
 handleItems action object state = do
@@ -44,10 +41,8 @@ handleLook state = do
 
 handleInteractions :: String -> GameState -> IO GameState
 handleInteractions character state = do
-    printLines ["Interacting with " ++ character ++ "..."]
     interactWith state character
 
 handleGive :: String -> String -> GameState -> IO GameState
 handleGive character object state = do
-    printLines ["Giving " ++ object ++ " to " ++ character ++ "..."]
     give state character object

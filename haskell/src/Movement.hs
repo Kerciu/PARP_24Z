@@ -5,28 +5,30 @@ import Locations
 import qualified Data.Map as Map
 
 move :: String -> GameState -> IO GameState
-move strDirection gameState =
+move strDirection state =
     case parseDirection strDirection of
         Nothing ->
-            putStrLn "Invalid direction" >> return gameState
+            putStrLn "Invalid direction" >> return state
         Just direction ->
-            case Map.lookup direction (directions (location gameState)) of
-                Just (nextLocationName, True) -> goNextLocation nextLocationName
-                Just (nextLocationName, False) -> locationBlocked nextLocationName
+            case Map.lookup direction (directions (location state)) of
+                Just (nextLocationName, True) -> goNextLocation nextLocationName state
+                Just (nextLocationName, False) -> locationBlocked nextLocationName state
                 Nothing ->
-                    putStrLn "You can't go that way" >> return gameState
+                    putStrLn "You can't go that way" >> return state
     
-    where
-        goNextLocation nextLocationName =
-            case findLocation nextLocationName of
-                Just nextLocation ->
-                    do
-                        putStrLn $ locationDescription nextLocation
-                        return gameState { location = nextLocation }
-                Nothing ->
-                    do
-                        putStrLn "Error: Location not found!"
-                        return gameState
-        
-        locationBlocked nextLocationName =
-            putStrLn ("The way to " ++ nextLocationName ++ " is blocked.") >> return gameState
+
+goNextLocation :: String -> GameState -> IO GameState
+goNextLocation nextLocationName state =
+    case findLocation nextLocationName of
+        Just nextLocation ->
+            do
+                putStrLn $ locationDescription nextLocation
+                return state { location = nextLocation }
+        Nothing ->
+            do
+                putStrLn "Error: Location not found!"
+                return state
+
+locationBlocked :: String -> GameState -> IO GameState
+locationBlocked nextLocationName state =
+    putStrLn ("The way to " ++ nextLocationName ++ " is blocked.") >> return state
