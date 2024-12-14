@@ -22,6 +22,7 @@ parseCommand cmd state = case words cmd of
     ["look"] -> handleLook state
     ["interact", character] -> handleInteractions character state
     ["give", character, object] -> handleGive character object state
+    ["open", object] -> handleOpen object state
     _ -> do
         printLines ["Unknown command.", ""]
         return state

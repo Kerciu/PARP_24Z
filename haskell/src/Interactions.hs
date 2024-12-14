@@ -56,6 +56,30 @@ isAtLocation locationString state =
     Nothing -> False
     Just loc -> locationName (currentLocation state) == locationName loc
 
+open :: String -> GameState -> IO GameState
+open "weird_box" state =
+  if hasItem "weird_box" state
+    then
+      if isAtLocation "second_floor_of_hill_church" state
+        then do
+          putStrLn "You open the box with the code and find weird notes inside."
+          putStrLn "One of those says: 'U CANNOT DEFEAT THEM FLEE FROM THE CITY AS FAST AS YOU CAN, THEY ARE CLOSING UP ON ME. THIS IS MY FAREWELL, GOODBYE THE ONE THAT READ THOOSE'."
+          putStrLn "You are now able to decide, whether to continue your journey or run away from the city."
+          putStrLn "Decide fast or maybe you will meet the same fate as a writer of thoose notes."
+          putStrLn "To flee from the city to train station you have to go north for a secret passage in the church."
+          putStrLn "To return to the first floor of the church go east."
+          addFlag "weird_box_opened" state
+        else do
+          putStrLn "You have to know a 20-digit code to open this box."
+          putStrLn "Maybe you can find it somewhere."
+          return state
+    else do
+      putStrLn "You don't have weird_box in your inventory."
+      return state
+open _ state = do
+  putStrLn "You cannot open this item."
+  return state
+
 give :: String -> String -> GameState -> IO GameState
 give "homeless" "cigarettes" state =
   if isAtLocation "homeless_bench" state && hasItem "cigarettes" state

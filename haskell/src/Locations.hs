@@ -325,12 +325,15 @@ hillChurch =
           ++ "The dark interior and the smell of incense remind you of ancient rituals."
           ++ "The priest, the last witness of the former life in the city, looks at you with an expression of concern."
           ++ "You can interact with him by interact Priest"
-          ++ "The path to the forest is to the north.",
+          ++ "The path to the forest is to the north."
+          ++ "You can go west to the second floor of the church."
+          ++ "To the east, you see the library.",
       locationInteractables = [],
       directions =
         Map.fromList
           [ (North, ("forest_cave", True)),
-            (East, ("library", True))
+            (East, ("library", True)),
+            (West, ("second_floor_of_hill_church", True))
           ]
     }
 

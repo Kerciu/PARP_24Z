@@ -44,3 +44,6 @@ handleInteractions = interactWith
 
 handleGive :: String -> String -> GameState -> IO GameState
 handleGive = give
+
+handleOpen :: String -> GameState -> IO GameState
+handleOpen = open
