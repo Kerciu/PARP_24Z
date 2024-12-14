@@ -19,7 +19,10 @@ findItem itemName = Map.lookup itemName itemsMap
           ("newspaper", newspaper),
           ("leaf_with_code", leafWithCode),
           ("engraved_ring", engravedRing),
-          ("key", key)
+          ("key", key),
+          ("red_fuse", redFuse),
+          ("green_fuse", greenFuse),
+          ("blue_fuse", blueFuse)
         ]
 
 cigarettes :: Interactable
@@ -133,4 +136,25 @@ key =
   Interactable
     { name = "key",
       description = "A small, rusted key. It might be useful for unlocking something."
+    }
+
+redFuse :: Interactable
+redFuse =
+  Interactable
+    { name = "red_fuse",
+      description = "A red fuse, used for electrical circuits. It might be useful for repairing something."
+    }
+
+greenFuse :: Interactable
+greenFuse =
+  Interactable
+    { name = "green_fuse",
+      description = "A green fuse, used for electrical circuits. It might be useful for repairing something."
+    }
+
+blueFuse :: Interactable
+blueFuse =
+  Interactable
+    { name = "blue_fuse",
+      description = "A blue fuse, used for electrical circuits. It might be useful for repairing something."
     }
