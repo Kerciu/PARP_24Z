@@ -40,9 +40,7 @@ handleLook state = do
     return state
 
 handleInteractions :: String -> GameState -> IO GameState
-handleInteractions character state = do
-    interactWith state character
+handleInteractions = interactWith
 
 handleGive :: String -> String -> GameState -> IO GameState
-handleGive character object state = do
-    give state character object
+handleGive = give
