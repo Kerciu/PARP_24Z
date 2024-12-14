@@ -1,4 +1,5 @@
 import GameState
+import Look
 import Utils (printLines)
 import CommandHandler (printInstructions)
 import CommandParser
@@ -39,4 +40,5 @@ gameLoop state = do
 main = do
     printIntroduction
     printInstructions
+    lookAround initialState
     gameLoop initialState

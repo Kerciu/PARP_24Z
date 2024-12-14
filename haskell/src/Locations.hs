@@ -46,7 +46,7 @@ findLocation locationName = Map.lookup locationName locationsMap
           ("old_town", oldTown),
           ("hotel_lobby", hotelLobby),
           ("hotel_toilet", hotelToilet),
-          ("hotel_rorridor", hotelCorridor),
+          ("hotel_corridor", hotelCorridor),
           ("hotel_room", hotelRoom),
           ("hotel_basement", hotelBasement),
           ("police_station", policeStation),
@@ -195,7 +195,7 @@ hotelLobby =
           [ (North, ("old_town", True)),
             (East, ("hotel_toilet", True)),
             (South, ("hotel_corridor", True)),
-            (West, ("hotel_basement", True))
+            (West, ("hotel_basement", False))
           ]
     }
 
@@ -228,7 +228,7 @@ hotelCorridor =
       directions =
         Map.fromList
           [ (North, ("hotel_lobby", True)),
-            (West, ("hotel_room", True))
+            (West, ("hotel_room", False))
           ]
     }
 
@@ -275,7 +275,7 @@ policeStation =
           ++ "A drunkard, with tangled hair and a worn-out jacket, stares at you with a glazed look."
           ++ "He seems to be clutching an old bottle. Perhaps he knows something useful?"
           ++ "You can interact with him by interact Drunkard"
-          ++ "You can enter the code to the safe by openSafe Code."
+          ++ "You can enter the code to the safe by open safe."
           ++ "You can go south to return to the old town.",
       locationInteractables = [],
       directions =
@@ -297,7 +297,7 @@ library =
       directions =
         Map.fromList
           [ (East, ("old_town", True)),
-            (South, ("archive", True)),
+            (South, ("archive", False)),
             (West, ("hill_church", True))
           ]
     }
@@ -325,12 +325,15 @@ hillChurch =
           ++ "The dark interior and the smell of incense remind you of ancient rituals."
           ++ "The priest, the last witness of the former life in the city, looks at you with an expression of concern."
           ++ "You can interact with him by interact Priest"
-          ++ "The path to the forest is to the north.",
+          ++ "The path to the forest is to the north."
+          ++ "You can go west to the second floor of the church."
+          ++ "To the east, you see the library.",
       locationInteractables = [],
       directions =
         Map.fromList
           [ (North, ("forest_cave", True)),
-            (East, ("library", True))
+            (East, ("library", True)),
+            (West, ("second_floor_of_hill_church", True))
           ]
     }
 

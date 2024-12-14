@@ -4,6 +4,7 @@ import Data.Text.Array (new)
 import GameState
 import Interactable
 import Locations
+import Movement
 import Objects
 import Utils
 
@@ -55,6 +56,86 @@ isAtLocation locationString state =
   case findLocation locationString of
     Nothing -> False
     Just loc -> locationName (currentLocation state) == locationName loc
+
+enterCar :: GameState -> IO GameState
+enterCar state
+  | isAtLocation "parking" state =
+      if hasFlag "car_opened" state
+        then
+          goNextLocation "car" state
+        else
+          if hasItem "car_keys" state
+            then do
+              putStrLn "You unlock the car with keys."
+              newState <- removeItem "car_keys" state
+              newState <- addFlag "car_opened" newState
+              goNextLocation "car" newState
+            else do
+              putStrLn "You need keys to enter the car."
+              return state
+  | isAtLocation "car" state =
+      do
+        putStrLn "You are already in the car."
+        return state
+  | otherwise =
+      do
+        putStrLn "There is no car here."
+        return state
+
+exitCar :: GameState -> IO GameState
+exitCar state =
+  if isAtLocation "car" state
+    then
+      goNextLocation "parking" state
+    else do
+      putStrLn "You are not in the car."
+      return state
+
+open :: String -> GameState -> IO GameState
+open "weird_box" state =
+  if hasItem "weird_box" state
+    then
+      if isAtLocation "second_floor_of_hill_church" state
+        then do
+          putStrLn "You open the box with the code and find weird notes inside."
+          putStrLn "One of those says: 'U CANNOT DEFEAT THEM FLEE FROM THE CITY AS FAST AS YOU CAN, THEY ARE CLOSING UP ON ME. THIS IS MY FAREWELL, GOODBYE THE ONE THAT READ THOOSE'."
+          putStrLn "You are now able to decide, whether to continue your journey or run away from the city."
+          putStrLn "Decide fast or maybe you will meet the same fate as a writer of thoose notes."
+          putStrLn "To flee from the city to train station you have to go north for a secret passage in the church."
+          putStrLn "To return to the first floor of the church go east."
+          addFlag "weird_box_opened" state
+        else do
+          putStrLn "You have to know a 20-digit code to open this box."
+          putStrLn "Maybe you can find it somewhere."
+          return state
+    else do
+      putStrLn "You don't have weird_box in your inventory."
+      return state
+open "safe" state =
+  if isAtLocation "police_station" state
+    then
+      if hasFlag "safe_opened" state
+        then do
+          putStrLn "The safe is already opened."
+          return state
+        else do
+          putStrLn "You have to enter 4-digit code to open the safe:"
+          code <- getLine
+          if code == "2137"
+            then do
+              putStrLn "The safe opens, revealing an engraved ring inside."
+              putStrLn "You take the engraved ring."
+              newState <- addItem "engraved_ring" state
+              addFlag "safe_opened" newState
+            else do
+              putStrLn "Wrong code!"
+              return state
+    else do
+      putStrLn "There is no safe here."
+      return state
+open _ state = do
+  putStrLn "You cannot open this item."
+  return state
 
 give :: String -> String -> GameState -> IO GameState
 give "homeless" "cigarettes" state =
