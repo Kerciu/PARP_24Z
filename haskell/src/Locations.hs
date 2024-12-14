@@ -46,7 +46,7 @@ findLocation locationName = Map.lookup locationName locationsMap
           ("old_town", oldTown),
           ("hotel_lobby", hotelLobby),
           ("hotel_toilet", hotelToilet),
-          ("hotel_rorridor", hotelCorridor),
+          ("hotel_corridor", hotelCorridor),
           ("hotel_room", hotelRoom),
           ("hotel_basement", hotelBasement),
           ("police_station", policeStation),
@@ -195,7 +195,7 @@ hotelLobby =
           [ (North, ("old_town", True)),
             (East, ("hotel_toilet", True)),
             (South, ("hotel_corridor", True)),
-            (West, ("hotel_basement", True))
+            (West, ("hotel_basement", False))
           ]
     }
 
@@ -228,7 +228,7 @@ hotelCorridor =
       directions =
         Map.fromList
           [ (North, ("hotel_lobby", True)),
-            (West, ("hotel_room", True))
+            (West, ("hotel_room", False))
           ]
     }
 
@@ -297,7 +297,7 @@ library =
       directions =
         Map.fromList
           [ (East, ("old_town", True)),
-            (South, ("archive", True)),
+            (South, ("archive", False)),
             (West, ("hill_church", True))
           ]
     }

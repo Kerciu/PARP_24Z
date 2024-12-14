@@ -3,11 +3,13 @@ import Locations
 import Objects
 import Interactable
 import qualified Data.Map as Map
+import Text.XHtml (archive)
 
 data GameState = GameState {
     currentLocation :: Location,
     inventory :: [Interactable],
     locationItems :: Map.Map String [Interactable],
+    closedLocations :: [String],
     escapeCityEnding :: Bool,
     hillChurchEndingEscape :: Bool,
     forestCaveEndingKilled :: Bool,
@@ -18,12 +20,17 @@ data GameState = GameState {
 
 initialState :: GameState
 initialState = GameState {
-    currentLocation = trainStation,
-    inventory = [amulet],
+    currentLocation = library,
+    inventory = [key],
     locationItems = Map.fromList
         [ ("train_station", [notes]),
           ("parking", [newspaper])
         ],
+    closedLocations = [
+        "hotel_room",
+        "hotel_basement",
+        "archive"
+    ],
     escapeCityEnding = False,
     hillChurchEndingEscape = False,
     forestCaveEndingKilled = False,
