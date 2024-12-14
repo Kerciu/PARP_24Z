@@ -275,7 +275,7 @@ policeStation =
           ++ "A drunkard, with tangled hair and a worn-out jacket, stares at you with a glazed look."
           ++ "He seems to be clutching an old bottle. Perhaps he knows something useful?"
           ++ "You can interact with him by interact Drunkard"
-          ++ "You can enter the code to the safe by openSafe Code."
+          ++ "You can enter the code to the safe by open safe."
           ++ "You can go south to return to the old town.",
       locationInteractables = [],
       directions =

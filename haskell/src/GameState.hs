@@ -20,7 +20,7 @@ data GameState = GameState {
 
 initialState :: GameState
 initialState = GameState {
-    currentLocation = hillChurch,
+    currentLocation = trainStation,
     inventory = [weirdBox, redFuse, blueFuse, greenFuse],
     locationItems = Map.fromList
         [ ("train_station", [notes]),

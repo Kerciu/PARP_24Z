@@ -76,6 +76,28 @@ open "weird_box" state =
     else do
       putStrLn "You don't have weird_box in your inventory."
       return state
+open "safe" state =
+  if isAtLocation "police_station" state
+    then
+      if hasFlag "safe_opened" state
+        then do
+          putStrLn "The safe is already opened."
+          return state
+        else do
+          putStrLn "You have to enter 4-digit code to open the safe:"
+          code <- getLine
+          if code == "2137"
+            then do
+              putStrLn "The safe opens, revealing an engraved ring inside."
+              putStrLn "You take the engraved ring."
+              newState <- addItem "engraved_ring" state
+              addFlag "safe_opened" newState
+            else do
+              putStrLn "Wrong code!"
+              return state
+    else do
+      putStrLn "There is no safe here."
+      return state
 open _ state = do
   putStrLn "You cannot open this item."
   return state
