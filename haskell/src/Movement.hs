@@ -47,7 +47,23 @@ locationBlocked nextLocationName state =
       goNextLocation nextLocationName state
 
 openHotelRoom :: GameState -> IO GameState
-openHotelRoom state = putStrLn "Unlocking the hotel room is not implemented yet." >> return state
+openHotelRoom state = do
+  putStrLn "The door is locked."
+  putStrLn "However, you noticed a sign that says 'Michael Turner'."
+  putStrLn "There is also a keypad next to the door."
+  putStrLn "Please enter 4-digit code:"
+  code <- getLine
+  if code == "1974"
+    then do
+      let updatedState =
+            state
+              { closedLocations = filter (/= "hotel_room") (closedLocations state)
+              }
+      putStrLn "Correct code!"
+      goNextLocation "hotel_room" updatedState
+    else do
+      putStrLn "Wrong code!"
+      return state
 
 openHotelBasement :: GameState -> IO GameState
 openHotelBasement state =
