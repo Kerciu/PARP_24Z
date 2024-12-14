@@ -5,19 +5,23 @@ import Locations
 import Objects
 import Interactable
 
+addItemToLocation :: Location -> Interactable -> Location
+addItemToLocation loc item = loc { locationItems = item : locationItems loc }
+
+removeItemFromLocation :: Location -> Interactable -> Location
+removeItemFromLocation loc item = loc { locationItems = filter (/= item) (locationItems loc) }
+
 -- Handle taking an item
 takeItem :: String -> GameState -> IO GameState
 takeItem itemName state =
     case findItem itemName of
         Nothing -> noItemFound itemName
         Just item ->
-            if item `elem` locationItems (location state)
+            if item `elem` locationItems (currentLocation state)
             then do
-                let updatedLocation = (location state) {
-                        locationItems = filter (/= item) (locationItems $ location state)
-                    }
+                let updatedLocation = removeItemFromLocation (currentLocation state) item
                 let updatedState = state {
-                        location = updatedLocation,
+                        currentLocation = updatedLocation,
                         inventory = item : inventory state
                     }
                 putStrLn $ "You have taken the " ++ name item ++ "."
@@ -38,11 +42,9 @@ dropItem itemName state =
             if item `elem` inventory state
             then do
                 putStrLn $ "You have dropped the " ++ name item ++ "."
-                let updatedLocation = (location state) {
-                        locationItems = item : locationItems (location state)
-                    }
+                let updatedLocation = addItemToLocation (currentLocation state) item
                 let updatedState = state {
-                        location = updatedLocation,
+                        currentLocation = updatedLocation,
                         inventory = filter (/= item) (inventory state)
                     }
                 return updatedState

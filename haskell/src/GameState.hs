@@ -4,7 +4,7 @@ import Objects
 import Interactable
 
 data GameState = GameState {
-    location :: Location,
+    currentLocation :: Location,
     inventory :: [Interactable],
     escapeCityEnding :: Bool,
     hillChurchEndingEscape :: Bool,
@@ -16,8 +16,8 @@ data GameState = GameState {
 
 initialState :: GameState
 initialState = GameState {
-    location = trainStation,
-    inventory = [],
+    currentLocation = trainStation,
+    inventory = [notes],
     escapeCityEnding = False,
     hillChurchEndingEscape = False,
     forestCaveEndingKilled = False,
