@@ -33,15 +33,12 @@ readCommand = do
 -- an argument, eg. gameLoop :: State -> IO ()
 gameLoop :: GameState -> IO ()
 gameLoop state = do
-    cmd <- readCommand
-    if gameOver state == False
-        then do
+    if gameOver state
+        then putStrLn "Thanks for playing! Exiting the game..."
+        else do
+            cmd <- readCommand
             newState <- parseCommand cmd state
             gameLoop newState
-        else do
-            putStrLn("Thanks for playing!")
-            gameLoop state
-
 
 main = do
     printIntroduction
