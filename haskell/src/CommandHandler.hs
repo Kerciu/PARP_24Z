@@ -36,7 +36,8 @@ handleInventory state = do
     return state
 
 handleMovement :: String -> GameState -> IO GameState
-handleMovement = move
+handleMovement direction state = do
+    move direction (locationName (currentLocation state)) state
 
 handleItems :: String -> String -> GameState -> IO GameState
 handleItems action object state = do
