@@ -6,6 +6,7 @@ import Movement
 import GameState
 import Interactions
 import Look
+import Introduction
 import Utils (printLines)
 
 printInstructions :: IO ()
@@ -15,6 +16,14 @@ handleInstructions :: GameState -> IO GameState
 handleInstructions state = do
     printInstructions
     return state
+
+handleStart :: GameState -> IO GameState
+handleStart state = do
+    let startState = initialState
+    printIntroduction
+    printInstructions
+    lookAround startState
+    return startState
 
 handleQuit :: GameState -> IO GameState
 handleQuit state = do

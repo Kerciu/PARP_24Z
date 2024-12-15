@@ -9,6 +9,7 @@ import qualified Data.Map as Map
 
 parseCommand :: String -> GameState -> IO GameState
 parseCommand cmd state = case words cmd of
+    ["start"] -> handleStart state
     ["instructions"] -> handleInstructions state
     ["quit"] -> handleQuit state
     ["inventory"] -> handleInventory state
