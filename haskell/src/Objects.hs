@@ -36,23 +36,27 @@ weirdBox :: Interactable
 weirdBox =
   Interactable
     { name = "weird_box",
-      description =
-        "A box with a lock that opens with more than 20 digits."
-          ++ "Impossible to open for now, but maybe it will prove useful in the future."
+      description = unlines [
+        "A box with a lock that opens with more than 20 digits.",
+        "Impossible to open for now, but maybe it will prove useful in the future."]
     }
 
 harnas :: Interactable
 harnas =
   Interactable
     { name = "harnas_beer",
-      description = "A can of Harnas beer, cold and seemingly untouched. It might help you in your interactions with certain characters."
+      description =  unlines [
+      "A can of Harnas beer, cold and seemingly untouched",
+      "It might help you in your interactions with certain characters."]
     }
 
 kufloweMocne :: Interactable
 kufloweMocne =
   Interactable
     { name = "kuflowe_mocne",
-      description = "A bottle of Kuflowe Mocne, a strong beer. It might be useful for someone who needs a drink."
+      description = unlines [
+      "A bottle of Kuflowe Mocne, a strong beer.",
+      "It might be useful for someone who needs a drink."]
     }
 
 carKeys :: Interactable
@@ -73,62 +77,62 @@ diary :: Interactable
 diary =
   Interactable
     { name = "diary",
-      description =
-        "The diary is yellowed and fragile."
-          ++ "Some pages are barely readable, but one section stands out, scribbled with urgency:"
-          ++ ""
-          ++ "\"We have found traces of an entrance near the old oak in the forest."
-          ++ "It must be the cave mentioned in the legends... The symbols match."
-          ++ "It is said the cave holds more than relics — perhaps a power that should remain undisturbed."
-          ++ "We must proceed with caution.\""
+      description = unlines [
+        "The diary is yellowed and fragile.",
+        "Some pages are barely readable, but one section stands out, scribbled with urgency:",
+        "",
+        "\"We have found traces of an entrance near the old oak in the forest.",
+        "It must be the cave mentioned in the legends... The symbols match.",
+        "It is said the cave holds more than relics — perhaps a power that should remain undisturbed.",
+        "We must proceed with caution.\""]
     }
 
 notes :: Interactable
 notes =
   Interactable
     { name = "notes",
-      description =
-        "The notes are brittle and covered in dust, with several pages missing or torn."
-          ++ ""
-          ++ "\"We found it — the amulet from the old texts."
-          ++ "It is said this amulet is the key to something ancient, hidden deep within the caves."
-          ++ "We must be cautious. The energy here is unstable, and there are warnings in the old language about disturbing what lies beyond.\""
+      description = unlines [
+        "The notes are brittle and covered in dust, with several pages missing or torn.",
+        "",
+        "\"We found it — the amulet from the old texts.",
+        "It is said this amulet is the key to something ancient, hidden deep within the caves.",
+        "We must be cautious. The energy here is unstable, and there are warnings in the old language about disturbing what lies beyond.\""]
     }
 
 newspaper :: Interactable
 newspaper =
   Interactable
     { name = "newspaper",
-      description =
-        "You start reading it. The headline catches your eye:"
-          ++ "\"Team of Archaeologists Arrives to Uncover the Secrets of the Ancient Ruins in Town.\""
-          ++ ""
-          ++ "The article mentions several archaeologists by name:"
-          ++ "- Sarah Miller (born 1952)"
-          ++ "- John Roberts (born 1968)"
-          ++ "- Michael Turner (born 1974)"
-          ++ "- Emma Carter (born 1980)"
+      description = unlines [
+        "You start reading it. The headline catches your eye:",
+        "\"Team of Archaeologists Arrives to Uncover the Secrets of the Ancient Ruins in Town.\"",
+        "",
+        "The article mentions several archaeologists by name:",
+        "- Sarah Miller (born 1952)",
+        "- John Roberts (born 1968)",
+        "- Michael Turner (born 1974)",
+        "- Emma Carter (born 1980)"]
     }
 
 leafWithCode :: Interactable
 leafWithCode =
   Interactable
     { name = "leaf_with_code",
-      description =
-        "The leaf contains a mysterious riddle:"
-          ++ "The code is hidden in two pairs of numbers."
-          ++ "The first pair comes from multiplying three by the digit symbolizing fullness."
-          ++ "The second pair is a sequence you receive from the natural order."
-          ++ "You think about these pairs to solve the code."
+      description = unlines [
+        "The leaf contains a mysterious riddle:",
+        "The code is hidden in two pairs of numbers.",
+        "The first pair comes from multiplying three by the digit symbolizing fullness.",
+        "The second pair is a sequence you receive from the natural order.",
+        "You think about these pairs to solve the code."]
     }
 
 engravedRing :: Interactable
 engravedRing =
   Interactable
     { name = "engraved_ring",
-      description =
-        "The ring is engraved with strange symbols and feels unusually heavy in your hand."
-          ++ "It might hold some hidden significance or power."
+      description = unlines [
+        "The ring is engraved with strange symbols and feels unusually heavy in your hand.",
+        "It might hold some hidden significance or power."]
     }
 
 key :: Interactable

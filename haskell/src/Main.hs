@@ -1,3 +1,4 @@
+import Control.Monad (when)
 import GameState
 import Look
 import Utils (printLines)
@@ -33,12 +34,11 @@ readCommand = do
 -- an argument, eg. gameLoop :: State -> IO ()
 gameLoop :: GameState -> IO ()
 gameLoop state = do
-    if gameOver state
-        then putStrLn "Thanks for playing! Exiting the game..."
-        else do
-            cmd <- readCommand
-            newState <- parseCommand cmd state
-            gameLoop newState
+    when (not (gameOver state)) $ do
+        cmd <- readCommand
+        newState <- parseCommand cmd state
+        gameLoop newState
+    when (gameOver state) $ putStrLn "Thanks for playing! Exiting the game..."
 
 main = do
     printIntroduction

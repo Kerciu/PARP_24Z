@@ -18,8 +18,8 @@ handleInstructions state = do
 
 handleQuit :: GameState -> IO GameState
 handleQuit state = do
-    printLines ["Quitting the game. Goodbye!"]
-    return state
+    putStrLn "Quitting the game. Goodbye!"
+    return state { gameOver = True }
 
 handleInventory :: GameState -> IO GameState
 handleInventory state = do
