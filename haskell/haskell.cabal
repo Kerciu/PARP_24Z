@@ -25,7 +25,22 @@ source-repository head
 
 library
   exposed-modules:
-      Lib
+      CommandHandler
+      CommandParser
+      Endings
+      GameState
+      Instructions
+      Interactable
+      Interactions
+      Introduction
+      Inventory
+      Locations
+      LocationUtils
+      Look
+      Main
+      Movement
+      Objects
+      Utils
   other-modules:
       Paths_haskell
   autogen-modules:
