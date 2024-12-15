@@ -12,9 +12,9 @@ introductionText = [
     "You find yourself at a train station, the clock forever stuck at 3:15 AM.",
     "An eerie silence lingers as the caretaker of the station watches you suspiciously.",
     "Resolving mystery of an ominous cult seem to be central to your quest.",
-    "But be warned — the path ahead is fraught with danger and mystery.",
+    "But be warned, the path ahead is fraught with danger and mystery.",
     "As you explore, remember that the choices you make could shape your fate.",
-    "Good luck, adventurer — the mystery awaits you!",
+    "Good luck, adventurer, the mystery awaits you!",
     ""
     ]
 
@@ -34,8 +34,14 @@ readCommand = do
 gameLoop :: GameState -> IO ()
 gameLoop state = do
     cmd <- readCommand
-    newState <- parseCommand cmd state
-    gameLoop newState
+    if gameOver state == False
+        then do
+            newState <- parseCommand cmd state
+            gameLoop newState
+        else do
+            putStrLn("Thanks for playing!")
+            gameLoop state
+
 
 main = do
     printIntroduction

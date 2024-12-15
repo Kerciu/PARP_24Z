@@ -5,6 +5,7 @@ import GameState
 import Interactable
 import Locations
 import Objects
+import LocationUtils
 
 addItemToLocation :: Interactable -> String -> GameState -> GameState
 addItemToLocation item locationName state =

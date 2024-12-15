@@ -10,10 +10,7 @@ data GameState = GameState {
     inventory :: [Interactable],
     locationItems :: Map.Map String [Interactable],
     closedLocations :: [String],
-    escapeCityEnding :: Bool,
     hillChurchEndingEscape :: Bool,
-    forestCaveEndingKilled :: Bool,
-    forestCaveEndingWeakened :: Bool,
     gameOver :: Bool,
     flags :: [String]
 }
@@ -21,20 +18,18 @@ data GameState = GameState {
 initialState :: GameState
 initialState = GameState {
     currentLocation = trainStation,
-    inventory = [weirdBox, redFuse, blueFuse, greenFuse],
+    inventory = [carKeys],
     locationItems = Map.fromList
-        [ ("train_station", [notes]),
-          ("parking", [carKeys])
+        [ ("hotel_basement", [notes]),
+          ("car", [key]),
+          ("hotel_basement", [amulet])
         ],
     closedLocations = [
         "hotel_room",
         "hotel_basement",
         "archive"
     ],
-    escapeCityEnding = False,
     hillChurchEndingEscape = False,
-    forestCaveEndingKilled = False,
-    forestCaveEndingWeakened = False,
     gameOver = False,
     flags = []
 }

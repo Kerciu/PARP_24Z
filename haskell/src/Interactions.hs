@@ -7,13 +7,8 @@ import Locations
 import Movement
 import Objects
 import Utils
+import LocationUtils
 
-hasItem :: String -> GameState -> Bool
-hasItem item state =
-  let itemObject = findItem item
-   in case itemObject of
-        Nothing -> False
-        Just item -> item `elem` inventory state
 
 hasFlag :: String -> GameState -> Bool
 hasFlag flag state = flag `elem` flags state
@@ -50,12 +45,6 @@ addFlag flag state = do
     else do
       let updatedState = state {flags = flag : flags state}
       return updatedState
-
-isAtLocation :: String -> GameState -> Bool
-isAtLocation locationString state =
-  case findLocation locationString of
-    Nothing -> False
-    Just loc -> locationName (currentLocation state) == locationName loc
 
 enterCar :: GameState -> IO GameState
 enterCar state
