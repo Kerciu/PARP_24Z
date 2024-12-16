@@ -77,7 +77,7 @@ goNextLocation "hill_church" state = do
 goNextLocation "archive" state = do
   putStrLn "You enter the archive room. It is small and cramped, filled with stacks of old papers and documents."
   putStrLn "Most of the documents are unreadable due to age."
-  if isItemAt "green_fuse" archiveRoom
+  if isItemAt greenFuse "archive" state 
     then do
       putStrLn "However you notice a bright green fuse lying on a nearby shelf."
     else do
@@ -101,7 +101,7 @@ goNextLocation "parking" state = do
 goNextLocation "car" state = do
   putStrLn "You sit inside the car, but it refuses to start."
   putStrLn "Type in exit_car in order to get out of the vehicle."
-  if isItemAt "key" car
+  if isItemAt key "car" state
     then do
       putStrLn "You noticed an old key lying on the passenger seat."
     else do
