@@ -3,12 +3,11 @@ module Interactions where
 import Data.Text.Array (new)
 import GameState
 import Interactable
+import LocationUtils
 import Locations
 import Movement
 import Objects
 import Utils
-import LocationUtils
-
 
 hasFlag :: String -> GameState -> Bool
 hasFlag flag state = flag `elem` flags state
@@ -254,9 +253,16 @@ interactWith "drunkard" state =
 -- Priest interaction
 interactWith "priest" state =
   if isAtLocation "hill_church" state
-    then do
-      putStrLn "I can't tell you more, just go."
-      return state
+    then
+      if amulet `elem` inventory state
+        then do
+          putStrLn "The priest notices the amulet in your hand and warns you: That is the symbol of their cult; do not approach them with it."
+          putStrLn "He continues: I can''t tell you more, just be careful"
+          putStrLn "He points at the old staircase, at the west side of the church, that leads to second floor of the church"
+          return state
+        else do
+          putStrLn "'Our Father, Who art in heaven, Hallowed be Thy name. Thy kingdom come, Thy will be done, On earth as it is in heaven...'"
+          return state
     else do
       putStrLn "There is no priest here"
       return state
