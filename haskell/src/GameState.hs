@@ -22,7 +22,14 @@ initialState = GameState {
     locationItems = Map.fromList
         [ ("hotel_basement", [notes]),
           ("car", [key]),
-          ("hotel_basement", [amulet])
+          ("hotel_basement", [amulet]),
+          ("hotel_room", [diary]),
+          ("hotel_room",[blue_fuse]),
+          ("hotel_toilet", [red_fuse]),
+          ("hotel_basement", [notes]),
+          ("library", [newspaper]),
+          ("river_tracks", [cigarettes]),
+          ("archive", [green_fuse])
         ],
     closedLocations = [
         "hotel_room",

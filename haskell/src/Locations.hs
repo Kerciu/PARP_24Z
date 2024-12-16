@@ -65,7 +65,7 @@ trainStation =
         "The clock points at 3:15 am and never moves.",
         "The timetable is written in some out-of-this-world, unintelligible language.",
         "The only person present at the station is the caretaker.",
-        "You can interact with her by interact Caretaker",
+        "You can interact with her by interact caretaker",
         "To the west, you can see the parking area adjacent to the station.",
         "To the east, there is a train which you can use to escape from city."],
       directions =
@@ -109,7 +109,7 @@ homelessBench =
     { locationName = "homeless_bench",
       locationDescription = unlines [
         "You find yourself near a bench occupied by a homeless man, muttering under his breath.",
-        "You can interact with him by interact Homeless",
+        "You can interact with him by interact homeless",
         "The parking area lies to the south."],
       directions =
         Map.fromList
@@ -261,7 +261,7 @@ policeStation =
         "The smell of cheap liquor and stale cigarettes fills the air.",
         "A drunkard, with tangled hair and a worn-out jacket, stares at you with a glazed look.",
         "He seems to be clutching an old bottle. Perhaps he knows something useful?",
-        "You can interact with him by interact Drunkard",
+        "You can interact with him by interact drunkard",
         "You can enter the code to the safe by open safe.",
         "You can go south to return to the old town."],
       directions =
@@ -308,7 +308,7 @@ hillChurch =
         "You stand before an old, abandoned church on the hill.",
         "The dark interior and the smell of incense remind you of ancient rituals.",
         "The priest, the last witness of the former life in the city, looks at you with an expression of concern.",
-        "You can interact with him by interact Priest",
+        "You can interact with him by interact priest",
         "The path to the forest is to the north.",
         "You can go west to the second floor of the church.",
         "To the east, you see the library."],
