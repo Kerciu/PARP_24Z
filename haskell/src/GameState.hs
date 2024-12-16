@@ -24,12 +24,12 @@ initialState = GameState {
           ("car", [key]),
           ("hotel_basement", [amulet]),
           ("hotel_room", [diary]),
-          ("hotel_room",[blue_fuse]),
-          ("hotel_toilet", [red_fuse]),
+          ("hotel_room",[blueFuse]),
+          ("hotel_toilet", [redFuse]),
           ("hotel_basement", [notes]),
           ("library", [newspaper]),
           ("river_tracks", [cigarettes]),
-          ("archive", [green_fuse])
+          ("archive", [greenFuse])
         ],
     closedLocations = [
         "hotel_room",
