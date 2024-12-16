@@ -18,14 +18,19 @@ move "east" "train_station" state = do
           { gameOver = True
           }
   return updatedState
-move "east" "hill_church" state = do
-  let message = hillChurchEndingEscapeText
-  putStrLn message
-  let updatedState =
-        state
-          { gameOver = True
-          }
-  return updatedState
+move "north" "second_floor_of_hill_church" state =
+  if "weird_box_opened" `elem` flags state
+    then do
+      let message = hillChurchEndingEscapeText
+      putStrLn message
+      let updatedState =
+            state
+              { gameOver = True
+              }
+      return updatedState
+    else do
+      putStrLn "You can't go that way"
+      return state
 move "north" "forest_cave" state = do
   if hasItem "amulet" state
     then do
@@ -63,7 +68,7 @@ goNextLocation "hill_church" state = do
   putStrLn "You stand before an old, abandoned church on the hill."
   putStrLn "The dark interior and the smell of incense remind you of ancient rituals."
   putStrLn "The priest, the last witness of the former life in the city, looks at you with an expression of concern."
-  putStrLn "You can interact with him by interact(priest)"
+  putStrLn "You can interact with him by interact priest"
   if hasItem "amulet" state
     then do
       putStrLn "The priest notices the amulet in your hand and warns you: That is the symbol of their cult; do not approach them with it."
@@ -77,7 +82,7 @@ goNextLocation "hill_church" state = do
 goNextLocation "archive" state = do
   putStrLn "You enter the archive room. It is small and cramped, filled with stacks of old papers and documents."
   putStrLn "Most of the documents are unreadable due to age."
-  if isItemAt greenFuse "archive" state 
+  if isItemAt greenFuse "archive" state
     then do
       putStrLn "However you notice a bright green fuse lying on a nearby shelf."
     else do
