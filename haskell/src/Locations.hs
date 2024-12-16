@@ -27,7 +27,6 @@ parseDirection _ = Nothing
 data Location = Location
   { locationName :: String,
     locationDescription :: String,
-    locationInteractables :: [Interactable], -- for example safe
     directions :: Map Direction (String, Bool) -- location name and flag if is unlocked
   }
   deriving (Show, Eq)
@@ -66,10 +65,9 @@ trainStation =
         "The clock points at 3:15 am and never moves.",
         "The timetable is written in some out-of-this-world, unintelligible language.",
         "The only person present at the station is the caretaker.",
-        "You can interact with her by interact Caretaker",
+        "You can interact with her by interact caretaker",
         "To the west, you can see the parking area adjacent to the station.",
         "To the east, there is a train which you can use to escape from city."],
-      locationInteractables = [],
       directions =
         Map.fromList
           [ (West, ("parking", True)),
@@ -87,7 +85,6 @@ parking =
         "To the north, you can see a homeless man sitting on a bench.",
         "To the south is the main street,",
         "and the train station is to the east."],
-      locationInteractables = [],
       directions =
         Map.fromList
           [ (North, ("homeless_bench", True)),
@@ -103,7 +100,6 @@ car =
       locationDescription = unlines [
         "You sit inside the car, but it refuses to start.",
         "Type in exit Car in order to get out of the vehicle."],
-      locationInteractables = [],
       directions = Map.empty
     }
 
@@ -113,9 +109,8 @@ homelessBench =
     { locationName = "homeless_bench",
       locationDescription = unlines [
         "You find yourself near a bench occupied by a homeless man, muttering under his breath.",
-        "You can interact with him by interact Homeless",
+        "You can interact with him by interact homeless",
         "The parking area lies to the south."],
-      locationInteractables = [],
       directions =
         Map.fromList
           [ (South, ("parking", True))
@@ -130,7 +125,6 @@ riverTracks =
         "You stand by the river tracks. The water flows sluggishly, casting eerie reflections",
         "in the moonlight.",
         "To the west, you see the main street."],
-      locationInteractables = [],
       directions =
         Map.fromList
           [ (West, ("main_street", True))
@@ -147,7 +141,6 @@ mainStreet =
         "To the west is the old town,",
         "while the river tracks are to the east,",
         "and the parking lot to the north."],
-      locationInteractables = [],
       directions =
         Map.fromList
           [ (West, ("old_town", True)),
@@ -168,7 +161,6 @@ oldTown =
         "in the east you can see the main street.",
         "There is an old hotel to the south",
         "and a library to the west."],
-      locationInteractables = [],
       directions =
         Map.fromList
           [ (North, ("police_station", True)),
@@ -189,7 +181,6 @@ hotelLobby =
         "There is a toilet to the east.",
         "To the south, a dark hallway leads further into the hotel.",
         "Looking to the west, you can see an elevator."],
-      locationInteractables = [],
       directions =
         Map.fromList
           [ (North, ("old_town", True)),
@@ -208,7 +199,6 @@ hotelToilet =
         "The room is dark and damp, and the smell of mold and decay fills the air.",
         "The toilet is broken and the sink is covered in grime.",
         "You can go west to return to the hotel lobby."],
-      locationInteractables = [],
       directions =
         Map.fromList
           [ (West, ("hotel_lobby", True))
@@ -224,7 +214,6 @@ hotelCorridor =
         "The ceiling has collapsed, thus most of the corridor is blocked off by rubble.",
         "Only one room to the west remains accessible.",
         "You can go north to return to the hotel lobby."],
-      locationInteractables = [],
       directions =
         Map.fromList
           [ (North, ("hotel_lobby", True)),
@@ -241,7 +230,6 @@ hotelRoom =
         "The room is dark and dusty, and the bed is covered in old sheets.",
         "The closet is empty, and the desk is covered in papers.",
         "You can go east to return to the corridor."],
-      locationInteractables = [],
       directions =
         Map.fromList
           [ (East, ("hotel_corridor", True))
@@ -257,7 +245,6 @@ hotelBasement =
         "It leads to the basement of the hotel.",
         "The basement is dark and damp, with a faint, musty odor filling the air.",
         "You can go east to return to the hotel lobby."],
-      locationInteractables = [],
       directions =
         Map.fromList
           [ (East, ("hotel_lobby", True))
@@ -274,10 +261,9 @@ policeStation =
         "The smell of cheap liquor and stale cigarettes fills the air.",
         "A drunkard, with tangled hair and a worn-out jacket, stares at you with a glazed look.",
         "He seems to be clutching an old bottle. Perhaps he knows something useful?",
-        "You can interact with him by interact Drunkard",
+        "You can interact with him by interact drunkard",
         "You can enter the code to the safe by open safe.",
         "You can go south to return to the old town."],
-      locationInteractables = [],
       directions =
         Map.fromList
           [ (South, ("old_town", True))
@@ -293,7 +279,6 @@ library =
         "There is the old town to the east.",
         "To the south, you see a door leading to the archive room.",
         "To the west, there is a church on the hill."],
-      locationInteractables = [],
       directions =
         Map.fromList
           [ (East, ("old_town", True)),
@@ -309,7 +294,6 @@ archiveRoom =
       locationDescription = unlines [
         "You enter the archive room. It is small and cramped, filled with stacks of old papers and documents.",
         "Most of the documents are unreadable due to age."],
-      locationInteractables = [],
       directions =
         Map.fromList
           [ (North, ("library", True))
@@ -324,11 +308,10 @@ hillChurch =
         "You stand before an old, abandoned church on the hill.",
         "The dark interior and the smell of incense remind you of ancient rituals.",
         "The priest, the last witness of the former life in the city, looks at you with an expression of concern.",
-        "You can interact with him by interact Priest",
+        "You can interact with him by interact priest",
         "The path to the forest is to the north.",
         "You can go west to the second floor of the church.",
         "To the east, you see the library."],
-      locationInteractables = [],
       directions =
         Map.fromList
           [ (North, ("forest_cave", True)),
@@ -347,7 +330,6 @@ hillChurchSecondFloor =
         "4 6 1 2 6 7 3 4 1 5 6 2 7 3 5 7 3 2 5 3 6 4 3 6 7 2 ",
         "You notice also a sentence:\"That's a code to the truth of this mystery.\"",
         "To go back to first floor go east"],
-      locationInteractables = [],
       directions =
         Map.fromList
           [ (East, ("hill_church", True))
@@ -366,7 +348,6 @@ forestCave =
         "You feel that this place may be key to solving the mystery of the archaeologists’ disappearance.",
         "You see far far to the north of this huge cave a weird doors that must lead to something.",
         "The path back leads south, returning to the church."],
-      locationInteractables = [],
       directions =
         Map.fromList
           [ (South, ("hill_church", True)),

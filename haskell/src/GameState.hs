@@ -18,11 +18,18 @@ data GameState = GameState {
 initialState :: GameState
 initialState = GameState {
     currentLocation = trainStation,
-    inventory = [carKeys],
+    inventory = [],
     locationItems = Map.fromList
         [ ("hotel_basement", [notes]),
           ("car", [key]),
-          ("hotel_basement", [amulet])
+          ("hotel_basement", [amulet]),
+          ("hotel_room", [diary]),
+          ("hotel_room",[blueFuse]),
+          ("hotel_toilet", [redFuse]),
+          ("hotel_basement", [notes]),
+          ("library", [newspaper]),
+          ("river_tracks", [cigarettes]),
+          ("archive", [greenFuse])
         ],
     closedLocations = [
         "hotel_room",

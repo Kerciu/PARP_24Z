@@ -3,6 +3,7 @@ import GameState
 import Locations
 import Objects
 import Interactable
+import qualified Data.Map as Map
 
 isAtLocation :: String -> GameState -> Bool
 isAtLocation locationString state =
@@ -17,5 +18,8 @@ hasItem item state =
         Nothing -> False
         Just item -> item `elem` inventory state
 
-isItemAt :: String -> Location -> Bool
-isItemAt itemName location = any ((== itemName) . name) (locationInteractables location)
+isItemAt :: Interactable -> String -> GameState -> Bool
+isItemAt item location state = do
+  case Map.lookup location (locationItems state) of
+    Nothing -> False
+    Just items -> item `elem` items
