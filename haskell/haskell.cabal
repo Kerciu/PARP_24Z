@@ -34,11 +34,11 @@ library
       Interactions
       Inventory
       Locations
+      Look
       Main
       Movement
       Objects
       Utils
-
   other-modules:
       Paths_haskell
   autogen-modules:
