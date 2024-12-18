@@ -11,13 +11,16 @@ import Objects
 
 move :: String -> String -> GameState -> IO GameState
 move "east" "train_station" state = do
-  let message = escapeCityEndingText (hasItem "diary" state)
-  putStrLn message
-  let updatedState =
-        state
-          { gameOver = True
-          }
-  return updatedState
+  putStrLn "Are you sure you want to escape the city? (yes/no)"
+  confirmation <- getLine
+  if confirmation == "yes"
+    then do
+      let message = escapeCityEndingText (hasItem "diary" state)
+      putStrLn message
+      let updatedState = state {gameOver = True}
+      return updatedState
+    else do
+      lookAround state
 move "north" "second_floor_of_hill_church" state =
   if "weird_box_opened" `elem` flags state
     then do

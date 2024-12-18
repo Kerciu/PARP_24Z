@@ -20,13 +20,10 @@ initialState = GameState {
     currentLocation = trainStation,
     inventory = [],
     locationItems = Map.fromList
-        [ ("hotel_basement", [notes]),
+        [ ("hotel_basement", [notes, amulet]),
           ("car", [key]),
-          ("hotel_basement", [amulet]),
-          ("hotel_room", [diary]),
-          ("hotel_room",[blueFuse]),
+          ("hotel_room", [diary, blueFuse]),
           ("hotel_toilet", [redFuse]),
-          ("hotel_basement", [notes]),
           ("library", [newspaper]),
           ("river_tracks", [cigarettes]),
           ("archive", [greenFuse])
