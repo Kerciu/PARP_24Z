@@ -7,12 +7,6 @@ import Objects
 
 data Direction = North | South | West | East deriving (Eq, Ord, Show)
 
-opposite :: Direction -> Direction
-opposite North = South
-opposite South = North
-opposite West = East
-opposite East = West
-
 parseDirection :: String -> Maybe Direction
 parseDirection "n" = Just North
 parseDirection "north" = Just North
