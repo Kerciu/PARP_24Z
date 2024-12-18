@@ -1,6 +1,6 @@
 import CommandHandler (printInstructions)
 import CommandParser
-import Control.Monad (when)
+import Control.Monad (when, unless)
 import GameState
 import Introduction
 import Look
@@ -15,7 +15,7 @@ readCommand = do
 -- an argument, eg. gameLoop :: State -> IO ()
 gameLoop :: GameState -> IO ()
 gameLoop state = do
-  when (not (gameOver state)) $ do
+  unless (gameOver state) $ do
     cmd <- readCommand
     newState <- parseCommand cmd state
     gameLoop newState
