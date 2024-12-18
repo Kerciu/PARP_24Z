@@ -1,0 +1,587 @@
+Welcome to the City of Shadows!
+
+Your adventure begins in a desolate town filled with strange locations, cryptic symbols, and unsettling figures.
+You find yourself at a train station, the clock forever stuck at 3:15 AM.
+An eerie silence lingers as the caretaker of the station watches you suspiciously.
+Resolving mystery of an ominous cult seem to be central to your quest.
+But be warned, the path ahead is fraught with danger and mystery.
+As you explore, remember that the choices you make could shape your fate.
+Good luck, adventurer, the mystery awaits you!
+
+Available commands are:
+
+start                    -- to start the game.
+n  s  e  w               -- to go in that direction.
+take Object              -- to pick up an object.
+drop Object              -- to put down an object.
+check Object             -- to check object in inventory.
+look                     -- to look around you again.
+interact Character       -- to interact with characters.
+give Character Object    -- to give object to character.
+open Object              -- to open an object.
+enter_car                -- to enter the car.
+exit_car                 -- to exit the car.
+inventory                -- to check inventory contents.
+instructions             -- to see this message again.
+quit                     -- to end the game and quit.
+
+You are at the train station, where your adventure started.
+The clock points at 3:15 am and never moves.
+The timetable is written in some out-of-this-world, unintelligible language.
+The only person present at the station is the caretaker.
+You can interact with her by interact caretaker
+To the west, you can see the parking area adjacent to the station.
+To the east, there is a train which you can use to escape from city.
+
+> w
+You are in a deserted parking lot near the train station. The ground is littered
+with old tickets and rusted cans. One car looks abandoned, as if the driver left in a hurry.
+To the north, you can see a homeless man sitting on a bench.
+To the south is the main street,
+and the train station is to the east.
+> n
+You find yourself near a bench occupied by a homeless man, muttering under his breath.
+He warns of the 'shadows that follow at night' and clutches an old bottle with
+You notice that he cannot breathe properly, he probably ran out of cigarettes.
+You can interact with him by interact homeless
+The parking area lies to the south.
+> interact homeless
+The homeless man seems to be uninterested for now.
+> s
+You are in a deserted parking lot near the train station. The ground is littered
+with old tickets and rusted cans. One car looks abandoned, as if the driver left in a hurry.
+To the north, you can see a homeless man sitting on a bench.
+To the south is the main street,
+and the train station is to the east.
+> s
+You are on the main street, flanked by old, abandoned shops. The cracked windows
+and faded signs give the area a ghostly feel.
+To the west is the old town,
+while the river tracks are to the east,
+and the parking lot to the north.
+
+> e
+You stand by the river tracks. The water flows sluggishly, casting eerie reflections
+in the moonlight.
+To the west, you see the main street.
+
+You see cigarettes here.
+> take cigarettes
+You have taken the cigarettes.
+> w
+You are on the main street, flanked by old, abandoned shops. The cracked windows
+and faded signs give the area a ghostly feel.
+To the west is the old town,
+while the river tracks are to the east,
+and the parking lot to the north.
+
+> n
+You are in a deserted parking lot near the train station. The ground is littered
+with old tickets and rusted cans. One car looks abandoned, as if the driver left in a hurry.
+To the north, you can see a homeless man sitting on a bench.
+To the south is the main street,
+and the train station is to the east.
+> n
+You find yourself near a bench occupied by a homeless man, muttering under his breath.
+He warns of the 'shadows that follow at night' and clutches an old bottle with
+You notice that he cannot breathe properly, he probably ran out of cigarettes.
+You notice that you can help the homeless man with a cigarette.
+You can interact with him by interact homeless
+The parking area lies to the south.
+> interact homeless 
+The homeless man seems to be more interested as he coughs intensively.
+> give homeless cigarettes
+You give the pack of cigarettes to the homeless man. He takes them eagerly and thanks you.
+He hands you a cold can of Harnas beer in return.
+And a weird box saying 'I found it a while ago, it is useless for me but maybe you can get it open'
+> s
+You are in a deserted parking lot near the train station. The ground is littered
+with old tickets and rusted cans. One car looks abandoned, as if the driver left in a hurry.
+To the north, you can see a homeless man sitting on a bench.
+To the south is the main street,
+and the train station is to the east.
+> e
+You are at the train station, where your adventure started.
+The clock points at 3:15 am and never moves.
+The timetable is written in some out-of-this-world, unintelligible language.
+The only person present at the station is the caretaker.
+You can interact with her by interact caretaker
+To the west, you can see the parking area adjacent to the station.
+To the east, there is a train which you can use to escape from city.
+
+> interact caretaker
+The caretaker seems more enticed to talk as she sees a can of cold Harnas.
+> give caretaker harnas
+You offer the Harnas beer to the caretaker. She takes it gratefully and takes a swig.
+'Ahh, that takes me back,' she sighs and tells you more about her story with the homeless man.
+Grateful, she hands you the car keys.
+> inventory
+You are carrying the following items:
+car_keys
+weird_box
+
+> w
+You are in a deserted parking lot near the train station. The ground is littered
+with old tickets and rusted cans. One car looks abandoned, as if the driver left in a hurry.
+To the north, you can see a homeless man sitting on a bench.
+To the south is the main street,
+and the train station is to the east.
+You have the car keys so you can try to open the abandoned car.
+Type in enter_car in order to get into the vehicle.
+> enter_car
+You unlock the car with keys.
+You sit inside the car, but it refuses to start.
+Type in exit_car in order to get out of the vehicle.
+You noticed an old key lying on the passenger seat.
+You see key here.
+> take key
+You have taken the key.
+> exit_car
+You are in a deserted parking lot near the train station. The ground is littered
+with old tickets and rusted cans. One car looks abandoned, as if the driver left in a hurry.
+To the north, you can see a homeless man sitting on a bench.
+To the south is the main street,
+and the train station is to the east.
+> s
+You are on the main street, flanked by old, abandoned shops. The cracked windows
+and faded signs give the area a ghostly feel.
+To the west is the old town,
+while the river tracks are to the east,
+and the parking lot to the north.
+
+> w
+You find yourself in the heart of Old Town,
+a desolate square filled with abandoned shops and crumbling facades.
+Dust and debris cover the cobblestone streets, and a faint echo of past lives lingers in the air.
+In the north there is a police station,
+in the east you can see the main street.
+There is an old hotel to the south
+and a library to the west.
+
+> n
+You enter the police station. The lights flicker, casting eerie shadows on the walls.
+To the left, you see a dusty counter with an old safe behind it. 
+The smell of cheap liquor and stale cigarettes fills the air.
+A drunkard, with tangled hair and a worn-out jacket, stares at you with a glazed look.
+He seems to be clutching an old bottle. Perhaps he knows something useful?
+You can interact with him by interact drunkard
+You can enter the code to the safe by open safe.
+You can go south to return to the old town.
+
+> interact drunkard
+The drunkard looks at you with a smirk.
+'Lookin' for the safe code, eh? I might remember it... But I'm real thirsty.'
+'Maybe if you bring me something to drink, I'll let you in on the secret.'
+> s  
+You find yourself in the heart of Old Town,
+a desolate square filled with abandoned shops and crumbling facades.
+Dust and debris cover the cobblestone streets, and a faint echo of past lives lingers in the air.
+In the north there is a police station,
+in the east you can see the main street.
+There is an old hotel to the south
+and a library to the west.
+
+> e
+You are on the main street, flanked by old, abandoned shops. The cracked windows
+and faded signs give the area a ghostly feel.
+To the west is the old town,
+while the river tracks are to the east,
+and the parking lot to the north.
+
+> n
+You are in a deserted parking lot near the train station. The ground is littered
+with old tickets and rusted cans. One car looks abandoned, as if the driver left in a hurry.
+To the north, you can see a homeless man sitting on a bench.
+To the south is the main street,
+and the train station is to the east.
+> n
+You find yourself near a bench occupied by a homeless man, muttering under his breath.
+You can interact with him by interact homeless
+The parking area lies to the south.
+> interact homeless
+The homeless man looks at you knowingly.
+'Oh, you need a drink for ol' Bill? Here, take this Kuflowe Mocne. But don't tell him I gave it for free!'
+> s
+You are in a deserted parking lot near the train station. The ground is littered
+with old tickets and rusted cans. One car looks abandoned, as if the driver left in a hurry.
+To the north, you can see a homeless man sitting on a bench.
+To the south is the main street,
+and the train station is to the east.
+> w
+You can't go that way
+> n
+You find yourself near a bench occupied by a homeless man, muttering under his breath.
+You can interact with him by interact homeless
+The parking area lies to the south.
+> s
+You are in a deserted parking lot near the train station. The ground is littered
+with old tickets and rusted cans. One car looks abandoned, as if the driver left in a hurry.
+To the north, you can see a homeless man sitting on a bench.
+To the south is the main street,
+and the train station is to the east.
+> s
+You are on the main street, flanked by old, abandoned shops. The cracked windows
+and faded signs give the area a ghostly feel.
+To the west is the old town,
+while the river tracks are to the east,
+and the parking lot to the north.
+
+> w
+You find yourself in the heart of Old Town,
+a desolate square filled with abandoned shops and crumbling facades.
+Dust and debris cover the cobblestone streets, and a faint echo of past lives lingers in the air.
+In the north there is a police station,
+in the east you can see the main street.
+There is an old hotel to the south
+and a library to the west.
+
+> mn
+Unknown command.
+
+> n
+You enter the police station. The lights flicker, casting eerie shadows on the walls.
+To the left, you see a dusty counter with an old safe behind it. 
+The smell of cheap liquor and stale cigarettes fills the air.
+A drunkard, with tangled hair and a worn-out jacket, stares at you with a glazed look.
+He seems to be clutching an old bottle. Perhaps he knows something useful?
+You can interact with him by interact drunkard
+You can enter the code to the safe by open safe.
+You can go south to return to the old town.
+
+> give drunkard kuflowe_mocne
+The drunkard takes the Kuflowe Mocne with a greedy smile.
+'Alright, alright... here, take this.'
+He hands you a crumpled leaf with the safe code scrawled on it.
+> inventory
+You are carrying the following items:
+leaf_with_code
+key
+weird_box
+
+> check leaf_with_code
+The leaf contains a mysterious riddle:
+The code is hidden in two pairs of numbers.
+The first pair comes from multiplying three by the digit symbolizing fullness.
+The second pair is a sequence you receive from the natural order.
+You think about these pairs to solve the code.
+
+> open safe
+You have to enter 4-digit code to open the safe:
+2137
+The safe opens, revealing an engraved ring inside.
+You take the engraved ring.
+> inventory
+You are carrying the following items:
+engraved_ring
+leaf_with_code
+key
+weird_box
+
+> s
+You find yourself in the heart of Old Town,
+a desolate square filled with abandoned shops and crumbling facades.
+Dust and debris cover the cobblestone streets, and a faint echo of past lives lingers in the air.
+In the north there is a police station,
+in the east you can see the main street.
+There is an old hotel to the south
+and a library to the west.
+
+> w
+You enter the library. The room is quiet, filled with towering shelves of old, dusty books.
+There is the old town to the east.
+To the south, you see a door leading to the archive room.
+To the west, there is a church on the hill.
+
+You see newspaper here.
+> take newspaper
+You have taken the newspaper.
+> check newspaper
+You start reading it. The headline catches your eye:
+"Team of Archaeologists Arrives to Uncover the Secrets of the Ancient Ruins in Town."
+
+The article mentions several archaeologists by name:
+- Sarah Miller (born 1952)
+- John Roberts (born 1968)
+- Michael Turner (born 1974)
+- Emma Carter (born 1980)
+
+> s
+You have unlocked the archive.
+You enter the archive room. It is small and cramped, filled with stacks of old papers and documents.
+Most of the documents are unreadable due to age.
+However you notice a bright green fuse lying on a nearby shelf.
+You see green_fuse here.
+> take green_fuse
+You have taken the green_fuse.
+> inventory
+You are carrying the following items:
+green_fuse
+newspaper
+engraved_ring
+leaf_with_code
+weird_box
+
+> n
+You enter the library. The room is quiet, filled with towering shelves of old, dusty books.
+There is the old town to the east.
+To the south, you see a door leading to the archive room.
+To the west, there is a church on the hill.
+
+> e
+You find yourself in the heart of Old Town,
+a desolate square filled with abandoned shops and crumbling facades.
+Dust and debris cover the cobblestone streets, and a faint echo of past lives lingers in the air.
+In the north there is a police station,
+in the east you can see the main street.
+There is an old hotel to the south
+and a library to the west.
+
+> s
+You enter the lobby of the hotel.
+There is glass scattered everywhere, and the old reception desk is covered in papers.
+You can go north to return to Old Town.
+There is a toilet to the east.
+To the south, a dark hallway leads further into the hotel.
+Looking to the west, you can see an elevator.
+
+> e
+You enter the toilet.
+The room is dark and damp, and the smell of mold and decay fills the air.
+The toilet is broken and the sink is covered in grime.
+You can go west to return to the hotel lobby.
+
+You see red_fuse here.
+> take red_fuse
+You have taken the red_fuse.
+> w
+You enter the lobby of the hotel.
+There is glass scattered everywhere, and the old reception desk is covered in papers.
+You can go north to return to Old Town.
+There is a toilet to the east.
+To the south, a dark hallway leads further into the hotel.
+Looking to the west, you can see an elevator.
+
+> s
+You enter a dark hallway.
+The ceiling has collapsed, thus most of the corridor is blocked off by rubble.
+Only one room to the west remains accessible.
+You can go north to return to the hotel lobby.
+
+> s
+You can't go that way
+> e
+You can't go that way
+> w
+The door is locked.
+However, you noticed a sign that says 'Michael Turner'.
+There is also a keypad next to the door.
+Please enter 4-digit code:
+1974
+Correct code!
+You enter the hotel room.
+The room is dark and dusty, and the bed is covered in old sheets.
+The closet is empty, and the desk is covered in papers.
+You can go east to return to the corridor.
+
+You see blue_fuse here.
+> take blue_fuse
+You have taken the blue_fuse.
+> w
+You can't go that way
+> d
+Unknown command.
+
+> s
+You can't go that way
+> e
+You enter a dark hallway.
+The ceiling has collapsed, thus most of the corridor is blocked off by rubble.
+Only one room to the west remains accessible.
+You can go north to return to the hotel lobby.
+
+> n
+You enter the lobby of the hotel.
+There is glass scattered everywhere, and the old reception desk is covered in papers.
+You can go north to return to Old Town.
+There is a toilet to the east.
+To the south, a dark hallway leads further into the hotel.
+Looking to the west, you can see an elevator.
+
+> w
+You placed the fuses in the fuse box and the elevator started working.
+The elevator can only go down.
+It leads to the basement of the hotel.
+The basement is dark and damp, with a faint, musty odor filling the air.
+You notice a set of old, crumbling notes scattered across a dusty table.
+You can go east to return to the hotel lobby.
+You see notes here.
+> take notes
+You have taken the notes.
+> check notes
+The notes are brittle and covered in dust, with several pages missing or torn.
+
+"We found it — the amulet from the old texts.
+It is said this amulet is the key to something ancient, hidden deep within the caves.
+We must be cautious. The energy here is unstable, and there are warnings in the old language about disturbing what lies beyond."
+
+> take amulet
+There is no amulet here.
+> look
+The elevator can only go down.
+It leads to the basement of the hotel.
+The basement is dark and damp, with a faint, musty odor filling the air.
+You can go east to return to the hotel lobby.
+> s
+You can't go that way
+> n
+You can't go that way
+> w
+You can't go that way
+> e
+You enter the lobby of the hotel.
+There is glass scattered everywhere, and the old reception desk is covered in papers.
+You can go north to return to Old Town.
+There is a toilet to the east.
+To the south, a dark hallway leads further into the hotel.
+Looking to the west, you can see an elevator.
+
+> w
+The elevator can only go down.
+It leads to the basement of the hotel.
+The basement is dark and damp, with a faint, musty odor filling the air.
+You can go east to return to the hotel lobby.
+> w
+You can't go that way
+> e
+You enter the lobby of the hotel.
+There is glass scattered everywhere, and the old reception desk is covered in papers.
+You can go north to return to Old Town.
+There is a toilet to the east.
+To the south, a dark hallway leads further into the hotel.
+Looking to the west, you can see an elevator.
+
+> e
+You enter the toilet.
+The room is dark and damp, and the smell of mold and decay fills the air.
+The toilet is broken and the sink is covered in grime.
+You can go west to return to the hotel lobby.
+
+> w
+You enter the lobby of the hotel.
+There is glass scattered everywhere, and the old reception desk is covered in papers.
+You can go north to return to Old Town.
+There is a toilet to the east.
+To the south, a dark hallway leads further into the hotel.
+Looking to the west, you can see an elevator.
+
+> n
+You find yourself in the heart of Old Town,
+a desolate square filled with abandoned shops and crumbling facades.
+Dust and debris cover the cobblestone streets, and a faint echo of past lives lingers in the air.
+In the north there is a police station,
+in the east you can see the main street.
+There is an old hotel to the south
+and a library to the west.
+
+> e
+You are on the main street, flanked by old, abandoned shops. The cracked windows
+and faded signs give the area a ghostly feel.
+To the west is the old town,
+while the river tracks are to the east,
+and the parking lot to the north.
+
+> w
+You find yourself in the heart of Old Town,
+a desolate square filled with abandoned shops and crumbling facades.
+Dust and debris cover the cobblestone streets, and a faint echo of past lives lingers in the air.
+In the north there is a police station,
+in the east you can see the main street.
+There is an old hotel to the south
+and a library to the west.
+
+> w
+You enter the library. The room is quiet, filled with towering shelves of old, dusty books.
+There is the old town to the east.
+To the south, you see a door leading to the archive room.
+To the west, there is a church on the hill.
+
+> w
+You stand before an old, abandoned church on the hill.
+The dark interior and the smell of incense remind you of ancient rituals.
+The priest, the last witness of the former life in the city, looks at you with an expression of concern.
+You can interact with him by interact priest
+The path to the forest is to the north.
+You can go west to the second floor of the church.
+To the east, you see the library.
+
+> interact priest
+'Our Father, Who art in heaven, Hallowed be Thy name. Thy kingdom come, Thy will be done, On earth as it is in heaven...'
+> inventory
+You are carrying the following items:
+notes
+newspaper
+engraved_ring
+leaf_with_code
+weird_box
+
+> w
+You are now at the second floor of the church.
+You see some kind of weird numbers that seem out of order at the wall
+4 6 1 2 6 7 3 4 1 5 6 2 7 3 5 7 3 2 5 3 6 4 3 6 7 2 
+You notice also a sentence:"That's a code to the truth of this mystery."
+To go back to first floor go east
+
+> check weird_box
+A box with a lock that opens with more than 20 digits.
+Impossible to open for now, but maybe it will prove useful in the future.
+
+> open weird_box
+You open the box with the code and find weird notes inside.
+One of those says: 'U CANNOT DEFEAT THEM FLEE FROM THE CITY AS FAST AS YOU CAN, THEY ARE CLOSING UP ON ME. THIS IS MY FAREWELL, GOODBYE THE ONE THAT READ THOOSE'.
+You are now able to decide, whether to continue your journey or run away from the city.
+Decide fast or maybe you will meet the same fate as a writer of thoose notes.
+To flee from the city to train station you have to go north for a secret passage in the church.
+To return to the first floor of the church go east.
+> e
+You stand before an old, abandoned church on the hill.
+The dark interior and the smell of incense remind you of ancient rituals.
+The priest, the last witness of the former life in the city, looks at you with an expression of concern.
+You can interact with him by interact priest
+The path to the forest is to the north.
+You can go west to the second floor of the church.
+To the east, you see the library.
+
+> n
+You enter a dark cave hidden deep in the forest.
+In the center of the cave stands an altar with a strange symbol.
+The symbol looks familiar, it might be an ancient artifact sought by the archaeologists.
+Here you find evidence that the cult still exists and conducts its rituals here.
+You feel that this place may be key to solving the mystery of the archaeologists’ disappearance.
+You see far far to the north of this huge cave a weird doors that must lead to something.
+The path back leads south, returning to the church.
+
+> n
+A strange force seems to block your path. The entrance won’t budge.
+It feels like something is missing, something that could unlock the cave's secrets.
+> s
+You stand before an old, abandoned church on the hill.
+The dark interior and the smell of incense remind you of ancient rituals.
+The priest, the last witness of the former life in the city, looks at you with an expression of concern.
+You can interact with him by interact priest
+The path to the forest is to the north.
+You can go west to the second floor of the church.
+To the east, you see the library.
+
+> w
+You are now at the second floor of the church.
+You see some kind of weird numbers that seem out of order at the wall
+4 6 1 2 6 7 3 4 1 5 6 2 7 3 5 7 3 2 5 3 6 4 3 6 7 2 
+You notice also a sentence:"That's a code to the truth of this mystery."
+To go back to first floor go east
+
+> n
+You've discovered everything that was possible to be discovered.
+Yet, decided to leave. Might've been wise or because of your fear you left this city for the doom.
+So be it, farewell.
+
+Thanks for playing! Exiting the game...

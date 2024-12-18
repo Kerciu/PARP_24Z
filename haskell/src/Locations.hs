@@ -99,7 +99,7 @@ car =
     { locationName = "car",
       locationDescription = unlines [
         "You sit inside the car, but it refuses to start.",
-        "Type in exit Car in order to get out of the vehicle."],
+        "Type in exit_car in order to get out of the vehicle."],
       directions = Map.empty
     }
 
@@ -290,7 +290,7 @@ library =
 archiveRoom :: Location
 archiveRoom =
   Location
-    { locationName = "archive_room",
+    { locationName = "archive",
       locationDescription = unlines [
         "You enter the archive room. It is small and cramped, filled with stacks of old papers and documents.",
         "Most of the documents are unreadable due to age."],
