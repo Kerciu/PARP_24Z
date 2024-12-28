@@ -1,7 +1,7 @@
 "The germ of a text adventure game
-Marcin Szlenk 2024"
+Marcin Szlenk 2024'
 
-"Game class
+'Game class
 
 Responsibilities:
 * print/read outputs/inputs
@@ -15,35 +15,38 @@ Object subclass: Game [
     | isGameOver |
 
     introductionText := #(
-        'A long time ago, in a galaxy far, far away...'
-        ''
-        'It is a period of civil war. Rebel'
-        'spaceships, striking from a hidden'
-        'base, have won their first victory'
-        'against the evil Galactic Empire.'
-        ''
-        'During the battle, Rebel spies managed'
-        'to steal secret plans to the Empire''s'
-        'ultimate weapon, the Death Star, an'
-        'armored space station with enough'
-        'power to destroy an entire planet.'
-        ''
-        'Pursued by the Empire''s sinister agents,'
-        'Princess Leia races home aboard her'
-        'starship, custodian of the stolen plans'
-        'that can save her people and restore'
-        'freedom to the galaxy....'
+        'Welcome to the City of Shadows!',
+        '',
+        'Your adventure begins in a desolate town filled with strange locations, cryptic symbols, and unsettling figures.',
+        'You find yourself at a train station, the clock forever stuck at 3:15 AM.',
+        'An eerie silence lingers as the caretaker of the station watches you suspiciously.',
+        'Resolving mystery of an ominous cult seem to be central to your quest.',
+        'But be warned, the path ahead is fraught with danger and mystery.',
+        'As you explore, remember that the choices you make could shape your fate.',
+        'Good luck, adventurer, the mystery awaits you!',
         ''
     ).
 
     instructionsText := #(
-        'Available commands are:'
-        ''
-        'instructions  -- to see these instructions.'
-        'quit          -- to end the game and quit.'
+        'Available commands are:',
+        '',
+        'start                    -- to start the game.',
+        'n  s  e  w               -- to go in that direction.',
+        'take Object              -- to pick up an object.',
+        'drop Object              -- to put down an object.',
+        'check Object             -- to check object in inventory.',
+        'look                     -- to look around you again.',
+        'interact Character       -- to interact with characters.',
+        'give Character Object    -- to give object to character.',
+        'open Object              -- to open an object.',
+        'enter_car                -- to enter the car.',
+        'exit_car                 -- to exit the car.',
+        'inventory                -- to check inventory contents.',
+        'instructions             -- to see this message again.',
+        'quit                     -- to end the game and quit.',
         ''
     ).
- 
+
     Game class >> new [
         | g |
         g := super new.
@@ -95,7 +98,7 @@ Object subclass: Game [
                 isGameOver := true.
                 isUnknown := false
             ].
-                
+
             isUnknown ifTrue: [
                 self printLines: #('Unknown command.' '')
             ]
