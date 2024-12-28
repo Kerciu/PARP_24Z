@@ -82,35 +82,22 @@ Object subclass: Game [
         tokens := cmd tokenize: ' '. "Split the input into tokens."
         command := tokens first ifNil: [''].
         args := tokens allButFirst.
-        "n  s  e  w               -- to go in that direction.',
-        'take Object              -- to pick up an object.',
-        'drop Object              -- to put down an object.',
-        'check Object             -- to check object in inventory.',
-        'look                     -- to look around you again.',
-        'interact Character       -- to interact with characters.',
-        'give Character Object    -- to give object to character.',
-        'open Object              -- to open an object.',
-        'enter_car                -- to enter the car.',
-        'exit_car                 -- to exit the car.',
-        'inventory                -- to check inventory contents.',
-        'instructions             -- to see this message again.',
-        'quit                     -- to end the game and quit.',"
+
         (command = 'start') ifTrue: [^self handleStart].
-        (command = 'n') ifTrue: [^self handleInstructions].
-        (command = 's') ifTrue: [^self handleQuit].
-        (command = 'e') ifTrue: [^self handleQuit].
-        (command = 'w') ifTrue: [^self handleQuit].
-        (command = 'take') ifTrue: [^self handleQuit].
-        (command = 'drop') ifTrue: [^self handleQuit].
-        (command = 'check') ifTrue: [^self handleQuit].
-        (command = 'look') ifTrue: [^self handleQuit].
-        (command = 'interact') ifTrue: [^self handleQuit].
-        (command = 'give') ifTrue: [^self handleQuit].
-        (command = 'open') ifTrue: [^self handleQuit].
-        (command = 'enter_car') ifTrue: [^self handleQuit].
-        (command = 'exit_car') ifTrue: [^self handleQuit].
-        (command = 'inventory') ifTrue: [^self handleQuit].
-        (command = 'instructions') ifTrue: [^self handleQuit].
+        (command = 'n' or: [command = 's' or: [command = 'w' or: [command = 'e']]]) ifTrue: [
+            ^self handleDirection: command
+        ].
+        (command = 'take') ifTrue: [^self handleTake: args first].
+        (command = 'drop') ifTrue: [^self handleDrop: args first].
+        (command = 'check') ifTrue: [^self handleCheck: args first].
+        (command = 'look') ifTrue: [^self handleLook].
+        (command = 'interact') ifTrue: [^self handleInteract: args first].
+        (command = 'give') ifTrue: [^self handleGive: args first to: args second].
+        (command = 'open') ifTrue: [^self handleOpen: args first].
+        (command = 'enter_car') ifTrue: [^self handleEnterCar].
+        (command = 'exit_car') ifTrue: [^self handleExitCar].
+        (command = 'inventory') ifTrue: [^self handleInventory].
+        (command = 'instructions') ifTrue: [^self handleInstructions].
         (command = 'quit') ifTrue: [^self handleQuit].
 
         self printLines: #('Unknown command.' '').
@@ -122,6 +109,46 @@ Object subclass: Game [
         self printInstructions.
     ]
 
+    handleLook [
+        Transcript show: 'Not implemented yet: TODO'.
+    ]
+
+    handleTake: object [
+        Transcript show: 'Not implemented yet: You take ', object; cr.
+    ]
+
+    handleDrop: object [
+        Transcript show: 'Not implemented yet: You drop ', object; cr.
+    ]
+
+    handleCheck: object [
+        Transcript show: 'Not implemented yet: Checking ', object; cr.
+    ]
+
+    handleGive: character to: object [
+        Transcript show: 'Not implemented yet: You give ', object, ' to ', character; cr.
+    ]
+
+    handleInteract: character [
+        Transcript show: 'Not implemented yet: You interact with ', character; cr.
+    ]
+
+    handleOpen: object [
+        Transcript show: 'Not implemented yet: You open ', object; cr.
+    ]
+
+    handleEnterCar [
+        Transcript show: 'Not implemented yet: You enter the car.'; cr.
+    ]
+
+    handleExitCar [
+        Transcript show: 'Not implemented yet: You exit the car.'; cr.
+    ]
+
+    handleInventory [
+        Transcript show: 'Not implemented yet: TODO'; cr.
+    ]
+
     handleInstructions [
         self printInstructions.
     ]
@@ -129,14 +156,6 @@ Object subclass: Game [
     handleQuit [
         isGameOver := true.
         Transcript show: 'Quitting the game. Goodbye!'; cr.
-    ]
-
-    handleInventory [
-        Transcript show: 'Inventory: ', (gameState inventory asString); cr.
-    ]
-
-    handleLook [
-        Transcript show: 'You are at ', gameState currentLocation; cr.
     ]
 
     "Run the game."
@@ -148,7 +167,6 @@ Object subclass: Game [
 
         "Game loop."
         [isGameOver] whileFalse: [
-
             isUnknown := true.
             cmd := self readCommand.
 
@@ -167,7 +185,6 @@ Object subclass: Game [
             ]
         ]
     ]
-
 
 ]
 
