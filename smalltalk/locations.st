@@ -212,10 +212,5 @@ Object subclass: Location [
                      'You see far far to the north of this huge cave a weird doors that must lead to something.' ,
                      'The path back leads south, returning to the church.'
         directions: (Dictionary new at: 'South' put: 'hill_church'; at: 'North' put: 'weird_doors').
-
-        strangeDoors := Location newWithName: 'weird_doors'
-        description: 'The weird doors seem to have appeared by themselves from nowhere.' ,
-                     'You open the doors and you have the feeling you are stepping back in time. The air smells of sulphur.'
-        directions: (Dictionary new).
     ]
 ]

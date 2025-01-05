@@ -1,51 +1,49 @@
-"The germ of a text adventure game
-Marcin Szlenk 2024'
-
-'Game class
-
-Responsibilities:
-* print/read outputs/inputs
-* handle game loop
-* handle 'instructions' and 'halt' commands
-
-Collaborators:
-* ..."
-
 Object subclass: Game [
-    | isGameOver gameState |
+    | isGameOver gameState |  "Instance variables"
 
-    introductionText := #(
-        'Welcome to the City of Shadows!',
-        '',
-        'Your adventure begins in a desolate town filled with strange locations, cryptic symbols, and unsettling figures.',
-        'You find yourself at a train station, the clock forever stuck at 3:15 AM.',
-        'An eerie silence lingers as the caretaker of the station watches you suspiciously.',
-        'Resolving mystery of an ominous cult seem to be central to your quest.',
-        'But be warned, the path ahead is fraught with danger and mystery.',
-        'As you explore, remember that the choices you make could shape your fate.',
-        'Good luck, adventurer, the mystery awaits you!',
-        ''
-    ).
+    Game class >> initialize [
+        "Initialize class variables"
+        IntroductionText := #(
+            'Welcome to the City of Shadows!'
+            ''
+            'Your adventure begins in a desolate town filled with strange locations, cryptic symbols, and unsettling figures.'
+            'You find yourself at a train station, the clock forever stuck at 3:15 AM.'
+            'An eerie silence lingers as the caretaker of the station watches you suspiciously.'
+            'Resolving mystery of an ominous cult seems to be central to your quest.'
+            'But be warned, the path ahead is fraught with danger and mystery.'
+            'As you explore, remember that the choices you make could shape your fate.'
+            'Good luck, adventurer, the mystery awaits you!'
+            ''
+        ).
 
-    instructionsText := #(
-        'Available commands are:',
-        '',
-        'start                    -- to start the game.',
-        'n  s  e  w               -- to go in that direction.',
-        'take Object              -- to pick up an object.',
-        'drop Object              -- to put down an object.',
-        'check Object             -- to check object in inventory.',
-        'look                     -- to look around you again.',
-        'interact Character       -- to interact with characters.',
-        'give Character Object    -- to give object to character.',
-        'open Object              -- to open an object.',
-        'enter_car                -- to enter the car.',
-        'exit_car                 -- to exit the car.',
-        'inventory                -- to check inventory contents.',
-        'instructions             -- to see this message again.',
-        'quit                     -- to end the game and quit.',
-        ''
-    ).
+        InstructionsText := #(
+            'Available commands are:'
+            ''
+            'start                    -- to start the game.'
+            'n  s  e  w               -- to go in that direction.'
+            'take Object              -- to pick up an object.'
+            'drop Object              -- to put down an object.'
+            'check Object             -- to check object in inventory.'
+            'look                     -- to look around you again.'
+            'interact Character       -- to interact with characters.'
+            'give Character Object    -- to give object to character.'
+            'open Object              -- to open an object.'
+            'enter_car                -- to enter the car.'
+            'exit_car                 -- to exit the car.'
+            'inventory                -- to check inventory contents.'
+            'instructions             -- to see this message again.'
+            'quit                     -- to end the game and quit.'
+            ''
+        ).
+    ]
+
+    Game class >> introductionText [
+        ^IntroductionText
+    ]
+
+    Game class >> instructionsText [
+        ^InstructionsText
+    ]
 
     Game class >> new [
         | g |
@@ -55,11 +53,10 @@ Object subclass: Game [
     ]
 
     init [
-        isGameOver := false
+        isGameOver := false.
         gameState := GameState new.
     ]
 
-    "Print strings from array in separate lines."
     printLines: anArray [
         anArray do: [ :string | Transcript show: string; cr ]
     ]
@@ -188,4 +185,6 @@ Object subclass: Game [
 
 ]
 
+"Run the game"
+Game initialize.
 Game new run.
