@@ -23,6 +23,22 @@ Object subclass: GameState [
         flags := #().
     ]
 
+    currentLocation [
+        ^currentLocation
+    ]
+
+    currentLocation: aLocation [
+        currentLocation := aLocation
+    ]
+
+    inventory [
+        ^inventory
+    ]
+
+    inventory: anArray [
+        inventory := anArray
+    ]    
+
     gameOver [
         ^gameOver
     ]

@@ -1,6 +1,6 @@
 Object subclass: Game [
     "Instance variables"
-    | isGameOver gameState currentLocation locationsMap |
+    | gameState locationsMap |
 
     Game class >> initialize [
         "Initialize class variables"
@@ -54,17 +54,16 @@ Object subclass: Game [
     ]
 
     init [
-        isGameOver := false.
         gameState := GameState new.
         locationsMap := Location createLocations.
-        currentLocation := locationsMap at: 'train_station'.
+        gameState currentLocation: (locationsMap at: 'train_station').
     ]
 
     handleDirection: direction [
         | nextLocation |
-        nextLocation := currentLocation moveTo: direction locationsMap: locationsMap.
+        nextLocation := gameState currentLocation moveTo: direction locationsMap: locationsMap.
         nextLocation ifNotNil: [
-            currentLocation := nextLocation.
+            gameState currentLocation: nextLocation.
             self printCurrentLocation.
         ].
     ]
@@ -82,8 +81,7 @@ Object subclass: Game [
     ]
 
     printCurrentLocation [
-        Transcript show: currentLocation name; cr.
-        Transcript show: currentLocation description; cr.
+        Transcript show: gameState currentLocation description; cr.
     ]
 
     readCommand [
@@ -164,7 +162,7 @@ Object subclass: Game [
     ]
 
     handleQuit [
-        isGameOver := true.
+        gameState updateGameOver.
         Transcript show: 'Quitting the game. Goodbye!'; cr.
     ]
 
@@ -175,7 +173,7 @@ Object subclass: Game [
         self printInstructions.
 
         "Game loop."
-        [isGameOver not] whileTrue: [
+        [gameState gameOver not] whileTrue: [
             cmd := self readCommand.
             self parseCommand: cmd.
         ].
