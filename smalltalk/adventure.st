@@ -1,6 +1,6 @@
 Object subclass: Game [
     "Instance variables"
-    | isGameOver gameState movementManager |
+    | isGameOver gameState currentLocation locationsMap |
 
     Game class >> initialize [
         "Initialize class variables"
@@ -56,12 +56,18 @@ Object subclass: Game [
     init [
         isGameOver := false.
         gameState := GameState new.
-        movementManager := MovementManager new
+        locationsMap := Location createLocations.
+        currentLocation := locationsMap at: 'train_station'.
     ]
 
-    "handleDirection: direction [
-        movementManager moveTo: direction.
-    ] "
+    handleDirection: direction [
+        | nextLocation |
+        nextLocation := currentLocation moveTo: direction fromLocation: currentLocation locationsMap: locationsMap.
+        nextLocation ifNotNil: [
+            currentLocation := nextLocation.
+            self printCurrentLocation.
+        ].
+    ]
 
     printLines: anArray [
         anArray do: [ :string | Transcript show: string; cr ]
@@ -73,6 +79,11 @@ Object subclass: Game [
 
     printInstructions [
         self printLines: Game instructionsText.
+    ]
+
+    printCurrentLocation [
+        Transcript show: currentLocation name; cr.
+        Transcript show: currentLocation description; cr.
     ]
 
     readCommand [
@@ -110,10 +121,6 @@ Object subclass: Game [
         gameState initialize.
         self printIntroduction.
         self printInstructions.
-    ]
-
-    handleDirection: direction [
-        Transcript show: 'Not implemented yet: Moving ', direction; cr.
     ]
 
     handleTake: object [
