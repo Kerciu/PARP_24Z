@@ -8,15 +8,6 @@ Object subclass: GameState [
     initialize [
         currentLocation := 'trainStation'.
         inventory := #().
-        " locationItems := Dictionary newFromPairs: {
-            'hotel_basement' -> #('notes' 'amulet').
-            'car' -> #('key').
-            'hotel_room' -> #('diary' 'blueFuse').
-            'hotel_toilet' -> #('redFuse').
-            'library' -> #('newspaper').
-            'river_tracks' -> #('cigarettes').
-            'archive' -> #('greenFuse')
-        }. "
         locationItems := Dictionary new.
         locationItems at: 'hotel_basement' put: #('notes' 'amulet').
         locationItems at: 'car' put: #('key').

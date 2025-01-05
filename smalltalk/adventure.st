@@ -1,5 +1,6 @@
 Object subclass: Game [
-    | isGameOver gameState |  "Instance variables"
+    "Instance variables"
+    | isGameOver gameState movementManager |
 
     Game class >> initialize [
         "Initialize class variables"
@@ -55,7 +56,12 @@ Object subclass: Game [
     init [
         isGameOver := false.
         gameState := GameState new.
+        movementManager := MovementManager new
     ]
+
+    "handleDirection: direction [
+        movementManager moveTo: direction.
+    ] "
 
     printLines: anArray [
         anArray do: [ :string | Transcript show: string; cr ]
