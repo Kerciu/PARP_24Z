@@ -62,7 +62,7 @@ Object subclass: Game [
     ]
 
     printIntroduction [
-       self printLines: Game introductionText.
+        self printLines: Game introductionText.
     ]
 
     printInstructions [
@@ -106,8 +106,8 @@ Object subclass: Game [
         self printInstructions.
     ]
 
-    handleLook [
-        Transcript show: 'Not implemented yet: TODO'.
+    handleDirection: direction [
+        Transcript show: 'Not implemented yet: Moving ', direction; cr.
     ]
 
     handleTake: object [
@@ -157,30 +157,15 @@ Object subclass: Game [
 
     "Run the game."
     run [
-        | cmd isUnknown |
-
+        | cmd |
         self printIntroduction.
         self printInstructions.
 
         "Game loop."
-        [isGameOver] whileFalse: [
-            isUnknown := true.
+        [isGameOver not] whileTrue: [
             cmd := self readCommand.
-
-            cmd = 'instructions' ifTrue: [
-                self printInstructions.
-                isUnknown := false
-            ].
-
-            cmd = 'quit' ifTrue: [
-                isGameOver := true.
-                isUnknown := false
-            ].
-
-            isUnknown ifTrue: [
-                self printLines: #('Unknown command.' '')
-            ]
-        ]
+            self parseCommand: cmd.
+        ].
     ]
 
 ]
