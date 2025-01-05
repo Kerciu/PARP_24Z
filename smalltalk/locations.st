@@ -34,22 +34,10 @@ Object subclass: Location [
         directions := aDirections.
     ]
 
-    Location class >> parseDirection: aString [
-        aString = 'n' ifTrue: [^'North'].
-        aString = 'north' ifTrue: [^'North'].
-        aString = 's' ifTrue: [^'South'].
-        aString = 'south' ifTrue: [^'South'].
-        aString = 'w' ifTrue: [^'West'].
-        aString = 'west' ifTrue: [^'West'].
-        aString = 'e' ifTrue: [^'East'].
-        aString = 'east' ifTrue: [^'East'].
-        ^nil.
-    ]
+    Location >> moveTo: aDirection locationsMap: locationsMap [
+        | nextLocationName nextLocation |
 
-    moveTo: aDirection fromLocation: currentLocation locationsMap: locationsMap [
-        | parsedDirection nextLocationName nextLocation |
-        parsedDirection := Location parseDirection: aDirection.
-        nextLocationName := currentLocation directions at: parsedDirection ifAbsent: [nil].
+        nextLocationName := self directions at: 'xd' ifAbsent: [nil].
 
         nextLocationName ifNotNil: [
             nextLocation := locationsMap at: nextLocationName ifAbsent: [nil].
@@ -75,7 +63,7 @@ Object subclass: Location [
                      'You can interact with her by interact caretaker. ' ,
                      'To the west, you can see the parking area adjacent to the station. ' ,
                      'To the east, there is a train which you can use to escape from city.'
-        directions: (Dictionary new at: 'West' put: 'parking').
+        directions: (Dictionary new at: 'w' put: 'parking').
 
         parking := Location newWithName: 'parking'
         description: 'You are in a deserted parking lot near the train station. The ground is littered' ,
@@ -84,9 +72,9 @@ Object subclass: Location [
                      'To the south is the main street,' ,
                      'and the train station is to the east.'
         directions: (Dictionary new
-                        at: 'North' put: 'homeless_bench';
-                        at: 'South' put: 'main_street';
-                        at: 'East' put: 'train_station').
+                        at: 'n' put: 'homeless_bench';
+                        at: 's' put: 'main_street';
+                        at: 'e' put: 'train_station').
 
         car := Location newWithName: 'car'
         description: 'You sit inside the car, but it refuses to start. ' ,
@@ -97,12 +85,12 @@ Object subclass: Location [
         description:  'You find yourself near a bench occupied by a homeless man, muttering under his breath.' ,
                      'You can interact with him by interact homeless' ,
                      'The parking area lies to the south.'
-        directions: (Dictionary new at: 'South' put: 'parking').
+        directions: (Dictionary new at: 's' put: 'parking').
 
         riverTracks := Location newWithName: 'river_tracks'
         description: 'You stand by the river tracks. The water flows sluggishly, casting eerie reflections' ,
                      'in the moonlight.'
-        directions: (Dictionary new at: 'West' put: 'main_street').
+        directions: (Dictionary new at: 'w' put: 'main_street').
 
         mainStreet := Location newWithName: 'main_street'
         description: 'You are on the main street, flanked by old, abandoned shops. The cracked windows' ,
@@ -111,9 +99,9 @@ Object subclass: Location [
                      'while the river tracks are to the east,' ,
                      'and the parking lot to the north.'
         directions: (Dictionary new
-                        at: 'West' put: 'old_town';
-                        at: 'East' put: 'river_tracks';
-                        at: 'North' put: 'parking').
+                        at: 'w' put: 'old_town';
+                        at: 'e' put: 'river_tracks';
+                        at: 'n' put: 'parking').
 
         oldTown := Location newWithName: 'old_town'
         description: 'You find yourself in the heart of Old Town,' ,
@@ -124,10 +112,10 @@ Object subclass: Location [
                      'There is an old hotel to the south' ,
                      'and a library to the west.'
         directions: (Dictionary new
-                        at: 'North' put: 'police_station';
-                        at: 'South' put: 'hotel_lobby';
-                        at: 'West' put: 'library';
-                        at: 'East' put: 'main_street').
+                        at: 'n' put: 'police_station';
+                        at: 's' put: 'hotel_lobby';
+                        at: 'w' put: 'library';
+                        at: 'e' put: 'main_street').
 
         hotelLobby := Location newWithName: 'hotel_lobby'
         description: 'You enter the lobby of the hotel.' ,
@@ -137,17 +125,17 @@ Object subclass: Location [
                      'To the south, a dark hallway leads further into the hotel.' ,
                      'Looking to the west, you can see an elevator.'
         directions: (Dictionary new
-                        at: 'North' put: 'old_town';
-                        at: 'East' put: 'hotel_toilet';
-                        at: 'South' put: 'hotel_corridor';
-                        at: 'West' put: 'hotel_basement').
+                        at: 'n' put: 'old_town';
+                        at: 'e' put: 'hotel_toilet';
+                        at: 's' put: 'hotel_corridor';
+                        at: 'w' put: 'hotel_basement').
 
         hotelToilet := Location newWithName: 'hotel_toilet'
         description: 'You enter the toilet.' ,
                      'The room is dark and damp, and the smell of mold and decay fills the air.' ,
                      'The toilet is broken and the sink is covered in grime.' ,
                      'You can go west to return to the hotel lobby.'
-        directions: (Dictionary new at: 'West' put: 'hotel_lobby').
+        directions: (Dictionary new at: 'w' put: 'hotel_lobby').
 
         hotelCorridor := Location newWithName: 'hotel_corridor'
         description: 'You enter a dark hallway.' ,
@@ -155,22 +143,22 @@ Object subclass: Location [
                      'Only one room to the west remains accessible.' ,
                      'You can go north to return to the hotel lobby.'
         directions: (Dictionary new
-                        at: 'North' put: 'hotel_lobby';
-                        at: 'West' put: 'hotel_room').
+                        at: 'n' put: 'hotel_lobby';
+                        at: 'w' put: 'hotel_room').
 
         hotelRoom := Location newWithName: 'hotel_room'
         description: 'You enter the hotel room.' ,
                      'The room is dark and dusty, and the bed is covered in old sheets.' ,
                      'The closet is empty, and the desk is covered in papers.' ,
                      'You can go east to return to the corridor.'
-        directions: (Dictionary new at: 'East' put: 'hotel_corridor').
+        directions: (Dictionary new at: 'e' put: 'hotel_corridor').
 
         hotelBasement := Location newWithName: 'hotel_basement'
         description: 'The elevator can only go down.' ,
                      'It leads to the basement of the hotel.' ,
                      'The basement is dark and damp, with a faint, musty odor filling the air.' ,
                      'You can go east to return to the hotel lobby.'
-        directions: (Dictionary new at: 'East' put: 'hotel_lobby').
+        directions: (Dictionary new at: 'e' put: 'hotel_lobby').
 
         policeStation := Location newWithName: 'police_station'
         description: 'You enter the police station. The lights flicker, casting eerie shadows on the walls.' ,
@@ -181,7 +169,7 @@ Object subclass: Location [
                      'You can interact with him by interact drunkard' ,
                      'You can enter the code to the safe by open safe.' ,
                      'You can go south to return to the old town.'
-        directions: (Dictionary new at: 'South' put: 'old_town').
+        directions: (Dictionary new at: 's' put: 'old_town').
 
         library := Location newWithName: 'library'
         description: 'You enter the library. The room is quiet, filled with towering shelves of old, dusty books.' ,
@@ -189,14 +177,14 @@ Object subclass: Location [
                      'To the south, you see a door leading to the archive room.' ,
                      'To the west, there is a church on the hill.'
         directions: (Dictionary new
-                        at: 'East' put: 'old_town';
-                        at: 'South' put: 'archive';
-                        at: 'West' put: 'hill_church').
+                        at: 'e' put: 'old_town';
+                        at: 's' put: 'archive';
+                        at: 'w' put: 'hill_church').
 
         archiveRoom := Location newWithName: 'archive'
         description: 'You enter the archive room. It is small and cramped, filled with stacks of old papers and documents.' ,
                      'Most of the documents are unreadable due to age.'
-        directions: (Dictionary new at: 'North' put: 'library').
+        directions: (Dictionary new at: 'n' put: 'library').
 
         hillChurch := Location newWithName: 'hill_church'
         description: 'You stand before an old, abandoned church on the hill.' ,
@@ -207,9 +195,9 @@ Object subclass: Location [
                      'You can go west to the second floor of the church.' ,
                      'To the east, you see the library.'
         directions: (Dictionary new
-                        at: 'North' put: 'forest_cave';
-                        at: 'East' put: 'library';
-                        at: 'West' put: 'second_floor_of_hill_church').
+                        at: 'n' put: 'forest_cave';
+                        at: 'e' put: 'library';
+                        at: 'w' put: 'second_floor_of_hill_church').
 
         secondFloorOfHillChurch := Location newWithName: 'second_floor_of_hill_church'
         description:  'You are now at the second floor of the church.' ,
@@ -217,7 +205,7 @@ Object subclass: Location [
                      '4 6 1 2 6 7 3 4 1 5 6 2 7 3 5 7 3 2 5 3 6 4 3 6 7 2 ' ,
                      'You notice also a sentence: That`s a code to the truth of this mystery.' ,
                      'To go back to first floor go east'
-        directions: (Dictionary new at: 'East' put: 'hill_church').
+        directions: (Dictionary new at: 'e' put: 'hill_church').
 
         forestCave := Location newWithName: 'forest_cave'
         description: 'You enter a dark cave hidden deep in the forest.' ,
@@ -227,7 +215,7 @@ Object subclass: Location [
                      'You feel that this place may be key to solving the mystery of the archaeologists disappearance.' ,
                      'You see far far to the north of this huge cave a weird doors that must lead to something.' ,
                      'The path back leads south, returning to the church.'
-        directions: (Dictionary new at: 'South' put: 'hill_church'; at: 'North' put: 'weird_doors').
+        directions: (Dictionary new at: 's' put: 'hill_church'; at: 'n' put: 'weird_doors').
 
         locationsMap at: 'train_station' put: trainStation.
         locationsMap at: 'parking' put: parking.

@@ -62,7 +62,7 @@ Object subclass: Game [
 
     handleDirection: direction [
         | nextLocation |
-        nextLocation := currentLocation moveTo: direction fromLocation: currentLocation locationsMap: locationsMap.
+        nextLocation := currentLocation moveTo: direction locationsMap: locationsMap.
         nextLocation ifNotNil: [
             currentLocation := nextLocation.
             self printCurrentLocation.
