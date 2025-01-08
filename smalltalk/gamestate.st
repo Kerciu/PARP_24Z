@@ -11,13 +11,15 @@ Object subclass: GameState [
         currentLocation := locationsMap at: 'train_station'.
         inventory := Array new. "Używamy Array"
         locationItems := Dictionary new.
-        locationItems at: 'hotel_basement' put: #('notes' 'amulet').
-        locationItems at: 'car' put: #('key').
-        locationItems at: 'hotel_room' put: #('diary' 'blueFuse').
-        locationItems at: 'hotel_toilet' put: #('redFuse').
-        locationItems at: 'library' put: #('newspaper').
-        locationItems at: 'river_tracks' put: #('cigarettes').
-        locationItems at: 'archive' put: #('greenFuse').
+        
+        "Przypisanie OrderedCollection zamiast Array"
+        locationItems at: 'hotel_basement' put: (OrderedCollection with: 'notes' with: 'amulet').
+        locationItems at: 'car' put: (OrderedCollection with: 'key').
+        locationItems at: 'hotel_room' put: (OrderedCollection with: 'diary' with: 'blueFuse').
+        locationItems at: 'hotel_toilet' put: (OrderedCollection with: 'redFuse').
+        locationItems at: 'library' put: (OrderedCollection with: 'newspaper').
+        locationItems at: 'river_tracks' put: (OrderedCollection with: 'cigarettes').
+        locationItems at: 'archive' put: (OrderedCollection with: 'greenFuse').
 
         closedLocations := #('hotel_room' 'hotel_basement' 'archive').
         hillChurchEndingEscape := false.
@@ -53,17 +55,17 @@ Object subclass: GameState [
 
     addItemToLocation: anItem [
         | currentItems |
-        currentItems := locationItems at: currentLocation name ifAbsent: [#()].
-        currentItems := currentItems add: anItem.  "Dodajemy element do Array"
+        currentItems := locationItems at: currentLocation name ifAbsent: [OrderedCollection new].
+        currentItems add: anItem.  "Poprawione dla OrderedCollection"
         locationItems at: currentLocation name put: currentItems.
     ]
 
     removeItemFromLocation: anItem [
         | currentItems |
-        currentItems := locationItems at: currentLocation name ifAbsent: [#()].
+        currentItems := locationItems at: currentLocation name ifAbsent: [OrderedCollection new].
 
         (currentItems includes: anItem) ifTrue: [
-            currentItems := currentItems reject: [:item | item = anItem]. "Array nie pozwala na usuwanie wprost"
+            currentItems := currentItems reject: [:item | item = anItem]. "Usuwanie z OrderedCollection"
             locationItems at: currentLocation name put: currentItems.
         ] ifFalse: [
             Transcript show: 'Item not found at the current location.'; cr.
@@ -74,7 +76,7 @@ Object subclass: GameState [
         | currentItems |
         Transcript show: 'Current location: ', currentLocation name; cr.
         
-        currentItems := locationItems at: currentLocation name ifAbsent: [#()].
+        currentItems := locationItems at: currentLocation name ifAbsent: [OrderedCollection new].
         
         (currentItems includes: anItem) ifTrue: [
             self removeItemFromLocation: anItem.
@@ -86,19 +88,23 @@ Object subclass: GameState [
     ]
 
     addToInventory: anItem [
-        inventory := inventory , (Array with: anItem).  "Array ma operator , do łączenia tablic"
+        inventory := inventory , (Array with: anItem).  "Poprawiona operacja łączenia"
     ]
 
     dropItem: anItem [
         | currentItems |
-        currentItems := locationItems at: currentLocation name ifAbsent: [#()].
-        currentItems := currentItems add: anItem.
+        currentItems := locationItems at: currentLocation name ifAbsent: [OrderedCollection new].
+        currentItems add: anItem.
         locationItems at: currentLocation name put: currentItems.
-        inventory := inventory reject: [:item | item = anItem].  "Array nie ma metody remove:, ale możemy użyć reject"
+        inventory := inventory reject: [:item | item = anItem].  "Poprawione z Array"
     ]
 
     checkItem: anItem [
-        self displayItemDescription: anItem.
+        (inventory includes: anItem) ifTrue: [
+            self displayItemDescription: anItem.
+        ] ifFalse: [
+            Transcript show: 'You do not have this item.'; cr.
+        ].
     ]
 
     showInventory [
