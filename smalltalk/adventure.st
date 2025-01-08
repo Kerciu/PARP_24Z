@@ -121,16 +121,20 @@ Object subclass: Game [
         self printInstructions.
     ]
 
+    handleLook [
+        Transcript show: gameState currentLocation description; cr.
+    ]
+
     handleTake: object [
-        Transcript show: 'Not implemented yet: You take ', object; cr.
+        gameState takeItem: object.
     ]
 
     handleDrop: object [
-        Transcript show: 'Not implemented yet: You drop ', object; cr.
+        gameState dropItem: object.
     ]
 
     handleCheck: object [
-        Transcript show: 'Not implemented yet: Checking ', object; cr.
+        gameState checkItem: object.
     ]
 
     handleGive: character to: object [
@@ -154,7 +158,7 @@ Object subclass: Game [
     ]
 
     handleInventory [
-        Transcript show: 'Not implemented yet: TODO'; cr.
+        gameState showInventory.
     ]
 
     handleInstructions [
