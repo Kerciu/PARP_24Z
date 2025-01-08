@@ -9,10 +9,9 @@ Object subclass: GameState [
         locationsMap := Location createLocations.
 
         currentLocation := locationsMap at: 'train_station'.
-        inventory := Array new. "Używamy Array"
+        inventory := Array new.
         locationItems := Dictionary new.
         
-        "Przypisanie OrderedCollection zamiast Array"
         locationItems at: 'hotel_basement' put: (OrderedCollection with: 'notes' with: 'amulet').
         locationItems at: 'car' put: (OrderedCollection with: 'key').
         locationItems at: 'hotel_room' put: (OrderedCollection with: 'diary' with: 'blueFuse').
@@ -25,8 +24,6 @@ Object subclass: GameState [
         hillChurchEndingEscape := false.
         gameOver := false.
         flags := #().
-
-        Transcript show: 'Initial location: ', currentLocation name; cr. 
     ]
 
     currentLocation [
@@ -56,7 +53,7 @@ Object subclass: GameState [
     addItemToLocation: anItem [
         | currentItems |
         currentItems := locationItems at: currentLocation name ifAbsent: [OrderedCollection new].
-        currentItems add: anItem.  "Poprawione dla OrderedCollection"
+        currentItems add: anItem.
         locationItems at: currentLocation name put: currentItems.
     ]
 
@@ -65,7 +62,7 @@ Object subclass: GameState [
         currentItems := locationItems at: currentLocation name ifAbsent: [OrderedCollection new].
 
         (currentItems includes: anItem) ifTrue: [
-            currentItems := currentItems reject: [:item | item = anItem]. "Usuwanie z OrderedCollection"
+            currentItems := currentItems reject: [:item | item = anItem]. 
             locationItems at: currentLocation name put: currentItems.
         ] ifFalse: [
             Transcript show: 'Item not found at the current location.'; cr.
@@ -74,8 +71,6 @@ Object subclass: GameState [
 
     takeItem: anItem [
         | currentItems |
-        Transcript show: 'Current location: ', currentLocation name; cr.
-        
         currentItems := locationItems at: currentLocation name ifAbsent: [OrderedCollection new].
         
         (currentItems includes: anItem) ifTrue: [
@@ -88,7 +83,7 @@ Object subclass: GameState [
     ]
 
     addToInventory: anItem [
-        inventory := inventory , (Array with: anItem).  "Poprawiona operacja łączenia"
+        inventory := inventory , (Array with: anItem).
     ]
 
     dropItem: anItem [
@@ -96,7 +91,7 @@ Object subclass: GameState [
         currentItems := locationItems at: currentLocation name ifAbsent: [OrderedCollection new].
         currentItems add: anItem.
         locationItems at: currentLocation name put: currentItems.
-        inventory := inventory reject: [:item | item = anItem].  "Poprawione z Array"
+        inventory := inventory reject: [:item | item = anItem].
     ]
 
     checkItem: anItem [
@@ -108,7 +103,14 @@ Object subclass: GameState [
     ]
 
     showInventory [
-        Transcript show: 'Inventory: ', inventory printString; cr.
+        Transcript show: 'Inventory:'; cr.
+        inventory isEmpty
+            ifTrue: [Transcript show: 'No items in inventory.'; cr.]
+            ifFalse: [
+                inventory do: [ :item | 
+                    Transcript show: ' - ', item printString; cr. 
+                ].
+            ].
     ]
 
     displayItemDescription: anItem [
