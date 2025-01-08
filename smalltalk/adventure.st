@@ -138,11 +138,11 @@ Object subclass: Game [
     ]
 
     handleGive: character to: object [
-        Transcript show: 'Not implemented yet: You give ', object, ' to ', character; cr.
+        gameState giveItem: character to: object.
     ]
 
     handleInteract: character [
-        Transcript show: 'Not implemented yet: You interact with ', character; cr.
+        gameState interactWith: character.
     ]
 
     handleOpen: object [
