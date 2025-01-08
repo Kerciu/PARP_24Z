@@ -122,7 +122,7 @@ Object subclass: Game [
     ]
 
     handleLook [
-        Transcript show: gameState currentLocation description; cr.
+        gameState lookAround.
     ]
 
     handleTake: object [
