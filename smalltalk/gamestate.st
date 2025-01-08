@@ -50,6 +50,26 @@ Object subclass: GameState [
         gameOver := true
     ]
 
+    addItem: anItem [
+        inventory := inventory , (Array with: anItem).
+    ]
+
+    removeItem: anItem [
+        inventory := inventory reject: [:item | item = anItem].
+    ]
+
+    addFlag: aFlag [
+        flags := flags , (Array with: aFlag).
+    ]
+
+    hasFlag: aFlag [
+        ^flags includes: aFlag.
+    ]
+
+    notHasFlag: aFlag [
+        ^(flags includes: aFlag) not.
+    ]
+
     addItemToLocation: anItem [
         | currentItems |
         currentItems := locationItems at: currentLocation name ifAbsent: [OrderedCollection new].
@@ -136,9 +156,9 @@ Object subclass: GameState [
             (flags includes: 'first_homeless_interaction') ifFalse: [
                 Transcript show: 'He warns of the ''shadows that follow at night'' and clutches an old bottle with'; cr.
                 Transcript show: 'You notice that he cannot breathe properly, he probably ran out of cigarettes.'; cr.
-                flags := flags, #('first_homeless_interaction').
+                self addFlag 'first_homeless_interaction'.
             ].
-            (inventory includes: 'cigarettes') ifTrue: [
+            (hasItem: 'cigarettes') ifTrue: [
                 Transcript show: 'You notice that you can help the homeless man with a cigarette.'; cr.
             ].
             Transcript show: 'You can interact with him by typing: interact homeless'; cr.
@@ -209,5 +229,128 @@ Object subclass: GameState [
 
     hasItem: anItem [
         ^inventory includes: anItem.
+    ]
+
+    giveItem: person to: item [
+        (person = 'homeless' and: [(currentLocation name = 'homeless_bench') and: [(hasItem: 'cigarettes')]]) 
+            ifTrue: [
+                Transcript show: 'You give the pack of cigarettes to the homeless man. He takes them eagerly and thanks you.'; cr.
+                Transcript show: 'He hands you a cold can of Harnas beer in return.'; cr.
+                Transcript show: 'And a weird box saying "I found it a while ago, it is useless for me but maybe you can get it open"'; cr.
+                self addFlag: 'first_homeless_interaction'.
+                self addItem: 'weird_box'.
+                self addItem: 'harnas'.
+                self removeItem: 'cigarettes'.
+            ]
+            ifFalse: [
+                (person = 'homeless' and: [(currentLocation name = 'homeless_bench') and: [(hasItem: 'cigarettes')]]) 
+                    ifTrue: [
+                        Transcript show: 'The homeless man rejects your offer to give him Harnas beer. He already has plenty of those.'; cr.
+                        ^state.
+                    ].
+                (person = 'caretaker' and: [(currentLocation name = 'train_station') and: [(hasItem: 'harnas')]]) 
+                    ifTrue: [
+                        Transcript show: 'You offer the Harnas beer to the caretaker. She takes it gratefully and takes a swig.'; cr.
+                        Transcript show: '''Ahh, that takes me back,'' she sighs and tells you more about her story with the homeless man.'; cr.
+                        Transcript show: 'Grateful, she hands you the car keys.'; cr.
+                        self addItem: 'car_keys'.
+                        self removeItem: 'harnas'.
+                    ].
+                (person = 'drunkard' and: [(currentLocation name = 'police_station') and: [(hasItem: 'kuflowe_mocne')]]) 
+                    ifTrue: [
+                        Transcript show: 'The drunkard takes the Kuflowe Mocne with a greedy smile.'; cr.
+                        Transcript show: '''Alright, alright... here, take this.'''; cr.
+                        Transcript show: 'He hands you a crumpled leaf with the safe code scrawled on it.'; cr.
+                        self addFlag: 'second_drunkard_interaction'.
+                        self addItem: 'leaf_with_code'.
+                        self removeItem: 'kuflowe_mocne'.
+                    ].
+                Transcript show: 'You cannot give this item to that person.'; cr.
+            ].
+        ^state.
+    ]
+
+    interactWith: person [
+        (person = 'homeless' and: [(currentLocation name = 'homeless_bench')]) 
+            ifTrue: [
+                (hasItem: 'cigarettes') 
+                    ifTrue: [
+                        Transcript show: 'The homeless man seems to be more interested as he coughs intensively.'; cr.
+                    ] 
+                    ifFalse: [
+                        (hasFlag: 'first_drunkard_interaction' and: [(notHasFlag: 'second_homeless_interaction')]) 
+                            ifTrue: [
+                                Transcript show: 'The homeless man looks at you knowingly.'; cr.
+                                Transcript show: 'Oh, you need a drink for ol Bill? Here, take this Kuflowe Mocne. But dont tell him I gave it for free!'; cr.
+                                self addItem: 'kuflowe_mocne'.
+                                self addFlag: 'second_homeless_interaction'.
+                            ]
+                            ifFalse: [
+                                (hasItem: 'amulet') 
+                                    ifTrue: [
+                                        Transcript show: 'The homeless man looks at you with wide eyes. ''You hold that cursed thing,'' he says, his voice shaking. ''I feel something watching... beware.'''; cr.
+                                    ]
+                                    ifFalse: [
+                                        Transcript show: 'The homeless man seems to be uninterested for now.'; cr.
+                                    ].
+                            ].
+            ] 
+            ifFalse: [
+                Transcript show: 'There is no homeless man here'; cr.
+            ].
+
+        (person = 'caretaker' and: [(currentLocation name = 'train_station')]) 
+            ifTrue: [
+                (hasItem: 'amulet') 
+                    ifTrue: [
+                        Transcript show: 'The caretaker looks at you uneasily as you hold the strange amulet. "What is that you have there?" she asks, her eyes narrowing. ''You should be careful where you go with that.'''; cr.
+                    ] 
+                    ifFalse: [
+                        (hasItem: 'harnas') 
+                            ifTrue: [
+                                Transcript show: 'The caretaker seems more enticed to talk as she sees a can of cold Harnas.'; cr.
+                            ] 
+                            ifFalse: [
+                                Transcript show: 'The caretaker seems more distant and uninterested for now.'; cr.
+                            ].
+                    ].
+            ]
+            ifFalse: [
+                Transcript show: 'There is no caretaker here'; cr.
+            ].
+
+        (person = 'drunkard' and: [(currentLocation name = 'police_station')]) 
+            ifTrue: [
+                (self hasFlag: 'second_drunkard_interaction') 
+                    ifTrue: [
+                        Transcript show: 'I''ve already helped you, now let me enjoy my beer.'; cr.
+                    ]
+                    ifFalse: [
+                        Transcript show: 'The drunkard looks at you with a smirk.'; cr.
+                        Transcript show: '''Lookin'' for the safe code, eh? I might remember it... But I''m real thirsty.'''; cr.
+                        Transcript show: '''Maybe if you bring me something to drink, I''ll let you in on the secret.'''; cr.
+                        self addFlag: 'first_drunkard_interaction'.
+                    ].
+            ] 
+            ifFalse: [
+                Transcript show: 'There is no drunkard here'; cr.
+            ].
+
+        (person = 'priest' and: [(currentLocation name = 'hill_church')]) 
+            ifTrue: [
+                (self hasItem: 'amulet') 
+                    ifTrue: [
+                        Transcript show: 'The priest notices the amulet in your hand and warns you: That is the symbol of their cult; do not approach them with it.'; cr.
+                        Transcript show: 'He continues: I can''t tell you more, just be careful'; cr.
+                        Transcript show: 'He points at the old staircase, at the west side of the church, that leads to second floor of the church'; cr.
+                    ]
+                    ifFalse: [
+                        '''Our Father, Who art in heaven, Hallowed be Thy name. Thy kingdom come, Thy will be done, On earth as it is in heaven...'''; cr.
+                    ].
+            ] 
+            ifFalse: [
+                Transcript show: 'There is no priest here'; cr.
+            ].
+        ]
     ]
 ]
