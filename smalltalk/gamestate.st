@@ -254,7 +254,20 @@ Object subclass: GameState [
     ]
 
     openHotelBasement [
+        ((self hasItem 'redFuse') and: [(self hasItem 'greenFuse') and: [(self hasItem 'blueFuse')]]) ifTrue: [
+            self removeItem 'redFuse'.
+            self removeItem 'greenFuse'.
+            self removeItem 'blueFuse'.
+            self removeClosedLocation 'hotel_basement'.
 
+            Transcript show: 'You placed the fuses in the fuse box and the elevator started working.'; cr.
+            self directionChange: 'hotel_basement'.
+
+        ] ifFalse: [
+            Transcript show: 'The elevator is not working.'; cr.
+            Transcript show: 'However, you noticed a fuse box next to the elevator with 3 fuses missing.'; cr.
+            Transcript show: 'Maybe you can find them somewhere.'; cr.
+        ].
     ]
 
     openArchive [
