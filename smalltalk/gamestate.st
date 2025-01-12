@@ -271,7 +271,15 @@ Object subclass: GameState [
     ]
 
     openArchive [
+        (self hasItem 'key') ifTrue: [
+            self removeItem 'key'.
+            self removeClosedLocation 'archive'.
+            self directionChange 'archive'.
 
+            Transcript show: 'You have unlocked the archive.'; cr.
+        ] ifFalse: [
+            Transcript show: 'The archive is locked. You need a key to open it.'; cr.
+        ].
     ]
 
     lookAround [
