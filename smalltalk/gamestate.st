@@ -155,6 +155,10 @@ Object subclass: GameState [
         ^inventory includes: anItem.
     ]
 
+    itemsAtLocation: aLocation [
+        ^locationItems at: aLocation ifAbsent: [OrderedCollection new].
+    ]
+
     lookAround [
         | currentLocationName items |
         currentLocationName := self currentLocation name.
@@ -218,14 +222,14 @@ Object subclass: GameState [
                     ]
                 ]
             ]
-        ]
+        ].
 
-        items := self locationItems at: 'hotel_basement' ifAbsent: [OrderedCollection new].
-        " items ifNotNil: [
+        items := self itemsAtLocation: currentLocationName.
+        items ifNotNil: [
             items do: [ :item | 
-                Transcript show: 'You see ', item printString, ' here.'; cr. 
+                Transcript show: 'You see ', item, ' here.'; cr. 
             ].
-        ]. "
+        ].
     ]
 
     giveItem: person to: item [
