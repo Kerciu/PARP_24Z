@@ -64,7 +64,7 @@ Object subclass: Game [
         nextLocation := gameState currentLocation moveTo: direction locationsMap: locationsMap.
         nextLocation ifNotNil: [
             gameState currentLocation: nextLocation.
-            self printCurrentLocation.
+            gameState lookAround.
         ].
     ]
 
