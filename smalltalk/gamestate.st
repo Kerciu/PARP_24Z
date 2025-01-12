@@ -353,4 +353,60 @@ Object subclass: GameState [
             ].
         ]
     ]
+
+    " enterCar :: GameState -> IO GameState
+    enterCar state
+    | isAtLocation "parking" state =
+        if hasFlag "car_opened" state
+            then
+            goNextLocation "car" state
+            else
+            if hasItem "car_keys" state
+                then do
+                putStrLn "You unlock the car with keys."
+                newState <- removeItem "car_keys" state
+                newState <- addFlag "car_opened" newState
+                goNextLocation "car" newState
+                else do
+                putStrLn "You need keys to enter the car."
+                return state
+    | isAtLocation "car" state =
+        do
+            putStrLn "You are already in the car."
+            return state
+    | otherwise =
+        do
+            putStrLn "There is no car here."
+            return state "
+
+    enterCar [
+        | currentLocationName |
+        currentLocationName := currentLocation name
+
+        (currentLocationName = 'parking') ifTrue: [
+            (self hasFlag 'car_opened') ifTrue: [
+                currentLocation: (locationsMap at: 'car').
+            ] ifFalse: [
+                (self hasItem 'car_keys') ifTrue: [
+                    Transcript show: 'You unlock the car with keys.'; cr.
+                    self removeItem 'car_keys'.
+                    self addFlag 'car_opened'.
+                    currentLocation: (locationsMap at: 'car').
+                ] ifFalse: [
+                    Transcript show: 'You need keys to enter the car.'; cr.
+                ]
+            ]
+
+        ] ifFalse: [
+            (currentLocationName = 'car') ifTrue: [
+                Transcript show: 'You are already in the car.'; cr.
+            ] ifFalse: [
+                Transcript show: 'There is no car here.'; cr.
+            ]
+        ]
+    ]
+
+    exitCar [
+
+    ]
 ]
