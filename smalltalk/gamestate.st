@@ -354,31 +354,6 @@ Object subclass: GameState [
         ]
     ]
 
-    " enterCar :: GameState -> IO GameState
-    enterCar state
-    | isAtLocation "parking" state =
-        if hasFlag "car_opened" state
-            then
-            goNextLocation "car" state
-            else
-            if hasItem "car_keys" state
-                then do
-                putStrLn "You unlock the car with keys."
-                newState <- removeItem "car_keys" state
-                newState <- addFlag "car_opened" newState
-                goNextLocation "car" newState
-                else do
-                putStrLn "You need keys to enter the car."
-                return state
-    | isAtLocation "car" state =
-        do
-            putStrLn "You are already in the car."
-            return state
-    | otherwise =
-        do
-            putStrLn "There is no car here."
-            return state "
-
     enterCar [
         | currentLocationName |
         currentLocationName := currentLocation name
@@ -394,19 +369,27 @@ Object subclass: GameState [
                     currentLocation: (locationsMap at: 'car').
                 ] ifFalse: [
                     Transcript show: 'You need keys to enter the car.'; cr.
-                ]
-            ]
+                ].
+            ].
 
         ] ifFalse: [
             (currentLocationName = 'car') ifTrue: [
                 Transcript show: 'You are already in the car.'; cr.
             ] ifFalse: [
                 Transcript show: 'There is no car here.'; cr.
-            ]
-        ]
+            ].
+        ].
     ]
 
     exitCar [
+        | currentLocationName |
+        currentLocationName := currentLocation name.
 
+        (currentLocationName = 'car') ifTrue: [
+            currentLocation: (locationsMap at: 'parking').
+            Transcript show: 'You exit the car and return to the parking lot.'; cr.
+        ] ifFalse: [
+            Transcript show: 'You are not in the car.'; cr.
+        ].
     ]
 ]
