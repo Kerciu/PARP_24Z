@@ -201,12 +201,12 @@ Object subclass: GameState [
                     ].
             ].
 
-        nextLocation := gameState currentLocation moveTo: direction locationsMap: locationsMap.
+        nextLocation := currentLocation moveTo: direction locationsMap: locationsMap.
         nextLocation ifNotNil: [
             (self isLocationBlocked: nextLocation name) ifTrue: [
                 self locationBlocked: nextLocation name.
             ] ifFalse: [
-                gameState currentLocation: nextLocation.
+                currentLocation: nextLocation.
                 self printCurrentLocation.
             ].
         ].
@@ -235,7 +235,7 @@ Object subclass: GameState [
 
             Transcript show: 'Error: Dont know how to open it'; cr.
         ] ifFalse: [
-            gameState currentLocation: (locationsMap at: nextLocationName).
+            currentLocation: (locationsMap at: nextLocationName).
         ]
     ]
 
