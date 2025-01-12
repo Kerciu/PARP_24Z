@@ -34,13 +34,45 @@ Object subclass: GameState [
         currentLocation := aLocation
     ]
 
+    flags [
+        ^flags
+    ]
+
+    flags: aFlags [
+        flags := aFlags
+    ]
+
     inventory [
         ^inventory
     ]
 
     inventory: anArray [
         inventory := anArray
-    ]    
+    ]
+
+    locationItems [
+        ^locationItems
+    ] 
+
+    locationItems: aLocationItems [
+        locationItems := aLocationItems
+    ]
+
+    closedLocations [
+        ^closedLocations
+    ]
+
+    closedLocations: aClosedLocations [
+        closedLocations := aClosedLocations
+    ]
+
+    hillChurchEndingEscape [
+        ^hillChurchEndingEscape
+    ]
+
+    hillChurchEndingEscape: aHillChurchEndingEscape [
+        hillChurchEndingEscape := aHillChurchEndingEscape
+    ]
 
     gameOver [
         ^gameOver
@@ -157,7 +189,7 @@ Object subclass: GameState [
                 (userInput = 'yes')
                     ifTrue: [
                         Transcript show: (self escapeCityEndingText: (self hasItem: 'diary')); cr.
-                        gameOver := true.
+                        self updateGameOver.
                         ^self.
                     ]
                     ifFalse: [
@@ -178,7 +210,7 @@ Object subclass: GameState [
                             ifFalse: [
                                 Transcript show: self forestCaveEndingKilledText; cr.
                             ].
-                        gameOver := true.
+                        self updateGameOver.
                         ^self.
                     ]
                     ifFalse: [
@@ -192,7 +224,7 @@ Object subclass: GameState [
                 (self hasFlag: 'weird_box_opened')
                     ifTrue: [
                         Transcript show: self hillChurchEndingEscapeText; cr.
-                        gameOver := true.
+                        self updateGameOver.
                         ^self.
                     ]
                     ifFalse: [
