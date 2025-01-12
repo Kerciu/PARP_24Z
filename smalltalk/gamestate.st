@@ -262,11 +262,11 @@ Object subclass: GameState [
     ]
 
     openHotelBasement [
-        ((self hasItem 'redFuse') and: [(self hasItem 'greenFuse') and: [(self hasItem 'blueFuse')]]) ifTrue: [
-            self removeItem 'redFuse'.
-            self removeItem 'greenFuse'.
-            self removeItem 'blueFuse'.
-            self removeClosedLocation 'hotel_basement'.
+        ((self hasItem: 'redFuse') and: [(self hasItem: 'greenFuse') and: [(self hasItem: 'blueFuse')]]) ifTrue: [
+            self removeItem: 'redFuse'.
+            self removeItem: 'greenFuse'.
+            self removeItem: 'blueFuse'.
+            self removeClosedLocation: 'hotel_basement'.
 
             Transcript show: 'You placed the fuses in the fuse box and the elevator started working.'; cr.
             self directionChange: 'hotel_basement'.
@@ -279,10 +279,10 @@ Object subclass: GameState [
     ]
 
     openArchive [
-        (self hasItem 'key') ifTrue: [
-            self removeItem 'key'.
-            self removeClosedLocation 'archive'.
-            self directionChange 'archive'.
+        (self hasItem: 'key') ifTrue: [
+            self removeItem: 'key'.
+            self removeClosedLocation: 'archive'.
+            self directionChange: 'archive'.
 
             Transcript show: 'You have unlocked the archive.'; cr.
         ] ifFalse: [
@@ -504,13 +504,13 @@ Object subclass: GameState [
         currentLocationName := currentLocation name.
 
         (currentLocationName = 'parking') ifTrue: [
-            (self hasFlag 'car_opened') ifTrue: [
+            (self hasFlag: 'car_opened') ifTrue: [
                 currentLocation: (locationsMap at: 'car').
             ] ifFalse: [
-                (self hasItem 'car_keys') ifTrue: [
+                (self hasItem: 'car_keys') ifTrue: [
                     Transcript show: 'You unlock the car with keys.'; cr.
-                    self removeItem 'car_keys'.
-                    self addFlag 'car_opened'.
+                    self removeItem: 'car_keys'.
+                    self addFlag: 'car_opened'.
                     currentLocation: (locationsMap at: 'car').
                 ] ifFalse: [
                     Transcript show: 'You need keys to enter the car.'; cr.
@@ -543,7 +543,7 @@ Object subclass: GameState [
         currentLocationName := currentLocation name.
 
         (thing = 'weird_box') ifTrue: [
-            (self hasItem 'weird_box') ifTrue: [
+            (self hasItem: 'weird_box') ifTrue: [
                 (currentLocationName = 'second_floor_of_hill_church') ifTrue: [
                     Transcript show: 'You open the box with the code and find weird notes inside.'; cr.
                     Transcript show: 'One of those says: U CANNOT DEFEAT THEM FLEE FROM THE CITY AS FAST AS YOU CAN, THEY ARE CLOSING UP ON ME. THIS IS MY FAREWELL, GOODBYE THE ONE THAT READ THOOSE.'; cr.
@@ -551,7 +551,7 @@ Object subclass: GameState [
                     Transcript show: 'Decide fast or maybe you will meet the same fate as a writer of thoose notes.'; cr.
                     Transcript show: 'To flee from the city to train station you have to go north for a secret passage in the church.'; cr.
                     Transcript show: 'To return to the first floor of the church go east.'; cr.
-                    self addFlag 'weird_box_opened'.
+                    self addFlag: 'weird_box_opened'.
                 ] ifFalse: [
                     Transcript show: 'You have to know a 20-digit code to open this box.'; cr.
                     Transcript show: 'Maybe you can find it somewhere.'; cr.
@@ -562,14 +562,14 @@ Object subclass: GameState [
         ] ifFalse: [
             (thing = 'safe') ifTrue: [
                 (currentLocationName = 'police_station') ifTrue: [
-                    (self hasFlag 'safe_opened') ifTrue: [
+                    (self hasFlag: 'safe_opened') ifTrue: [
                         Transcript show: 'The safe is already opened.'; cr.
                     ] ifFalse: [
                         code := Dialog request: 'Enter the 4-digit code for the safe:'.
                         (code = '2137') ifTrue: [
                             Transcript show: 'The safe opens, revealing an engraved ring inside.'; cr.
-                            self addItem 'engraved_ring'.
-                            self addFlag 'safe_opened'.
+                            self addItem: 'engraved_ring'.
+                            self addFlag: 'safe_opened'.
                         ] ifFalse: [
                             Transcript show: 'Incorrect code. The safe remains locked.'; cr.
                         ].
