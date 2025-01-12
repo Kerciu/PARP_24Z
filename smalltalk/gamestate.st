@@ -188,7 +188,7 @@ Object subclass: GameState [
                 userInput := UIManager default request: 'Type your answer (yes/no):'.
                 (userInput = 'yes')
                     ifTrue: [
-                        Transcript show: (self escapeCityEndingText: (self hasItem: 'diary')); cr.
+                        Transcript show: (Endings escapeCityEndingText: (self hasItem: 'diary')); cr.
                         self updateGameOver.
                         ^self.
                     ]
@@ -205,10 +205,10 @@ Object subclass: GameState [
                         Transcript show: 'The amulet glows faintly, and an ancient force gives way.'; cr.
                         (self hasItem: 'engraved_ring')
                             ifTrue: [
-                                Transcript show: self forestCaveEndingWeakenedText; cr.
+                                Transcript show: Endings forestCaveEndingWeakenedText; cr.
                             ]
                             ifFalse: [
-                                Transcript show: self forestCaveEndingKilledText; cr.
+                                Transcript show: Endings forestCaveEndingKilledText; cr.
                             ].
                         self updateGameOver.
                         ^self.
@@ -223,7 +223,7 @@ Object subclass: GameState [
             ifTrue: [
                 (self hasFlag: 'weird_box_opened')
                     ifTrue: [
-                        Transcript show: self hillChurchEndingEscapeText; cr.
+                        Transcript show: Endings hillChurchEndingEscapeText; cr.
                         self updateGameOver.
                         ^self.
                     ]
