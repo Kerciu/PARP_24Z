@@ -231,8 +231,26 @@ Object subclass: GameState [
         ]
     ]
 
-    openHotelRoom [
+    removeClosedLocation: aLocation [
+        closedLocations := closedLocations reject: [:item | item = aLocation].
+    ]
 
+    openHotelRoom [
+        | code |
+        Transcript show: 'The door is locked.'; cr.
+        Transcript show: 'However, you noticed a sign that says "Michael Turner".'; cr.
+        Transcript show: 'There is also a keypad next to the door.'; cr.
+        Transcript show: 'Please enter 4-digit code:'; cr.
+        code := Dialog request: 'Enter the 4-digit code for the safe:'.
+
+        (code = '1974') ifTrue: [
+            Transcript show: 'Correct code!'; cr.
+            self removeClosedLocation: 'hotel_room'.
+            self directionChange: 'hotel_room'.
+            
+        ] ifFalse: [
+            Transcript show: 'Wrong code!'; cr.
+        ].
     ]
 
     openHotelBasement [
