@@ -356,7 +356,7 @@ Object subclass: GameState [
 
     enterCar [
         | currentLocationName |
-        currentLocationName := currentLocation name
+        currentLocationName := currentLocation name.
 
         (currentLocationName = 'parking') ifTrue: [
             (self hasFlag 'car_opened') ifTrue: [
@@ -390,6 +390,51 @@ Object subclass: GameState [
             Transcript show: 'You exit the car and return to the parking lot.'; cr.
         ] ifFalse: [
             Transcript show: 'You are not in the car.'; cr.
+        ].
+    ]
+
+    open: thing [
+        | currentLocationName code |
+        currentLocationName := currentLocation name.
+
+        (thing = 'weird_box') ifTrue: [
+            (self hasItem 'weird_box') ifTrue: [
+                (currentLocationName = 'second_floor_of_hill_church') ifTrue: [
+                    Transcript show: 'You open the box with the code and find weird notes inside.'; cr.
+                    Transcript show: 'One of those says: U CANNOT DEFEAT THEM FLEE FROM THE CITY AS FAST AS YOU CAN, THEY ARE CLOSING UP ON ME. THIS IS MY FAREWELL, GOODBYE THE ONE THAT READ THOOSE.'; cr.
+                    Transcript show: 'You are now able to decide, whether to continue your journey or run away from the city.'; cr.
+                    Transcript show: 'Decide fast or maybe you will meet the same fate as a writer of thoose notes.'; cr.
+                    Transcript show: 'To flee from the city to train station you have to go north for a secret passage in the church.'; cr.
+                    Transcript show: 'To return to the first floor of the church go east.'; cr.
+                    self addFlag 'weird_box_opened'.
+                ] ifFalse: [
+                    Transcript show: 'You have to know a 20-digit code to open this box.'; cr.
+                    Transcript show: 'Maybe you can find it somewhere.'; cr.
+                ].
+            ] ifFalse: [
+                Transcript show: 'You don''t have weird_box in your inventory.'; cr.
+            ].
+        ] ifFalse: [
+            (thing = 'safe') ifTrue: [
+                (currentLocationName = 'police_station') ifTrue: [
+                    (self hasFlag 'safe_opened') ifTrue: [
+                        Transcript show: 'The safe is already opened.'; cr.
+                    ] ifFalse: [
+                        code := Dialog request: 'Enter the 4-digit code for the safe:'.
+                        (code = '2137') ifTrue: [
+                            Transcript show: 'The safe opens, revealing an engraved ring inside.'; cr.
+                            self addItem 'engraved_ring'.
+                            self addFlag 'safe_opened'.
+                        ] ifFalse: [
+                            Transcript show: 'Incorrect code. The safe remains locked.'; cr.
+                        ].
+                    ].
+                ] ifFalse: [
+                    Transcript show: 'There is no safe here.'; cr.
+                ].
+            ] ifFalse: [
+                Transcript show: 'You cannot open that.'; cr.
+            ].
         ].
     ]
 ]
