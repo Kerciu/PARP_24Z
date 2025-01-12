@@ -64,7 +64,7 @@ Object subclass: Game [
         nextLocation := gameState currentLocation moveTo: direction locationsMap: locationsMap.
         nextLocation ifNotNil: [
             gameState currentLocation: nextLocation.
-            self printCurrentLocation.
+            gameState lookAround.
         ].
     ]
 
@@ -121,24 +121,28 @@ Object subclass: Game [
         self printInstructions.
     ]
 
+    handleLook [
+        gameState lookAround.
+    ]
+
     handleTake: object [
-        Transcript show: 'Not implemented yet: You take ', object; cr.
+        gameState takeItem: object.
     ]
 
     handleDrop: object [
-        Transcript show: 'Not implemented yet: You drop ', object; cr.
+        gameState dropItem: object.
     ]
 
     handleCheck: object [
-        Transcript show: 'Not implemented yet: Checking ', object; cr.
+        gameState checkItem: object.
     ]
 
     handleGive: character to: object [
-        Transcript show: 'Not implemented yet: You give ', object, ' to ', character; cr.
+        gameState giveItem: character to: object.
     ]
 
     handleInteract: character [
-        Transcript show: 'Not implemented yet: You interact with ', character; cr.
+        gameState interactWith: character.
     ]
 
     handleOpen: object [
@@ -154,7 +158,7 @@ Object subclass: Game [
     ]
 
     handleInventory [
-        Transcript show: 'Not implemented yet: TODO'; cr.
+        gameState showInventory.
     ]
 
     handleInstructions [
