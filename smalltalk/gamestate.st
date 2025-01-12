@@ -234,7 +234,7 @@ Object subclass: GameState [
 
     giveItem: person to: item [
         | currentLocationName |
-        
+
         currentLocationName := self currentLocation name.
 
         (person = 'homeless' and: [item = 'cigarettes'])
@@ -288,8 +288,97 @@ Object subclass: GameState [
         Transcript show: 'You cannot give this item to that person.'; cr.
     ]
 
-
     interactWith: person [
+        | locationName interactionHandled |
+        locationName := currentLocation name.
+        interactionHandled := false. "Flag to check if any interaction has been handled"
+
+        "Interaction with the homeless man"
+        (person = 'homeless' and: [locationName = 'homeless_bench']) 
+            ifTrue: [
+                interactionHandled := true.
+                (self hasItem: 'cigarettes') 
+                    ifTrue: [
+                        Transcript show: 'The homeless man seems to be more interested as he coughs intensively.'; cr.
+                    ] 
+                    ifFalse: [
+                        ((self hasFlag: 'first_drunkard_interaction') and: [self notHasFlag: 'second_homeless_interaction']) 
+                            ifTrue: [
+                                Transcript show: 'The homeless man looks at you knowingly.'; cr.
+                                Transcript show: '''Oh, you need a drink for ol Bill? Here, take this Kuflowe Mocne. But don''t tell him I gave it for free!'''; cr.
+                                self addItem: 'kuflowe_mocne'.
+                                self addFlag: 'second_homeless_interaction'.
+                            ]
+                            ifFalse: [
+                                (self hasItem: 'amulet') 
+                                    ifTrue: [
+                                        Transcript show: 'The homeless man looks at you with wide eyes. ''You hold that cursed thing,'' he says, his voice shaking. ''I feel something watching... beware.'''; cr.
+                                    ]
+                                    ifFalse: [
+                                        Transcript show: 'The homeless man seems to be uninterested for now.'; cr.
+                                    ].
+                            ].
+                    ].
+            ].
+
+        "Interaction with the caretaker"
+        (person = 'caretaker' and: [locationName = 'train_station']) 
+            ifTrue: [
+                interactionHandled := true.
+                (self hasItem: 'amulet') 
+                    ifTrue: [
+                        Transcript show: 'The caretaker looks at you uneasily as you hold the strange amulet. ''What is that you have there?'' she asks, her eyes narrowing. ''You should be careful where you go with that.'''; cr.
+                    ] 
+                    ifFalse: [
+                        (self hasItem: 'harnas') 
+                            ifTrue: [
+                                Transcript show: 'The caretaker seems more enticed to talk as she sees a can of cold Harnas.'; cr.
+                            ] 
+                            ifFalse: [
+                                Transcript show: 'The caretaker seems more distant and uninterested for now.'; cr.
+                            ].
+                    ].
+            ].
+
+        "Interaction with the drunkard"
+        (person = 'drunkard' and: [locationName = 'police_station']) 
+            ifTrue: [
+                interactionHandled := true.
+                (self hasFlag: 'second_drunkard_interaction') 
+                    ifTrue: [
+                        Transcript show: '''I''ve already helped you, now let me enjoy my beer.'''; cr.
+                    ]
+                    ifFalse: [
+                        Transcript show: 'The drunkard looks at you with a smirk.'; cr.
+                        Transcript show: '''Lookin'' for the safe code, eh? I might remember it... But I''m real thirsty.'''; cr.
+                        Transcript show: '''Maybe if you bring me something to drink, I''ll let you in on the secret.'''; cr.
+                        self addFlag: 'first_drunkard_interaction'.
+                    ].
+            ].
+
+        "Interaction with the priest"
+        (person = 'priest' and: [locationName = 'hill_church']) 
+            ifTrue: [
+                interactionHandled := true.
+                (self hasItem: 'amulet') 
+                    ifTrue: [
+                        Transcript show: 'The priest notices the amulet in your hand and warns you: ''That is the symbol of their cult; do not approach them with it.'''; cr.
+                        Transcript show: '''He continues: ''I can''t tell you more, just be careful.'''; cr.
+                        Transcript show: '''He points at the old staircase on the west side of the church that leads to the second floor.'''; cr.
+                    ]
+                    ifFalse: [
+                        Transcript show: '''Our Father, Who art in heaven, Hallowed be Thy name. Thy kingdom come, Thy will be done, On earth as it is in heaven...'''; cr.
+                    ].
+            ].
+
+        "Default response if no interaction is handled"
+        interactionHandled ifFalse: [
+            Transcript show: 'There is no ', person, ' here.'; cr.
+        ].
+    ]
+
+
+    " interactWith: person [
         (person = 'homeless' and: [(currentLocation name = 'homeless_bench')]) 
             ifTrue: [
                 (hasItem: 'cigarettes') 
@@ -371,5 +460,5 @@ Object subclass: GameState [
                 Transcript show: 'There is no priest here'; cr.
             ].
         ]
-    ]
+    ] "
 ]
