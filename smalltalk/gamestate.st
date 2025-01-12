@@ -393,7 +393,7 @@ Object subclass: GameState [
         ].
     ]
 
-    open: thing [
+    openObject: thing [
         | currentLocationName code |
         currentLocationName := currentLocation name.
 

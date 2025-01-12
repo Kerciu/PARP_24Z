@@ -146,15 +146,15 @@ Object subclass: Game [
     ]
 
     handleOpen: object [
-        Transcript show: 'Not implemented yet: You open ', object; cr.
+        gameState openObject: object.
     ]
 
     handleEnterCar [
-        Transcript show: 'Not implemented yet: You enter the car.'; cr.
+        gameState enterCar.
     ]
 
     handleExitCar [
-        Transcript show: 'Not implemented yet: You exit the car.'; cr.
+        gameState exitCar.
     ]
 
     handleInventory [
