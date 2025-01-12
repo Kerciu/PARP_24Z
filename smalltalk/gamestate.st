@@ -208,6 +208,41 @@ Object subclass: GameState [
         ].
     ]
 
+    locationBlocked: nextLocationName [
+        (closedLocations includes: nextLocationName) ifTrue: [
+            (nextLocationName = 'hotel_room') ifTrue: [
+                self openHotelRoom.
+                ^self.
+            ].
+
+            (nextLocationName = 'hotel_basement') ifTrue: [
+                self openHotelBasement.
+                ^self.
+            ].
+
+            (nextLocationName = 'archive') ifTrue: [
+                self openArchive.
+                ^self.
+            ].
+
+            Transcript show: 'Error: Dont know how to open it'; cr.
+        ] ifFalse: [
+            gameState currentLocation: nextLocationName. "this is wrong, we need location object"
+        ]
+    ]
+
+    openHotelRoom [
+
+    ]
+
+    openHotelBasement [
+
+    ]
+
+    openArchive [
+
+    ]
+
     lookAround [
         | currentLocationName |
         currentLocationName := currentLocation name.
