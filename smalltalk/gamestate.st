@@ -233,43 +233,61 @@ Object subclass: GameState [
     ]
 
     giveItem: person to: item [
-        (person = 'homeless' and: [(currentLocation name = 'homeless_bench') and: [(hasItem: 'cigarettes')]]) 
+        | currentLocationName |
+        
+        currentLocationName := self currentLocation name.
+
+        (person = 'homeless' and: [item = 'cigarettes'])
             ifTrue: [
-                Transcript show: 'You give the pack of cigarettes to the homeless man. He takes them eagerly and thanks you.'; cr.
-                Transcript show: 'He hands you a cold can of Harnas beer in return.'; cr.
-                Transcript show: 'And a weird box saying "I found it a while ago, it is useless for me but maybe you can get it open"'; cr.
-                self addFlag: 'first_homeless_interaction'.
-                self addItem: 'weird_box'.
-                self addItem: 'harnas'.
-                self removeItem: 'cigarettes'.
-            ]
-            ifFalse: [
-                (person = 'homeless' and: [(currentLocation name = 'homeless_bench') and: [(hasItem: 'cigarettes')]]) 
+                (currentLocationName = 'homeless_bench' and: [self hasItem: 'cigarettes'])
+                    ifTrue: [
+                        Transcript show: 'You give the pack of cigarettes to the homeless man. He takes them eagerly and thanks you.'; cr.
+                        Transcript show: 'He hands you a cold can of Harnas beer in return.'; cr.
+                        Transcript show: 'And a weird box saying "I found it a while ago, it is useless for me but maybe you can get it open"'; cr.
+                        self addFlag: 'first_homeless_interaction'.
+                        self addItem: 'weird_box'.
+                        self addItem: 'harnas'.
+                        self removeItem: 'cigarettes'.
+                        ^self.
+                    ].
+            ].
+        
+        (person = 'homeless' and: [item = 'harnas']) 
+            ifTrue: [
+                (currentLocationName = 'homeless_bench' and: [self hasItem: 'harnas'])
                     ifTrue: [
                         Transcript show: 'The homeless man rejects your offer to give him Harnas beer. He already has plenty of those.'; cr.
-                        ^state.
+                        ^self.
                     ].
-                (person = 'caretaker' and: [(currentLocation name = 'train_station') and: [(hasItem: 'harnas')]]) 
+            ].
+        
+        (person = 'caretaker' and: [item = 'harnas'])
+            ifTrue: [
+                (currentLocationName = 'train_station' and: [self hasItem: 'harnas'])
                     ifTrue: [
                         Transcript show: 'You offer the Harnas beer to the caretaker. She takes it gratefully and takes a swig.'; cr.
                         Transcript show: '''Ahh, that takes me back,'' she sighs and tells you more about her story with the homeless man.'; cr.
                         Transcript show: 'Grateful, she hands you the car keys.'; cr.
                         self addItem: 'car_keys'.
                         self removeItem: 'harnas'.
+                        ^self.
                     ].
-                (person = 'drunkard' and: [(currentLocation name = 'police_station') and: [(hasItem: 'kuflowe_mocne')]]) 
-                    ifTrue: [
-                        Transcript show: 'The drunkard takes the Kuflowe Mocne with a greedy smile.'; cr.
-                        Transcript show: '''Alright, alright... here, take this.'''; cr.
-                        Transcript show: 'He hands you a crumpled leaf with the safe code scrawled on it.'; cr.
-                        self addFlag: 'second_drunkard_interaction'.
-                        self addItem: 'leaf_with_code'.
-                        self removeItem: 'kuflowe_mocne'.
-                    ].
-                Transcript show: 'You cannot give this item to that person.'; cr.
             ].
-        ^state.
+
+        (person = 'drunkard' and: [(currentLocation name = 'police_station') and: [self hasItem: 'kuflowe_mocne']]) 
+            ifTrue: [
+                Transcript show: 'The drunkard takes the Kuflowe Mocne with a greedy smile.'; cr.
+                Transcript show: '''Alright, alright... here, take this.'''; cr.
+                Transcript show: 'He hands you a crumpled leaf with the safe code scrawled on it.'; cr.
+                self addFlag: 'second_drunkard_interaction'.
+                self addItem: 'leaf_with_code'.
+                self removeItem: 'kuflowe_mocne'.
+                ^self.
+            ].
+
+        Transcript show: 'You cannot give this item to that person.'; cr.
     ]
+
 
     interactWith: person [
         (person = 'homeless' and: [(currentLocation name = 'homeless_bench')]) 
