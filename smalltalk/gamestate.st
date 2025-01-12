@@ -20,7 +20,7 @@ Object subclass: GameState [
         locationItems at: 'river_tracks' put: (OrderedCollection with: 'cigarettes').
         locationItems at: 'archive' put: (OrderedCollection with: 'greenFuse').
 
-        closedLocations := #('hotel_room' 'hotel_basement' 'archive').
+        closedLocations := (OrderedCollection with: 'hotel_room' with: 'hotel_basement' with: 'archive').
         hillChurchEndingEscape := false.
         gameOver := false.
         flags := Array new.
@@ -142,6 +142,69 @@ Object subclass: GameState [
         itemObject := ItemObject findItem: anItem.
         itemObject ifNotNil: [
             Transcript show: itemObject description; cr.
+        ].
+    ]
+
+    directionChange: direction [
+        | currentLocationName nextLocation userInput |
+
+        currentLocationName := currentLocation name.
+
+        ((direction = 'east') and: [currentLocationName = 'train_station'])
+            ifTrue: [
+                Transcript show: 'Are you sure you want to escape the city? (yes/no)'; cr.
+                userInput := UIManager default request: 'Type your answer (yes/no):'.
+                (userInput = 'yes')
+                    ifTrue: [
+                        Transcript show: (self escapeCityEndingText: (self hasItem: 'diary')); cr.
+                        gameOver := true.
+                        ^self.
+                    ]
+                    ifFalse: [
+                        Transcript show: 'You decide to stay in the city and look around.'; cr.
+                        ^self.
+                    ].
+            ].
+
+        ((direction = 'north') and: [currentLocationName = 'forest_cave'])
+            ifTrue: [
+                (self hasItem: 'amulet')
+                    ifTrue: [
+                        Transcript show: 'The amulet glows faintly, and an ancient force gives way.'; cr.
+                        (self hasItem: 'engraved_ring')
+                            ifTrue: [
+                                Transcript show: self forestCaveEndingWeakenedText; cr.
+                            ]
+                            ifFalse: [
+                                Transcript show: self forestCaveEndingKilledText; cr.
+                            ].
+                        gameOver := true.
+                        ^self.
+                    ]
+                    ifFalse: [
+                        Transcript show: 'A strange force blocks your path. Something is missing...'; cr.
+                        ^self.
+                    ].
+            ].
+
+        ((direction = 'north') and: [currentLocationName = 'second_floor_of_hill_church'])
+            ifTrue: [
+                (self hasFlag: 'weird_box_opened')
+                    ifTrue: [
+                        Transcript show: self hillChurchEndingEscapeText; cr.
+                        gameOver := true.
+                        ^self.
+                    ]
+                    ifFalse: [
+                        Transcript show: 'You cannot go that way yet.'; cr.
+                        ^self.
+                    ].
+            ].
+
+        nextLocation := gameState currentLocation moveTo: direction locationsMap: locationsMap.
+        nextLocation ifNotNil: [
+            gameState currentLocation: nextLocation.
+            self printCurrentLocation.
         ].
     ]
 

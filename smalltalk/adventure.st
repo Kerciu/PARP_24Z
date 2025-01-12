@@ -60,12 +60,7 @@ Object subclass: Game [
     ]
 
     handleDirection: direction [
-        | nextLocation |
-        nextLocation := gameState currentLocation moveTo: direction locationsMap: locationsMap.
-        nextLocation ifNotNil: [
-            gameState currentLocation: nextLocation.
-            self printCurrentLocation.
-        ].
+        gameState directionChange: direction.
     ]
 
     printLines: anArray [
