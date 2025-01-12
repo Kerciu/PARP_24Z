@@ -150,7 +150,7 @@ Object subclass: GameState [
 
         currentLocationName := currentLocation name.
 
-        ((direction = 'east') and: [currentLocationName = 'train_station'])
+        ((direction = 'east' or: [direction = 'e']) and: [currentLocationName = 'train_station'])
             ifTrue: [
                 Transcript show: 'Are you sure you want to escape the city? (yes/no)'; cr.
                 userInput := UIManager default request: 'Type your answer (yes/no):'.
@@ -166,7 +166,7 @@ Object subclass: GameState [
                     ].
             ].
 
-        ((direction = 'north') and: [currentLocationName = 'forest_cave'])
+        ((direction = 'north' or: [direction = 'n']) and: [currentLocationName = 'forest_cave'])
             ifTrue: [
                 (self hasItem: 'amulet')
                     ifTrue: [
@@ -187,7 +187,7 @@ Object subclass: GameState [
                     ].
             ].
 
-        ((direction = 'north') and: [currentLocationName = 'second_floor_of_hill_church'])
+        ((direction = 'north' or: [direction = 'n']) and: [currentLocationName = 'second_floor_of_hill_church'])
             ifTrue: [
                 (self hasFlag: 'weird_box_opened')
                     ifTrue: [
@@ -203,9 +203,17 @@ Object subclass: GameState [
 
         nextLocation := gameState currentLocation moveTo: direction locationsMap: locationsMap.
         nextLocation ifNotNil: [
-            gameState currentLocation: nextLocation.
-            self printCurrentLocation.
+            (self isLocationBlocked: nextLocation name) ifTrue: [
+                self locationBlocked: nextLocation name.
+            ] ifFalse: [
+                gameState currentLocation: nextLocation.
+                self printCurrentLocation.
+            ].
         ].
+    ]
+
+    isLocationBlocked: aLocation [
+        ^closedLocations includes: aLocation.
     ]
 
     locationBlocked: nextLocationName [
@@ -227,7 +235,7 @@ Object subclass: GameState [
 
             Transcript show: 'Error: Dont know how to open it'; cr.
         ] ifFalse: [
-            gameState currentLocation: nextLocationName. "this is wrong, we need location object"
+            gameState currentLocation: (locationsMap at: nextLocationName).
         ]
     ]
 
