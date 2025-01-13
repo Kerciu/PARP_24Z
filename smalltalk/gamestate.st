@@ -378,87 +378,87 @@ Object subclass: GameState [
     ]
 
 
-    " interactWith: person [
-        (person = 'homeless' and: [(currentLocation name = 'homeless_bench')]) 
-            ifTrue: [
-                (hasItem: 'cigarettes') 
-                    ifTrue: [
-                        Transcript show: 'The homeless man seems to be more interested as he coughs intensively.'; cr.
-                    ] 
-                    ifFalse: [
-                        (hasFlag: 'first_drunkard_interaction' and: [(notHasFlag: 'second_homeless_interaction')]) 
-                            ifTrue: [
-                                Transcript show: 'The homeless man looks at you knowingly.'; cr.
-                                Transcript show: 'Oh, you need a drink for ol Bill? Here, take this Kuflowe Mocne. But dont tell him I gave it for free!'; cr.
-                                self addItem: 'kuflowe_mocne'.
-                                self addFlag: 'second_homeless_interaction'.
-                            ]
-                            ifFalse: [
-                                (hasItem: 'amulet') 
-                                    ifTrue: [
-                                        Transcript show: 'The homeless man looks at you with wide eyes. ''You hold that cursed thing,'' he says, his voice shaking. ''I feel something watching... beware.'''; cr.
-                                    ]
-                                    ifFalse: [
-                                        Transcript show: 'The homeless man seems to be uninterested for now.'; cr.
-                                    ].
-                            ].
-            ] 
-            ifFalse: [
-                Transcript show: 'There is no homeless man here'; cr.
+    openObject: thing [
+        | currentLocationName code |
+        currentLocationName := currentLocation name.
+
+        (thing = 'weird_box') ifTrue: [
+            (self hasItem: 'weird_box') ifTrue: [
+                (currentLocationName = 'second_floor_of_hill_church') ifTrue: [
+                    Transcript show: 'You open the box with the code and find weird notes inside.'; cr.
+                    Transcript show: 'One of those says: U CANNOT DEFEAT THEM FLEE FROM THE CITY AS FAST AS YOU CAN, THEY ARE CLOSING UP ON ME. THIS IS MY FAREWELL, GOODBYE THE ONE THAT READ THOOSE.'; cr.
+                    Transcript show: 'You are now able to decide, whether to continue your journey or run away from the city.'; cr.
+                    Transcript show: 'Decide fast or maybe you will meet the same fate as a writer of thoose notes.'; cr.
+                    Transcript show: 'To flee from the city to train station you have to go north for a secret passage in the church.'; cr.
+                    Transcript show: 'To return to the first floor of the church go east.'; cr.
+                    self addFlag: 'weird_box_opened'.
+                ] ifFalse: [
+                    Transcript show: 'You have to know a 20-digit code to open this box.'; cr.
+                    Transcript show: 'Maybe you can find it somewhere.'; cr.
+                ].
+            ] ifFalse: [
+                Transcript show: 'You don''t have weird_box in your inventory.'; cr.
+            ].
+        ] ifFalse: [
+            (thing = 'safe') ifTrue: [
+                (currentLocationName = 'police_station') ifTrue: [
+                    (self hasFlag: 'safe_opened') ifTrue: [
+                        Transcript show: 'The safe is already opened.'; cr.
+                    ] ifFalse: [
+                        Transcript show: 'Enter the 4-digit code for the safe:'.
+                        code := FileStream stdin nextLine.
+                        (code = '2137') ifTrue: [
+                            Transcript show: 'The safe opens, revealing an engraved ring inside.'; cr.
+                            self addItem: 'engraved_ring'.
+                            self addFlag: 'safe_opened'.
+                        ] ifFalse: [
+                            Transcript show: 'Incorrect code. The safe remains locked.'; cr.
+                        ].
+                    ].
+                ] ifFalse: [
+                    Transcript show: 'There is no safe here.'; cr.
+                ].
+            ] ifFalse: [
+                Transcript show: 'You cannot open that.'; cr.
+            ].
+        ].
+    ]
+    enterCar [
+        | currentLocationName |
+        currentLocationName := self currentLocation name.
+
+        (currentLocationName = 'parking') ifTrue: [
+            (self hasFlag: 'car_opened') ifTrue: [
+                self currentLocation: (locationsMap at: 'car').
+            ] ifFalse: [
+                (self hasItem: 'car_keys') ifTrue: [
+                    Transcript show: 'You unlock the car with keys.'; cr.
+                    self removeItem: 'car_keys'.
+                    self addFlag: 'car_opened'.
+                    self currentLocation: (locationsMap at: 'car').
+                ] ifFalse: [
+                    Transcript show: 'You need keys to enter the car.'; cr.
+                ].
             ].
 
-        (person = 'caretaker' and: [(currentLocation name = 'train_station')]) 
-            ifTrue: [
-                (hasItem: 'amulet') 
-                    ifTrue: [
-                        Transcript show: 'The caretaker looks at you uneasily as you hold the strange amulet. "What is that you have there?" she asks, her eyes narrowing. ''You should be careful where you go with that.'''; cr.
-                    ] 
-                    ifFalse: [
-                        (hasItem: 'harnas') 
-                            ifTrue: [
-                                Transcript show: 'The caretaker seems more enticed to talk as she sees a can of cold Harnas.'; cr.
-                            ] 
-                            ifFalse: [
-                                Transcript show: 'The caretaker seems more distant and uninterested for now.'; cr.
-                            ].
-                    ].
-            ]
-            ifFalse: [
-                Transcript show: 'There is no caretaker here'; cr.
+        ] ifFalse: [
+            (currentLocationName = 'car') ifTrue: [
+                Transcript show: 'You are already in the car.'; cr.
+            ] ifFalse: [
+                Transcript show: 'There is no car here.'; cr.
             ].
+        ].
+    ]
 
-        (person = 'drunkard' and: [(currentLocation name = 'police_station')]) 
-            ifTrue: [
-                (self hasFlag: 'second_drunkard_interaction') 
-                    ifTrue: [
-                        Transcript show: 'I''ve already helped you, now let me enjoy my beer.'; cr.
-                    ]
-                    ifFalse: [
-                        Transcript show: 'The drunkard looks at you with a smirk.'; cr.
-                        Transcript show: '''Lookin'' for the safe code, eh? I might remember it... But I''m real thirsty.'''; cr.
-                        Transcript show: '''Maybe if you bring me something to drink, I''ll let you in on the secret.'''; cr.
-                        self addFlag: 'first_drunkard_interaction'.
-                    ].
-            ] 
-            ifFalse: [
-                Transcript show: 'There is no drunkard here'; cr.
-            ].
+    exitCar [
+        | currentLocationName |
+        currentLocationName := self currentLocation name.
 
-        (person = 'priest' and: [(currentLocation name = 'hill_church')]) 
-            ifTrue: [
-                (self hasItem: 'amulet') 
-                    ifTrue: [
-                        Transcript show: 'The priest notices the amulet in your hand and warns you: That is the symbol of their cult; do not approach them with it.'; cr.
-                        Transcript show: 'He continues: I can''t tell you more, just be careful'; cr.
-                        Transcript show: 'He points at the old staircase, at the west side of the church, that leads to second floor of the church'; cr.
-                    ]
-                    ifFalse: [
-                        '''Our Father, Who art in heaven, Hallowed be Thy name. Thy kingdom come, Thy will be done, On earth as it is in heaven...'''; cr.
-                    ].
-            ] 
-            ifFalse: [
-                Transcript show: 'There is no priest here'; cr.
-            ].
-        ]
-    ] "
+        (currentLocationName = 'car') ifTrue: [
+            self currentLocation: (locationsMap at: 'parking').
+            Transcript show: 'You exit the car and return to the parking lot.'; cr.
+        ] ifFalse: [
+            Transcript show: 'You are not in the car.'; cr.
+        ].
+    ]
 ]
