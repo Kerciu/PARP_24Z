@@ -1,2 +1,2 @@
 #!/bin/bash
-gst items.st locations.st gamestate.st adventure.st 
+gst ./endings.st ./locations.st ./items.st ./gamestate.st ./adventure.st
