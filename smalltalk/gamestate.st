@@ -444,6 +444,7 @@ Object subclass: GameState [
                     self removeItem: 'car_keys'.
                     self addFlag: 'car_opened'.
                     self currentLocation: (locationsMap at: 'car').
+                    self lookAround.
                 ] ifFalse: [
                     Transcript show: 'You need keys to enter the car.'; cr.
                 ].
@@ -577,9 +578,10 @@ Object subclass: GameState [
         code := FileStream stdin nextLine.
 
         (code = '1974') ifTrue: [
-            Transcript show: 'Correct code!'; cr.
+            Transcript show: 'Correct code! Now you can enter hotel room!'; cr.
             self removeClosedLocation: 'hotel_room'.
-            self directionChange: 'hotel_room'.
+            self currentLocation: (locationsMap at: 'hotel_room').
+            self lookAround.
 
         ] ifFalse: [
             Transcript show: 'Wrong code!'; cr.
@@ -594,7 +596,9 @@ Object subclass: GameState [
             self removeClosedLocation: 'hotel_basement'.
 
             Transcript show: 'You placed the fuses in the fuse box and the elevator started working.'; cr.
-            self directionChange: 'hotel_basement'.
+            Transcript show: 'Now you can go down the elevator.'; cr.
+            self currentLocation: (locationsMap at: 'hotel_basement').
+            self lookAround.
 
         ] ifFalse: [
             Transcript show: 'The elevator is not working.'; cr.
@@ -607,9 +611,11 @@ Object subclass: GameState [
         (self hasItem: 'key') ifTrue: [
             self removeItem: 'key'.
             self removeClosedLocation: 'archive'.
-            self directionChange: 'archive'.
 
             Transcript show: 'You have unlocked the archive. Go south to enter this location.'; cr.
+
+            self currentLocation: (locationsMap at: 'archive').
+            self lookAround.
         ] ifFalse: [
             Transcript show: 'The archive is locked. You need a key to open it.'; cr.
         ].

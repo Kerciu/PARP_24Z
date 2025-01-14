@@ -66,7 +66,7 @@ Object subclass: ItemObject [
         '- Sarah Miller (born 1952)',
         '- John Roberts (born 1968)',
         '- Michael Turner (born 1974)',
-        '- Emma Carter (born 1980))'.
+        '- Emma Carter (born 1980)').
 
         itemsMap at: 'leaf_with_code' put: (ItemObject newWithName: 'leaf_with_code'
         description: 'The leaf contains a mysterious riddle:',
