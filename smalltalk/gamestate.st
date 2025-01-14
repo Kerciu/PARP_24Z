@@ -11,7 +11,7 @@ Object subclass: GameState [
         currentLocation := locationsMap at: 'train_station'.
         inventory := Array new.
         locationItems := Dictionary new.
-        
+
         locationItems at: 'hotel_basement' put: (OrderedCollection with: 'notes' with: 'amulet').
         locationItems at: 'car' put: (OrderedCollection with: 'key').
         locationItems at: 'hotel_room' put: (OrderedCollection with: 'diary' with: 'blueFuse').
@@ -20,7 +20,7 @@ Object subclass: GameState [
         locationItems at: 'river_tracks' put: (OrderedCollection with: 'cigarettes').
         locationItems at: 'archive' put: (OrderedCollection with: 'greenFuse').
 
-        closedLocations := #('hotel_room' 'hotel_basement' 'archive').
+        closedLocations := (OrderedCollection with: 'hotel_room'  with: 'hotel_basement'  with: 'archive').
         hillChurchEndingEscape := false.
         gameOver := false.
         flags := OrderedCollection new.
@@ -40,7 +40,15 @@ Object subclass: GameState [
 
     inventory: anArray [
         inventory := anArray
-    ]    
+    ]
+
+    closedLocations [
+        ^closedLocations
+    ]
+
+    closedLocations: anArray [
+        closedLocations := anArray
+    ]
 
     gameOver [
         ^gameOver
@@ -82,7 +90,7 @@ Object subclass: GameState [
         currentItems := locationItems at: currentLocation name ifAbsent: [OrderedCollection new].
 
         (currentItems includes: anItem) ifTrue: [
-            currentItems := currentItems reject: [:item | item = anItem]. 
+            currentItems := currentItems reject: [:item | item = anItem].
             locationItems at: currentLocation name put: currentItems.
         ] ifFalse: [
             Transcript show: 'Item not found at the current location.'; cr.
@@ -92,7 +100,7 @@ Object subclass: GameState [
     takeItem: anItem [
         | currentItems |
         currentItems := locationItems at: currentLocation name ifAbsent: [OrderedCollection new].
-        
+
         (currentItems includes: anItem) ifTrue: [
             self removeItemFromLocation: anItem.
             self addToInventory: anItem.
@@ -131,8 +139,8 @@ Object subclass: GameState [
         inventory isEmpty
             ifTrue: [Transcript show: 'No items in inventory.'; cr.]
             ifFalse: [
-                inventory do: [ :item | 
-                    Transcript show: ' - ', item printString; cr. 
+                inventory do: [ :item |
+                    Transcript show: ' - ', item printString; cr.
                 ].
             ].
     ]
@@ -226,8 +234,8 @@ Object subclass: GameState [
 
         items := self itemsAtLocation: currentLocationName.
         items ifNotNil: [
-            items do: [ :item | 
-                Transcript show: 'You see ', item, ' here.'; cr. 
+            items do: [ :item |
+                Transcript show: 'You see ', item, ' here.'; cr.
             ].
         ].
     ]
@@ -251,8 +259,8 @@ Object subclass: GameState [
                         ^self.
                     ].
             ].
-        
-        (person = 'homeless' and: [item = 'harnas']) 
+
+        (person = 'homeless' and: [item = 'harnas'])
             ifTrue: [
                 (currentLocationName = 'homeless_bench' and: [self hasItem: 'harnas'])
                     ifTrue: [
@@ -260,7 +268,7 @@ Object subclass: GameState [
                         ^self.
                     ].
             ].
-        
+
         (person = 'caretaker' and: [item = 'harnas'])
             ifTrue: [
                 (currentLocationName = 'train_station' and: [self hasItem: 'harnas'])
@@ -274,7 +282,7 @@ Object subclass: GameState [
                     ].
             ].
 
-        (person = 'drunkard' and: [(currentLocation name = 'police_station') and: [self hasItem: 'kuflowe_mocne']]) 
+        (person = 'drunkard' and: [(currentLocation name = 'police_station') and: [self hasItem: 'kuflowe_mocne']])
             ifTrue: [
                 Transcript show: 'The drunkard takes the Kuflowe Mocne with a greedy smile.'; cr.
                 Transcript show: '''Alright, alright... here, take this.'''; cr.
@@ -294,15 +302,15 @@ Object subclass: GameState [
         interactionHandled := false. "Flag to check if any interaction has been handled"
 
         "Interaction with the homeless man"
-        (person = 'homeless' and: [locationName = 'homeless_bench']) 
+        (person = 'homeless' and: [locationName = 'homeless_bench'])
             ifTrue: [
                 interactionHandled := true.
-                (self hasItem: 'cigarettes') 
+                (self hasItem: 'cigarettes')
                     ifTrue: [
                         Transcript show: 'The homeless man seems to be more interested as he coughs intensively.'; cr.
-                    ] 
+                    ]
                     ifFalse: [
-                        ((self hasFlag: 'first_drunkard_interaction') and: [self notHasFlag: 'second_homeless_interaction']) 
+                        ((self hasFlag: 'first_drunkard_interaction') and: [self notHasFlag: 'second_homeless_interaction'])
                             ifTrue: [
                                 Transcript show: 'The homeless man looks at you knowingly.'; cr.
                                 Transcript show: '''Oh, you need a drink for ol Bill? Here, take this Kuflowe Mocne. But don''t tell him I gave it for free!'''; cr.
@@ -310,7 +318,7 @@ Object subclass: GameState [
                                 self addFlag: 'second_homeless_interaction'.
                             ]
                             ifFalse: [
-                                (self hasItem: 'amulet') 
+                                (self hasItem: 'amulet')
                                     ifTrue: [
                                         Transcript show: 'The homeless man looks at you with wide eyes. ''You hold that cursed thing,'' he says, his voice shaking. ''I feel something watching... beware.'''; cr.
                                     ]
@@ -322,18 +330,18 @@ Object subclass: GameState [
             ].
 
         "Interaction with the caretaker"
-        (person = 'caretaker' and: [locationName = 'train_station']) 
+        (person = 'caretaker' and: [locationName = 'train_station'])
             ifTrue: [
                 interactionHandled := true.
-                (self hasItem: 'amulet') 
+                (self hasItem: 'amulet')
                     ifTrue: [
                         Transcript show: 'The caretaker looks at you uneasily as you hold the strange amulet. ''What is that you have there?'' she asks, her eyes narrowing. ''You should be careful where you go with that.'''; cr.
-                    ] 
+                    ]
                     ifFalse: [
-                        (self hasItem: 'harnas') 
+                        (self hasItem: 'harnas')
                             ifTrue: [
                                 Transcript show: 'The caretaker seems more enticed to talk as she sees a can of cold Harnas.'; cr.
-                            ] 
+                            ]
                             ifFalse: [
                                 Transcript show: 'The caretaker seems more distant and uninterested for now.'; cr.
                             ].
@@ -341,10 +349,10 @@ Object subclass: GameState [
             ].
 
         "Interaction with the drunkard"
-        (person = 'drunkard' and: [locationName = 'police_station']) 
+        (person = 'drunkard' and: [locationName = 'police_station'])
             ifTrue: [
                 interactionHandled := true.
-                (self hasFlag: 'second_drunkard_interaction') 
+                (self hasFlag: 'second_drunkard_interaction')
                     ifTrue: [
                         Transcript show: '''I''ve already helped you, now let me enjoy my beer.'''; cr.
                     ]
@@ -357,10 +365,10 @@ Object subclass: GameState [
             ].
 
         "Interaction with the priest"
-        (person = 'priest' and: [locationName = 'hill_church']) 
+        (person = 'priest' and: [locationName = 'hill_church'])
             ifTrue: [
                 interactionHandled := true.
-                (self hasItem: 'amulet') 
+                (self hasItem: 'amulet')
                     ifTrue: [
                         Transcript show: 'The priest notices the amulet in your hand and warns you: ''That is the symbol of their cult; do not approach them with it.'''; cr.
                         Transcript show: '''He continues: ''I can''t tell you more, just be careful.'''; cr.
@@ -459,6 +467,151 @@ Object subclass: GameState [
             Transcript show: 'You exit the car and return to the parking lot.'; cr.
         ] ifFalse: [
             Transcript show: 'You are not in the car.'; cr.
+        ].
+    ]
+
+    directionChange: direction [
+        | currentLocationName nextLocation userInput |
+
+        currentLocationName := self currentLocation name.
+
+        ((direction = 'east' or: [direction = 'e']) and: [currentLocationName = 'train_station'])
+            ifTrue: [
+                Transcript show: 'Are you sure you want to escape the city? (yes/no): '.
+                userInput := FileStream stdin nextLine.
+                (userInput = 'yes')
+                    ifTrue: [
+                        Transcript show: (Endings escapeCityEndingText: (self hasItem: 'diary')); cr.
+                        self updateGameOver.
+                        ^self.
+                    ]
+                    ifFalse: [
+                        Transcript show: 'You decide to stay in the city and look around.'; cr.
+                        ^self.
+                    ].
+            ].
+
+        ((direction = 'north' or: [direction = 'n']) and: [currentLocationName = 'forest_cave'])
+            ifTrue: [
+                (self hasItem: 'amulet')
+                    ifTrue: [
+                        Transcript show: 'The amulet glows faintly, and an ancient force gives way.'; cr.
+                        (self hasItem: 'engraved_ring')
+                            ifTrue: [
+                                Transcript show: Endings forestCaveEndingWeakenedText; cr.
+                            ]
+                            ifFalse: [
+                                Transcript show: Endings forestCaveEndingKilledText; cr.
+                            ].
+                        self updateGameOver.
+                        ^self.
+                    ]
+                    ifFalse: [
+                        Transcript show: 'A strange force blocks your path. Something is missing...'; cr.
+                        ^self.
+                    ].
+            ].
+
+        ((direction = 'north' or: [direction = 'n']) and: [currentLocationName = 'second_floor_of_hill_church'])
+            ifTrue: [
+                (self hasFlag: 'weird_box_opened')
+                    ifTrue: [
+                        Transcript show: Endings hillChurchEndingEscapeText; cr.
+                        self updateGameOver.
+                        ^self.
+                    ]
+                    ifFalse: [
+                        Transcript show: 'You cannot go that way yet.'; cr.
+                        ^self.
+                    ].
+            ].
+
+        nextLocation := self currentLocation moveTo: direction locationsMap: locationsMap.
+        nextLocation ifNotNil: [
+            (self isLocationBlocked: nextLocation name) ifTrue: [
+                self locationBlocked: nextLocation name.
+            ] ifFalse: [
+                self currentLocation: nextLocation.
+                self lookAround.
+            ].
+        ].
+    ]
+
+    isLocationBlocked: aLocation [
+        ^closedLocations includes: aLocation.
+    ]
+
+    locationBlocked: nextLocationName [
+        (self closedLocations includes: nextLocationName) ifTrue: [
+            (nextLocationName = 'hotel_room') ifTrue: [
+                self openHotelRoom.
+                ^self.
+            ].
+
+            (nextLocationName = 'hotel_basement') ifTrue: [
+                self openHotelBasement.
+                ^self.
+            ].
+
+            (nextLocationName = 'archive') ifTrue: [
+                self openArchive.
+                ^self.
+            ].
+
+            Transcript show: 'Error: Dont know how to open it'; cr.
+        ] ifFalse: [
+            self currentLocation: (locationsMap at: nextLocationName).
+        ]
+    ]
+
+    removeClosedLocation: aLocation [
+        closedLocations := closedLocations reject: [:item | item = aLocation].
+    ]
+
+    openHotelRoom [
+        | code |
+        Transcript show: 'The door is locked.'; cr.
+        Transcript show: 'However, you noticed a sign that says "Michael Turner".'; cr.
+        Transcript show: 'There is also a keypad next to the door.'; cr.
+        Transcript show: 'Enter the 4-digit code for the safe: '.
+        code := FileStream stdin nextLine.
+
+        (code = '1974') ifTrue: [
+            Transcript show: 'Correct code!'; cr.
+            self removeClosedLocation: 'hotel_room'.
+            self directionChange: 'hotel_room'.
+
+        ] ifFalse: [
+            Transcript show: 'Wrong code!'; cr.
+        ].
+    ]
+
+    openHotelBasement [
+        ((self hasItem: 'redFuse') and: [(self hasItem: 'greenFuse') and: [(self hasItem: 'blueFuse')]]) ifTrue: [
+            self removeItem: 'redFuse'.
+            self removeItem: 'greenFuse'.
+            self removeItem: 'blueFuse'.
+            self removeClosedLocation: 'hotel_basement'.
+
+            Transcript show: 'You placed the fuses in the fuse box and the elevator started working.'; cr.
+            self directionChange: 'hotel_basement'.
+
+        ] ifFalse: [
+            Transcript show: 'The elevator is not working.'; cr.
+            Transcript show: 'However, you noticed a fuse box next to the elevator with 3 fuses missing.'; cr.
+            Transcript show: 'Maybe you can find them somewhere.'; cr.
+        ].
+    ]
+
+    openArchive [
+        (self hasItem: 'key') ifTrue: [
+            self removeItem: 'key'.
+            self removeClosedLocation: 'archive'.
+            self directionChange: 'archive'.
+
+            Transcript show: 'You have unlocked the archive. Go south to enter this location.'; cr.
+        ] ifFalse: [
+            Transcript show: 'The archive is locked. You need a key to open it.'; cr.
         ].
     ]
 ]
