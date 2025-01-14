@@ -86,9 +86,23 @@ Object subclass: Game [
 
     parseCommand: cmd [
         | tokens command args |
-        tokens := cmd tokenize: ' '. "Split the input into tokens."
+        tokens := cmd tokenize: ' '.
         command := tokens first ifNil: [''].
         args := tokens allButFirst.
+
+        (command = 'take' or: [command = 'drop' or: [command = 'check' or: [command = 'interact' or: [command = 'open']]]]) ifTrue: [
+            args isEmpty ifTrue: [
+                self printLines: { 'Error: Missing argument for command: ', command. '' }.
+                ^self.
+            ].
+        ].
+
+        (command = 'give') ifTrue: [
+            (args size < 2) ifTrue: [
+                self printLines: { 'Error: Missing arguments for command: give. Usage: give Character Object' }.
+                ^self.
+            ].
+        ].
 
         (command = 'start') ifTrue: [^self handleStart].
         (command = 'n' or: [command = 's' or: [command = 'w' or: [command = 'e']]]) ifTrue: [
