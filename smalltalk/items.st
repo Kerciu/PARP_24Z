@@ -60,7 +60,13 @@ Object subclass: ItemObject [
 
         itemsMap at: 'newspaper' put: (ItemObject newWithName: 'newspaper'
         description: 'You start reading it. The headline catches your eye:',
-        '"Team of Archaeologists Arrives to Uncover the Secrets of the Ancient Ruins in Town."').
+        '"Team of Archaeologists Arrives to Uncover the Secrets of the Ancient Ruins in Town."',
+        '',
+        'The article mentions several archaeologists by name:',
+        '- Sarah Miller (born 1952)',
+        '- John Roberts (born 1968)',
+        '- Michael Turner (born 1974)',
+        '- Emma Carter (born 1980))'.
 
         itemsMap at: 'leaf_with_code' put: (ItemObject newWithName: 'leaf_with_code'
         description: 'The leaf contains a mysterious riddle:',
