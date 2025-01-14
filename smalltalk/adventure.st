@@ -1,5 +1,6 @@
 Object subclass: Game [
-    | isGameOver gameState |  "Instance variables"
+    "Instance variables"
+    | gameState locationsMap |
 
     Game class >> initialize [
         "Initialize class variables"
@@ -53,8 +54,13 @@ Object subclass: Game [
     ]
 
     init [
-        isGameOver := false.
         gameState := GameState new.
+        locationsMap := Location createLocations.
+        gameState currentLocation: (locationsMap at: 'train_station').
+    ]
+
+    handleDirection: direction [
+        gameState directionChange: direction.
     ]
 
     printLines: anArray [
@@ -62,11 +68,15 @@ Object subclass: Game [
     ]
 
     printIntroduction [
-       self printLines: Game introductionText.
+        self printLines: Game introductionText.
     ]
 
     printInstructions [
         self printLines: Game instructionsText.
+    ]
+
+    printCurrentLocation [
+        Transcript show: gameState currentLocation description; cr.
     ]
 
     readCommand [
@@ -76,9 +86,23 @@ Object subclass: Game [
 
     parseCommand: cmd [
         | tokens command args |
-        tokens := cmd tokenize: ' '. "Split the input into tokens."
+        tokens := cmd tokenize: ' '.
         command := tokens first ifNil: [''].
         args := tokens allButFirst.
+
+        (command = 'take' or: [command = 'drop' or: [command = 'check' or: [command = 'interact' or: [command = 'open']]]]) ifTrue: [
+            args isEmpty ifTrue: [
+                self printLines: { 'Error: Missing argument for command: ', command. '' }.
+                ^self.
+            ].
+        ].
+
+        (command = 'give') ifTrue: [
+            (args size < 2) ifTrue: [
+                self printLines: { 'Error: Missing arguments for command: give. Usage: give Character Object' }.
+                ^self.
+            ].
+        ].
 
         (command = 'start') ifTrue: [^self handleStart].
         (command = 'n' or: [command = 's' or: [command = 'w' or: [command = 'e']]]) ifTrue: [
@@ -107,43 +131,43 @@ Object subclass: Game [
     ]
 
     handleLook [
-        Transcript show: 'Not implemented yet: TODO'.
+        gameState lookAround.
     ]
 
     handleTake: object [
-        Transcript show: 'Not implemented yet: You take ', object; cr.
+        gameState takeItem: object.
     ]
 
     handleDrop: object [
-        Transcript show: 'Not implemented yet: You drop ', object; cr.
+        gameState dropItem: object.
     ]
 
     handleCheck: object [
-        Transcript show: 'Not implemented yet: Checking ', object; cr.
+        gameState checkItem: object.
     ]
 
     handleGive: character to: object [
-        Transcript show: 'Not implemented yet: You give ', object, ' to ', character; cr.
+        gameState giveItem: character to: object.
     ]
 
     handleInteract: character [
-        Transcript show: 'Not implemented yet: You interact with ', character; cr.
+        gameState interactWith: character.
     ]
 
     handleOpen: object [
-        Transcript show: 'Not implemented yet: You open ', object; cr.
+        gameState openObject: object.
     ]
 
     handleEnterCar [
-        Transcript show: 'Not implemented yet: You enter the car.'; cr.
+        gameState enterCar.
     ]
 
     handleExitCar [
-        Transcript show: 'Not implemented yet: You exit the car.'; cr.
+        gameState exitCar.
     ]
 
     handleInventory [
-        Transcript show: 'Not implemented yet: TODO'; cr.
+        gameState showInventory.
     ]
 
     handleInstructions [
@@ -151,36 +175,21 @@ Object subclass: Game [
     ]
 
     handleQuit [
-        isGameOver := true.
+        gameState updateGameOver.
         Transcript show: 'Quitting the game. Goodbye!'; cr.
     ]
 
     "Run the game."
     run [
-        | cmd isUnknown |
-
+        | cmd |
         self printIntroduction.
         self printInstructions.
 
         "Game loop."
-        [isGameOver] whileFalse: [
-            isUnknown := true.
+        [gameState gameOver not] whileTrue: [
             cmd := self readCommand.
-
-            cmd = 'instructions' ifTrue: [
-                self printInstructions.
-                isUnknown := false
-            ].
-
-            cmd = 'quit' ifTrue: [
-                isGameOver := true.
-                isUnknown := false
-            ].
-
-            isUnknown ifTrue: [
-                self printLines: #('Unknown command.' '')
-            ]
-        ]
+            self parseCommand: cmd.
+        ].
     ]
 
 ]

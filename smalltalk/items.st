@@ -20,56 +20,63 @@ Object subclass: ItemObject [
     ]
 
     ItemObject class >> findItem: itemName [
-        | itemsMap |
+        | newline itemsMap |
         itemsMap := Dictionary new.
+        newline := (Character value: 10).
 
         itemsMap at: 'cigarettes' put: (ItemObject newWithName: 'cigarettes'
-        description: 'The pack of cigarettes is old, with some of the edges frayed.',
+        description: 'The pack of cigarettes is old, with some of the edges frayed.', newline asString,
         'It might be useful to someone who needs a smoke.').
 
         itemsMap at: 'weird_box' put: (ItemObject newWithName: 'weird_box'
-        description: 'A box with a lock that opens with more than 20 digits.',
+        description: 'A box with a lock that opens with more than 20 digits.', newline asString,
         'Impossible to open for now, but maybe it will prove useful in the future.').
 
         itemsMap at: 'harnas' put: (ItemObject newWithName: 'harnas'
-        description: 'A can of Harnas beer, cold and seemingly untouched.',
+        description: 'A can of Harnas beer, cold and seemingly untouched.', newline asString,
         'It might help you in your interactions with certain characters.').
 
         itemsMap at: 'kuflowe_mocne' put: (ItemObject newWithName: 'kuflowe_mocne'
-        description: 'A bottle of Kuflowe Mocne, a strong beer.',
+        description: 'A bottle of Kuflowe Mocne, a strong beer.', newline asString,
         'It might be useful for someone who needs a drink.').
 
         itemsMap at: 'car_keys' put: (ItemObject newWithName: 'car_keys'
-        description: 'A set of car keys. They seem to belong to the abandoned car in the parking lot.',
+        description: 'A set of car keys. They seem to belong to the abandoned car in the parking lot.', newline asString,
         'Maybe you can unlock it.').
 
         itemsMap at: 'amulet' put: (ItemObject newWithName: 'amulet'
-        description: 'A strange amulet, cold to the touch. It seems to have an otherworldly aura,',
+        description: 'A strange amulet, cold to the touch. It seems to have an otherworldly aura,', newline asString,
         'as if it carries a hidden power.').
 
         itemsMap at: 'diary' put: (ItemObject newWithName: 'diary'
-        description: 'The diary is yellowed and fragile. Some pages are barely readable,',
-        'but one section stands out, scribbled with urgency:',
-        '"We have found traces of an entrance near the old oak in the forest.',
+        description: 'The diary is yellowed and fragile. Some pages are barely readable,', newline asString,
+        'but one section stands out, scribbled with urgency:', newline asString,
+        '"We have found traces of an entrance near the old oak in the forest.', newline asString,
         'It must be the cave mentioned in the legends..."').
 
         itemsMap at: 'notes' put: (ItemObject newWithName: 'notes'
-        description: 'The notes are brittle and covered in dust, with several pages missing or torn.',
-        '"We found it — the amulet from the old texts.',
+        description: 'The notes are brittle and covered in dust, with several pages missing or torn.', newline asString,
+        '"We found it — the amulet from the old texts.', newline asString,
         'It is said this amulet is the key to something ancient, hidden deep within the caves."').
 
         itemsMap at: 'newspaper' put: (ItemObject newWithName: 'newspaper'
-        description: 'You start reading it. The headline catches your eye:',
-        '"Team of Archaeologists Arrives to Uncover the Secrets of the Ancient Ruins in Town."').
+        description: 'You start reading it. The headline catches your eye:', newline asString,
+        '"Team of Archaeologists Arrives to Uncover the Secrets of the Ancient Ruins in Town."', newline asString,
+        '', newline asString,
+        'The article mentions several archaeologists by name:', newline asString,
+        '- Sarah Miller (born 1952)', newline asString,
+        '- John Roberts (born 1968)', newline asString,
+        '- Michael Turner (born 1974)', newline asString,
+        '- Emma Carter (born 1980)').
 
         itemsMap at: 'leaf_with_code' put: (ItemObject newWithName: 'leaf_with_code'
-        description: 'The leaf contains a mysterious riddle:',
-        '"The code is hidden in two pairs of numbers. The first pair comes from multiplying',
-        'three by the digit symbolizing fullness. The second pair is a sequence',
+        description: 'The leaf contains a mysterious riddle:', newline asString,
+        '"The code is hidden in two pairs of numbers. The first pair comes from multiplying', newline asString,
+        'three by the digit symbolizing fullness. The second pair is a sequence', newline asString,
         'you receive from the natural order."').
 
         itemsMap at: 'engraved_ring' put: (ItemObject newWithName: 'engraved_ring'
-        description: 'The ring is engraved with strange symbols and feels unusually heavy in your hand.',
+        description: 'The ring is engraved with strange symbols and feels unusually heavy in your hand.', newline asString,
         'It might hold some hidden significance or power.').
 
         itemsMap at: 'key' put: (ItemObject newWithName: 'key'
