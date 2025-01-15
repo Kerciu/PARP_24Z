@@ -299,9 +299,8 @@ Object subclass: GameState [
     interactWith: person [
         | locationName interactionHandled |
         locationName := currentLocation name.
-        interactionHandled := false. "Flag to check if any interaction has been handled"
+        interactionHandled := false.
 
-        "Interaction with the homeless man"
         (person = 'homeless' and: [locationName = 'homeless_bench'])
             ifTrue: [
                 interactionHandled := true.
@@ -329,7 +328,6 @@ Object subclass: GameState [
                     ].
             ].
 
-        "Interaction with the caretaker"
         (person = 'caretaker' and: [locationName = 'train_station'])
             ifTrue: [
                 interactionHandled := true.
@@ -348,7 +346,6 @@ Object subclass: GameState [
                     ].
             ].
 
-        "Interaction with the drunkard"
         (person = 'drunkard' and: [locationName = 'police_station'])
             ifTrue: [
                 interactionHandled := true.
@@ -364,7 +361,6 @@ Object subclass: GameState [
                     ].
             ].
 
-        "Interaction with the priest"
         (person = 'priest' and: [locationName = 'hill_church'])
             ifTrue: [
                 interactionHandled := true.
@@ -379,7 +375,6 @@ Object subclass: GameState [
                     ].
             ].
 
-        "Default response if no interaction is handled"
         interactionHandled ifFalse: [
             Transcript show: 'There is no ', person, ' here.'; cr.
         ].
@@ -578,7 +573,7 @@ Object subclass: GameState [
         code := FileStream stdin nextLine.
 
         (code = '1974') ifTrue: [
-            Transcript show: 'Correct code! Now you can enter hotel room!'; cr.
+            Transcript show: 'Correct code!'; cr.
             self removeClosedLocation: 'hotel_room'.
             self currentLocation: (locationsMap at: 'hotel_room').
             self lookAround.
@@ -596,7 +591,6 @@ Object subclass: GameState [
             self removeClosedLocation: 'hotel_basement'.
 
             Transcript show: 'You placed the fuses in the fuse box and the elevator started working.'; cr.
-            Transcript show: 'Now you can go down the elevator.'; cr.
             self currentLocation: (locationsMap at: 'hotel_basement').
             self lookAround.
 
@@ -612,7 +606,7 @@ Object subclass: GameState [
             self removeItem: 'key'.
             self removeClosedLocation: 'archive'.
 
-            Transcript show: 'You have unlocked the archive. Go south to enter this location.'; cr.
+            Transcript show: 'You have unlocked the archive using the rusted key.'; cr.
 
             self currentLocation: (locationsMap at: 'archive').
             self lookAround.
